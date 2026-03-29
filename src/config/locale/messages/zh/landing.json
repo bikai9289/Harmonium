@@ -35,14 +35,7 @@
         }
       ]
     },
-    "buttons": [
-      {
-        "title": "登录",
-        "url": "/sign-in",
-        "variant": "outline",
-        "icon": "LogIn"
-      }
-    ],
+    "buttons": [],
     "user_nav": {
       "show_name": true,
       "show_credits": true,
