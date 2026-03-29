@@ -403,7 +403,7 @@ export function HarmoniumHome({
         <div className="container grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="space-y-4">
             <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#8f5f33]">
-              Search intent overview
+              Web Harmonium search intent
             </p>
             <h2 className="text-3xl font-semibold text-balance sm:text-4xl">
               What people mean when they search Web Harmonium
@@ -412,6 +412,11 @@ export function HarmoniumHome({
               Most users searching for Web Harmonium do not want a gated app.
               They want a browser instrument that opens fast, plays notes
               immediately, and explains the layout clearly enough for practice.
+            </p>
+            <p className="max-w-xl text-base leading-7 text-slate-600">
+              In practice, Web Harmonium usually means a simple browser
+              instrument, a clear Web Harmonium keyboard, and quick access to
+              the controls needed for daily practice.
             </p>
           </div>
 
@@ -445,7 +450,7 @@ export function HarmoniumHome({
               <p className="mt-3 text-sm leading-7 text-slate-600">
                 The dedicated keyboard route gives search engines and users a
                 clearer destination for phrases like Web Harmonium keyboard,
-                practice harmonium online, and virtual harmonium keyboard.
+                practice Web Harmonium online, and virtual harmonium keyboard.
               </p>
             </div>
 
@@ -509,7 +514,7 @@ export function HarmoniumHome({
               {copy.guideTitle}
             </p>
             <h2 className="text-3xl font-semibold text-balance sm:text-4xl">
-              Use the homepage for intent, blog posts for depth
+              Use the homepage for Web Harmonium intent, blog posts for depth
             </h2>
             <p className="max-w-xl text-lg leading-8 text-slate-700">
               {copy.guideDescription}
@@ -547,7 +552,7 @@ export function HarmoniumHome({
               {copy.faqTitle}
             </p>
             <h2 className="text-3xl font-semibold text-balance sm:text-4xl">
-              Questions the landing page should answer up front
+              Questions a Web Harmonium landing page should answer up front
             </h2>
             <p className="max-w-xl text-lg leading-8 text-slate-700">
               {copy.seoDescription}

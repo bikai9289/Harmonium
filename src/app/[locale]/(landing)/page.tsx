@@ -6,11 +6,11 @@ import { getMetadata } from '@/shared/lib/seo';
 export const revalidate = 3600;
 
 export const generateMetadata = getMetadata({
-  title: 'Web Harmonium Online | Play Harmonium',
+  title: 'Web Harmonium Online for Daily Practice | Play Harmonium',
   description:
-    'Play web harmonium online in your browser with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and beginner guides.',
+    'Play Web Harmonium online in your browser with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and beginner-friendly guides.',
   keywords:
-    'web harmonium, online harmonium, play harmonium online, virtual harmonium, harmonium keyboard, sargam notes',
+    'web harmonium, web harmonium online, online harmonium, play harmonium online, virtual harmonium, harmonium keyboard, sargam notes',
   canonicalUrl: '/',
 });
 
@@ -27,9 +27,9 @@ const copy = {
       'Works on desktop and mobile',
       'Built for practice-first SEO traffic',
     ],
-    featureTitle: 'Why this web harmonium fits the keyword',
+    featureTitle: 'Why people search Web Harmonium',
     featureDescription:
-      'People searching for Web Harmonium want an instrument they can use immediately. The first version should feel like a useful practice surface, not a gated SaaS dashboard.',
+      'People searching for Web Harmonium want an instrument they can use immediately. A strong Web Harmonium landing page should feel like a useful practice surface, not a gated SaaS dashboard.',
     features: [
       {
         title: 'Instant interaction',
@@ -47,9 +47,9 @@ const copy = {
           'The page keeps visible text, FAQs, and guide links around the tool so it can rank as a real content page.',
       },
     ],
-    guideTitle: 'Launch content around the tool',
+    guideTitle: 'Build Web Harmonium content around the tool',
     guideDescription:
-      'Use a few practical pages to cover adjacent intent while the homepage targets the main Web Harmonium keyword cluster.',
+      'Use a few practical pages to cover adjacent intent while the homepage targets the main Web Harmonium keyword cluster and the exact Web Harmonium phrase.',
     guides: [
       {
         title: 'How to play Web Harmonium online for free',
@@ -70,7 +70,7 @@ const copy = {
           'Bridge western note labels and Indian notation so the tool feels useful for both audiences.',
       },
     ],
-    faqTitle: 'FAQ',
+    faqTitle: 'Web Harmonium FAQ',
     faqs: [
       {
         question: 'Is this a downloadable app?',
@@ -95,7 +95,7 @@ const copy = {
     ],
     seoTitle: 'Built to validate the Web Harmonium keyword before heavy product work',
     seoDescription:
-      'This first pass deliberately keeps the experience simple: playable instrument first, useful search text second, SaaS features later.',
+      'This first pass deliberately keeps the experience simple: playable Web Harmonium instrument first, useful search text second, SaaS features later.',
   },
   zh: {
     badge: 'Web Harmonium practice tool',
@@ -109,9 +109,9 @@ const copy = {
       'Works on desktop and mobile',
       'Built for practice-first SEO traffic',
     ],
-    featureTitle: 'Why this web harmonium fits the keyword',
+    featureTitle: 'Why people search Web Harmonium',
     featureDescription:
-      'People searching for Web Harmonium want an instrument they can use immediately. The first version should feel like a useful practice surface, not a gated SaaS dashboard.',
+      'People searching for Web Harmonium want an instrument they can use immediately. A strong Web Harmonium landing page should feel like a useful practice surface, not a gated SaaS dashboard.',
     features: [
       {
         title: 'Instant interaction',
@@ -129,9 +129,9 @@ const copy = {
           'The page keeps visible text, FAQs, and guide links around the tool so it can rank as a real content page.',
       },
     ],
-    guideTitle: 'Launch content around the tool',
+    guideTitle: 'Build Web Harmonium content around the tool',
     guideDescription:
-      'Use a few practical pages to cover adjacent intent while the homepage targets the main Web Harmonium keyword cluster.',
+      'Use a few practical pages to cover adjacent intent while the homepage targets the main Web Harmonium keyword cluster and the exact Web Harmonium phrase.',
     guides: [
       {
         title: 'How to play Web Harmonium online for free',
@@ -152,7 +152,7 @@ const copy = {
           'Bridge western note labels and Indian notation so the tool feels useful for both audiences.',
       },
     ],
-    faqTitle: 'FAQ',
+    faqTitle: 'Web Harmonium FAQ',
     faqs: [
       {
         question: 'Is this a downloadable app?',
@@ -177,7 +177,7 @@ const copy = {
     ],
     seoTitle: 'Built to validate the Web Harmonium keyword before heavy product work',
     seoDescription:
-      'This first pass deliberately keeps the experience simple: playable instrument first, useful search text second, SaaS features later.',
+      'This first pass deliberately keeps the experience simple: playable Web Harmonium instrument first, useful search text second, SaaS features later.',
   },
 };
 

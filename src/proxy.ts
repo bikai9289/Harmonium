@@ -8,6 +8,13 @@ const intlMiddleware = createIntlMiddleware(routing);
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const host = request.headers.get('host') || '';
+
+  if (host === 'www.playharmonium.com') {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.host = 'playharmonium.com';
+    return NextResponse.redirect(redirectUrl, 308);
+  }
 
   // Handle internationalization first
   const intlResponse = intlMiddleware(request);

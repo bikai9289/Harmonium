@@ -117,8 +117,8 @@ export function HarmoniumKeyboardPage() {
               Web Harmonium Keyboard
             </h1>
             <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-              A focused practice page with keyboard shortcuts, touch controls,
-              Sargam labels, and saved local settings.
+              A focused Web Harmonium keyboard practice page with keyboard
+              shortcuts, touch controls, Sargam labels, and saved local settings.
             </p>
           </div>
 
@@ -130,7 +130,7 @@ export function HarmoniumKeyboardPage() {
               </Link>
             </Button>
             <Button asChild className="bg-[#1f6b64] text-white hover:bg-[#17544f]">
-              <Link href="/blog">Read Guides</Link>
+              <Link href="/blog" title="Read Web Harmonium guides">Read Guides</Link>
             </Button>
           </div>
         </div>
@@ -145,8 +145,9 @@ export function HarmoniumKeyboardPage() {
               </p>
               <h2 className="mt-3 text-2xl font-semibold">Ready to play</h2>
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Use your keyboard or tap the keys. Your last volume, octave,
-                transpose, and label mode stay saved in local storage.
+                Use your keyboard or tap the keys. This Web Harmonium keyboard
+                keeps your last volume, octave, transpose, and label mode saved
+                in local storage.
               </p>
             </div>
 
