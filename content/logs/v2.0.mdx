@@ -1,0 +1,37 @@
+---
+title: 'Responsive Keyboard and Analytics Pass'
+description: 'The keyboard layout, analytics hooks, and search console support were upgraded for the next validation pass.'
+date: '2026-03-29'
+tags: ['Web Harmonium', 'Mobile UX', 'Analytics', 'Search Console']
+version: '0.2.0'
+---
+
+![Web Harmonium Preview](/preview.png)
+
+This release tightens the product around the next growth loop: better mobile handling, cleaner public-facing content, and first-party hooks for analytics plus Google Search Console verification.
+
+<Accordion type="multiple" className="not-prose w-full">
+  <AccordionItem value="ux">
+    <AccordionTrigger>User-facing improvements</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <ul className="list-disc space-y-2 pl-4">
+        <li>Keyboard page spacing corrected below the fixed header</li>
+        <li>Small screens now keep usable key widths with horizontal scroll</li>
+        <li>Focused practice page is prioritized over the control sidebar on mobile</li>
+        <li>Blog, pricing, showcases, and docs copy now match the harmonium product</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+
+  <AccordionItem value="seo">
+    <AccordionTrigger>SEO and growth groundwork</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <ul className="list-disc space-y-2 pl-4">
+        <li>Google Search Console verification meta tag support was added</li>
+        <li>Static sitemap generation now covers core landing pages</li>
+        <li>Analytics settings support Google Analytics, Clarity, Plausible, OpenPanel, and Vercel Analytics</li>
+        <li>The audio layer is now sample-ready with oscillator fallback when files are missing</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>

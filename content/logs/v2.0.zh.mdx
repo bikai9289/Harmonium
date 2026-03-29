@@ -1,0 +1,37 @@
+﻿---
+title: '移动端与分析能力更新'
+description: '键盘响应式、分析埋点和 Search Console 支持已经补齐。'
+date: '2026-03-29'
+tags: ['Web Harmonium', '移动端', 'Analytics', 'Search Console']
+version: '0.2.0'
+---
+
+![Web Harmonium Preview](/preview.png)
+
+这一版围绕下一轮增长验证做了三件事：移动端体验更稳、公开页面文案更统一、以及站点级 Analytics / GSC 能力接入完成。
+
+<Accordion type="multiple" className="not-prose w-full">
+  <AccordionItem value="ux">
+    <AccordionTrigger>用户体验更新</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <ul className="list-disc space-y-2 pl-4">
+        <li>修复了固定头部下方的首屏间距</li>
+        <li>小屏下通过横向滚动保留完整按键尺寸</li>
+        <li>移动端优先展示键盘主体，再展示控制区</li>
+        <li>Blog、Pricing、Showcases、Docs 文案统一为 harmonium 产品语境</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+
+  <AccordionItem value="seo">
+    <AccordionTrigger>SEO 与增长基础设施</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <ul className="list-disc space-y-2 pl-4">
+        <li>新增 Google Search Console 验证 meta 支持</li>
+        <li>新增核心页面 sitemap 生成</li>
+        <li>Analytics 设置支持 GA、Clarity、Plausible、OpenPanel 和 Vercel Analytics</li>
+        <li>音频层已经改成“真实采样优先，缺素材时回退 oscillator”</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>

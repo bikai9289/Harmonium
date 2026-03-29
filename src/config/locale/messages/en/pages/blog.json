@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "title": "Blog",
+    "description": "Read Web Harmonium guides, beginner tips, and product updates."
+  },
+  "page": {
+    "title": "Web Harmonium Blog",
+    "sections": {
+      "blog": {
+        "id": "blog",
+        "title": "Blog",
+        "description": "Read practice guides, keyboard note explainers, and launch updates for Web Harmonium."
+      }
+    }
+  },
+  "messages": {
+    "all": "All",
+    "no_content": "No posts yet",
+    "crumb": "Blog",
+    "toc": "Table of Contents"
+  }
+}

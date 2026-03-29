@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "title": "Pricing",
+    "description": "Choose a plan for saved presets, recordings, and premium practice tools."
+  },
+  "page": {
+    "title": "Web Harmonium Pricing",
+    "sections": {
+      "pricing": {
+        "id": "pricing",
+        "title": "Pricing",
+        "description": "Start free, then upgrade when you want saved presets, recordings, and advanced practice tools.",
+        "groups": [
+          {
+            "name": "one-time",
+            "title": "Lifetime"
+          },
+          {
+            "name": "monthly",
+            "title": "Monthly",
+            "is_featured": true,
+            "label": "best for active practice"
+          },
+          {
+            "name": "yearly",
+            "title": "Yearly"
+          }
+        ],
+        "items": [
+          {
+            "title": "Starter",
+            "description": "A one-time unlock for solo practice and future updates.",
+            "features_title": "Includes",
+            "features": [
+              "Lifetime access to the web keyboard",
+              "Saved volume, octave, and label presets",
+              "Priority access to new harmonium sound packs",
+              "Beginner guide library",
+              "Email support"
+            ],
+            "interval": "one-time",
+            "amount": 4900,
+            "currency": "USD",
+            "price": "$49",
+            "original_price": "$79",
+            "unit": "",
+            "is_featured": false,
+            "tip": "Pay once for a practice-first toolkit.",
+            "button": {
+              "title": "Choose Starter",
+              "url": "/pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "starter",
+            "product_name": "Web Harmonium Starter",
+            "credits": 0,
+            "valid_days": 3650,
+            "group": "one-time"
+          },
+          {
+            "title": "Practice+",
+            "description": "Best for regular singers and teachers who want more control.",
+            "label": "Popular",
+            "features_title": "Everything in Starter, plus",
+            "features": [
+              "Preset banks for different ragas and lesson setups",
+              "Recording and quick replay tools",
+              "Advanced transpose and session notes",
+              "Priority support for sample packs",
+              "Early access to mobile practice refinements"
+            ],
+            "interval": "month",
+            "amount": 1200,
+            "currency": "USD",
+            "price": "$12",
+            "original_price": "$16",
+            "unit": "/ month",
+            "is_featured": true,
+            "tip": "A focused monthly plan for daily practice.",
+            "button": {
+              "title": "Start Practice+",
+              "url": "/pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "practice-plus-monthly",
+            "product_name": "Web Harmonium Practice Plus Monthly",
+            "credits": 0,
+            "valid_days": 30,
+            "group": "monthly",
+            "plan_name": "Practice+"
+          },
+          {
+            "title": "Studio",
+            "description": "A yearly plan for teachers, creators, and long-term learners.",
+            "features_title": "Everything in Practice+, plus",
+            "features": [
+              "Unlimited saved sessions",
+              "Teacher-friendly sharable practice presets",
+              "Long-form recording exports",
+              "Priority onboarding for premium sound libraries",
+              "Discounted access to future course packs"
+            ],
+            "interval": "year",
+            "amount": 9900,
+            "currency": "USD",
+            "price": "$99",
+            "original_price": "$144",
+            "unit": "/ year",
+            "is_featured": false,
+            "tip": "Lower annual pricing for committed users.",
+            "button": {
+              "title": "Choose Studio",
+              "url": "/pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "studio-yearly",
+            "product_name": "Web Harmonium Studio Yearly",
+            "credits": 0,
+            "valid_days": 365,
+            "group": "yearly",
+            "plan_name": "Studio"
+          }
+        ]
+      }
+    }
+  },
+  "messages": {
+    "current_plan": "Current Plan",
+    "processing": "Processing"
+  }
+}

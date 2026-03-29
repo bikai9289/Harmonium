@@ -1,0 +1,88 @@
+{
+  "page": {
+    "show_sections": ["hero", "features", "faq", "cta"],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "title": "Play Harmonium Online",
+        "highlight_text": "Online",
+        "description": "A browser-based harmonium tool with keyboard shortcuts, touch controls, Sargam labels, and a lightweight SaaS foundation for future premium features.",
+        "buttons": [
+          {
+            "title": "Start Playing",
+            "icon": "Music",
+            "url": "/#play",
+            "target": "_self",
+            "variant": "default"
+          },
+          {
+            "title": "Read Blog",
+            "icon": "Newspaper",
+            "url": "/blog",
+            "target": "_self",
+            "variant": "outline"
+          }
+        ],
+        "show_avatars": false,
+        "background_image": {
+          "src": "/preview.png",
+          "alt": "Web Harmonium"
+        }
+      },
+      "features": {
+        "id": "features",
+        "title": "Built for Practice-First Search Traffic",
+        "description": "This fallback landing configuration keeps the product focused on fast play, clear note labels, and lightweight growth validation.",
+        "items": [
+          {
+            "title": "Instant Play",
+            "description": "Users should be able to start pressing notes immediately without a login wall.",
+            "icon": "Music"
+          },
+          {
+            "title": "Useful Controls",
+            "description": "Octave, transpose, and label toggles matter more than generic SaaS hero copy.",
+            "icon": "SlidersHorizontal"
+          },
+          {
+            "title": "SEO Support",
+            "description": "The tool is supported by blog content and explanatory sections so it can rank as a real page.",
+            "icon": "NotebookPen"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "title": "Frequently Asked Questions",
+        "description": "Answering intent clearly helps both users and search engines.",
+        "items": [
+          {
+            "question": "Do I need to download anything?",
+            "answer": "No. The goal is to keep the harmonium fully usable in the browser."
+          },
+          {
+            "question": "Do I need an account first?",
+            "answer": "No. The core playing experience should remain open, while premium features can be added later."
+          },
+          {
+            "question": "Why show Sargam and western labels?",
+            "answer": "Because learners come from different notation systems, and the same page should support both."
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Open the Tool and Start Practicing",
+        "description": "Use the homepage instrument first, then expand into content and premium features once demand is proven.",
+        "buttons": [
+          {
+            "title": "Go to Homepage",
+            "url": "/",
+            "target": "_self",
+            "icon": "ArrowRight"
+          }
+        ]
+      }
+    }
+  }
+}

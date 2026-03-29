@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "title": "Use Cases",
+    "description": "See how Web Harmonium fits practice sessions, lessons, and quick idea capture."
+  },
+  "page": {
+    "title": "Use Cases",
+    "sections": {
+      "showcases": {
+        "id": "showcases",
+        "title": "Practice flows Web Harmonium is built for",
+        "description": "A light tool can still serve serious daily use when the workflow is clear.",
+        "groups": [
+          {
+            "name": "all",
+            "title": "All"
+          },
+          {
+            "name": "practice",
+            "title": "Daily Practice"
+          },
+          {
+            "name": "teaching",
+            "title": "Teaching"
+          },
+          {
+            "name": "warmup",
+            "title": "Warm-up"
+          }
+        ],
+        "items": [
+          {
+            "title": "Daily Riyaz",
+            "description": "Open the keyboard, set the octave, and begin a short daily practice session in seconds.",
+            "url": "/keyboard",
+            "target": "_self",
+            "image": {
+              "src": "/preview.png",
+              "alt": "Web Harmonium daily practice"
+            },
+            "group": "practice"
+          },
+          {
+            "title": "Lesson Support",
+            "description": "Teachers can demonstrate note relationships and transpose quickly during class.",
+            "url": "/keyboard",
+            "target": "_self",
+            "image": {
+              "src": "/preview.png",
+              "alt": "Web Harmonium lesson support"
+            },
+            "group": "teaching"
+          },
+          {
+            "title": "Quick Vocal Warm-up",
+            "description": "Use a browser tab instead of setting up a larger instrument for short warm-up drills.",
+            "url": "/keyboard",
+            "target": "_self",
+            "image": {
+              "src": "/preview.png",
+              "alt": "Web Harmonium vocal warm-up"
+            },
+            "group": "warmup"
+          }
+        ]
+      }
+    }
+  }
+}

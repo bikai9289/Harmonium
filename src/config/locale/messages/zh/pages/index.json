@@ -1,0 +1,88 @@
+{
+  "page": {
+    "show_sections": ["hero", "features", "faq", "cta"],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "title": "在线演奏 Harmonium",
+        "highlight_text": "在线",
+        "description": "这是一个基于浏览器的 harmonium 工具，支持键盘快捷键、触控、Sargam 标注，以及后续扩展付费能力的轻量 SaaS 骨架。",
+        "buttons": [
+          {
+            "title": "开始演奏",
+            "icon": "Music",
+            "url": "/#play",
+            "target": "_self",
+            "variant": "default"
+          },
+          {
+            "title": "查看博客",
+            "icon": "Newspaper",
+            "url": "/blog",
+            "target": "_self",
+            "variant": "outline"
+          }
+        ],
+        "show_avatars": false,
+        "background_image": {
+          "src": "/preview.png",
+          "alt": "Web Harmonium"
+        }
+      },
+      "features": {
+        "id": "features",
+        "title": "围绕真实练习需求设计",
+        "description": "这个兜底配置页强调的是快速演奏、清晰标签和低成本验证，而不是默认 SaaS 营销页逻辑。",
+        "items": [
+          {
+            "title": "打开就能弹",
+            "description": "用户进入页面后应该立刻能演奏，而不是先被登录或销售文案拦住。",
+            "icon": "Music"
+          },
+          {
+            "title": "练习需要的控制项",
+            "description": "八度、移调和标签切换，比通用 SaaS CTA 更重要。",
+            "icon": "SlidersHorizontal"
+          },
+          {
+            "title": "支持 SEO 验证",
+            "description": "工具页结合博客和说明内容，更容易成为可收录、可排名的页面。",
+            "icon": "NotebookPen"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "title": "常见问题",
+        "description": "把意图讲清楚，既能帮助用户，也有利于搜索引擎理解页面。",
+        "items": [
+          {
+            "question": "需要下载安装吗？",
+            "answer": "不需要。目标就是让 harmonium 直接在浏览器中可用。"
+          },
+          {
+            "question": "需要先注册账号吗？",
+            "answer": "不需要。核心演奏体验应该保持开放，会员能力可以后续再接。"
+          },
+          {
+            "question": "为什么要同时显示 Sargam 和西方音名？",
+            "answer": "因为用户来自不同学习体系，同一个页面最好都能支持。"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "先打开工具，再开始练习",
+        "description": "优先把首页乐器做好用，再根据搜索和使用数据决定后续高级功能。",
+        "buttons": [
+          {
+            "title": "返回首页",
+            "url": "/",
+            "target": "_self",
+            "icon": "ArrowRight"
+          }
+        ]
+      }
+    }
+  }
+}
