@@ -11,7 +11,7 @@
           {
             "title": "开始演奏",
             "icon": "Music",
-            "url": "/#play",
+            "url": "/keyboard",
             "target": "_self",
             "variant": "default"
           },
@@ -26,17 +26,17 @@
         "show_avatars": false,
         "background_image": {
           "src": "/preview.png",
-          "alt": "Web Harmonium"
+          "alt": "Play Harmonium"
         }
       },
       "features": {
         "id": "features",
         "title": "围绕真实练习需求设计",
-        "description": "这个兜底配置页强调的是快速演奏、清晰标签和低成本验证，而不是默认 SaaS 营销页逻辑。",
+        "description": "这个兜底配置页强调的是快速演奏、清晰标注和低成本验证，而不是默认 SaaS 营销页逻辑。",
         "items": [
           {
             "title": "打开就能弹",
-            "description": "用户进入页面后应该立刻能演奏，而不是先被登录或销售文案拦住。",
+            "description": "用户进入页面后应该立刻能演奏，而不是先被登录或营销文案拦住。",
             "icon": "Music"
           },
           {
@@ -61,7 +61,7 @@
             "answer": "不需要。目标就是让 harmonium 直接在浏览器中可用。"
           },
           {
-            "question": "需要先注册账号吗？",
+            "question": "需要先注册账户吗？",
             "answer": "不需要。核心演奏体验应该保持开放，会员能力可以后续再接。"
           },
           {

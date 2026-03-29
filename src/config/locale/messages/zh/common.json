@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Web Harmonium",
-    "description": "Web Harmonium 是一个可直接在浏览器里练习的 harmonium 工具站，支持触控、键盘快捷键、Sargam 标注，以及后续扩展会员功能的 SaaS 骨架。",
+    "title": "Play Harmonium",
+    "description": "Play Harmonium 是一个可直接在浏览器里练习的 harmonium 工具站，支持触控、键盘快捷键、Sargam 标注，以及后续扩展会员功能的轻量 SaaS 骨架。",
     "keywords": "web harmonium, online harmonium, 在线 harmonium, virtual harmonium, harmonium keyboard, sargam notes"
   },
   "sign": {
@@ -50,7 +50,7 @@
     "cancel_title": "取消"
   },
   "locale_detector": {
-    "title": "检测到你的浏览器语言为 {locale}，是否切换？",
+    "title": "检测到你的浏览器语言是 {locale}，是否切换？",
     "switch_to": "切换到 {locale}"
   }
 }
