@@ -1,4 +1,4 @@
-import packageJson from '../../package.json';
+﻿import packageJson from '../../package.json';
 
 // Load .env files for scripts (tsx/ts-node) - but NOT in Edge Runtime or browser
 // This ensures scripts can read DATABASE_URL and other env vars
@@ -24,7 +24,7 @@ export const envConfigs: ConfigMap = {
   app_name: process.env.NEXT_PUBLIC_APP_NAME ?? 'Play Harmonium',
   app_description:
     process.env.NEXT_PUBLIC_APP_DESCRIPTION ??
-    'Practice harmonium online with keyboard shortcuts, touch controls, and Sargam labels.',
+    'Practice web harmonium online with keyboard shortcuts, touch controls, and Sargam labels.',
   app_logo: process.env.NEXT_PUBLIC_APP_LOGO ?? '/logo.png',
   app_favicon: process.env.NEXT_PUBLIC_APP_FAVICON ?? '/favicon.ico',
   app_preview_image:
@@ -55,3 +55,4 @@ export const envConfigs: ConfigMap = {
   locale_detect_enabled:
     process.env.NEXT_PUBLIC_LOCALE_DETECT_ENABLED ?? 'false',
 };
+

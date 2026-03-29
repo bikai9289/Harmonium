@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState } from 'react';
 import {
@@ -114,7 +114,7 @@ export function HarmoniumKeyboardPage() {
               Practice mode
             </p>
             <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
-              Play Harmonium Keyboard
+              Web Harmonium Keyboard
             </h1>
             <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
               A focused practice page with keyboard shortcuts, touch controls,
@@ -392,4 +392,6 @@ function ControlCard({
     </div>
   );
 }
+
+
 

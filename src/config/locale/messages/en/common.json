@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Play Harmonium",
-    "description": "Play Harmonium is a browser-based harmonium practice site with touch controls, keyboard shortcuts, Sargam labels, and a lightweight SaaS foundation for future premium features.",
+    "title": "Web Harmonium Online | Play Harmonium",
+    "description": "Play web harmonium online with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and beginner-friendly practice guides.",
     "keywords": "web harmonium, online harmonium, play harmonium online, virtual harmonium, harmonium keyboard, sargam notes"
   },
   "sign": {
@@ -54,3 +54,4 @@
     "switch_to": "Switch to {locale}"
   }
 }
+

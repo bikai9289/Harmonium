@@ -1,15 +1,15 @@
 {
   "metadata": {
-    "title": "Blog",
-    "description": "Read Play Harmonium guides, beginner tips, and product updates."
+    "title": "Web Harmonium Blog | Play Harmonium",
+    "description": "Read web harmonium guides, beginner tips, keyboard explainers, and product updates from Play Harmonium."
   },
   "page": {
-    "title": "Play Harmonium Blog",
+    "title": "Web Harmonium Blog | Play Harmonium",
     "sections": {
       "blog": {
         "id": "blog",
-        "title": "Blog",
-        "description": "Read practice guides, keyboard note explainers, and launch updates for Play Harmonium."
+        "title": "Web Harmonium Blog | Play Harmonium",
+        "description": "Read web harmonium practice guides, keyboard note explainers, and launch updates from Play Harmonium."
       }
     }
   },
@@ -20,4 +20,5 @@
     "toc": "Table of Contents"
   }
 }
+
 

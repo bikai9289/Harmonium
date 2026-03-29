@@ -158,14 +158,14 @@ export function HarmoniumHome({
                 asChild
                 className="bg-[#1f6b64] px-5 text-white hover:bg-[#17544f]"
               >
-                <Link href="/keyboard">{copy.primaryCta}</Link>
+                <Link href="/keyboard" title="Open the web harmonium keyboard">{copy.primaryCta}</Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
                 className="border-[#b77c4a]/30 bg-white/75 px-5 text-[#7f4e2a]"
               >
-                <Link href="/blog">{copy.secondaryCta}</Link>
+                <Link href="/blog" title="Read web harmonium guides and tips">{copy.secondaryCta}</Link>
               </Button>
             </div>
 
@@ -395,6 +395,69 @@ export function HarmoniumHome({
                   Swipe horizontally on smaller screens.
                 </span>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="border-b border-black/5 py-16">
+        <div className="container grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="space-y-4">
+            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#8f5f33]">
+              Search intent overview
+            </p>
+            <h2 className="text-3xl font-semibold text-balance sm:text-4xl">
+              What people mean when they search web harmonium
+            </h2>
+            <p className="max-w-xl text-lg leading-8 text-slate-700">
+              Most users searching for web harmonium do not want a gated app.
+              They want a browser instrument that opens fast, plays notes
+              immediately, and explains the layout clearly enough for practice.
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-[1.6rem] border border-black/7 bg-white/85 p-5 shadow-sm">
+              <h3 className="text-lg font-semibold">
+                Play harmonium online without downloads
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                A useful web harmonium should load in one tab, support touch and
+                keyboard input, and let beginners start with the visible middle
+                octave instead of forcing account setup first.
+              </p>
+            </div>
+
+            <div className="rounded-[1.6rem] border border-black/7 bg-white/85 p-5 shadow-sm">
+              <h3 className="text-lg font-semibold">
+                Learn Sargam and western labels on the same page
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                The strongest landing pages for this keyword explain both note
+                systems, because many harmonium learners switch between Sargam
+                notation and western note names while practicing online.
+              </p>
+            </div>
+
+            <div className="rounded-[1.6rem] border border-black/7 bg-white/85 p-5 shadow-sm">
+              <h3 className="text-lg font-semibold">
+                Use the keyboard page as the core tool page
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                The dedicated keyboard route gives search engines and users a
+                clearer destination for phrases like web harmonium keyboard,
+                practice harmonium online, and virtual harmonium keyboard.
+              </p>
+            </div>
+
+            <div className="rounded-[1.6rem] border border-black/7 bg-white/85 p-5 shadow-sm">
+              <h3 className="text-lg font-semibold">
+                Support the homepage with specific guides
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Supporting articles like how to play web harmonium online and
+                beginner keyboard-note explainers help the homepage rank for the
+                main term while the blog absorbs longer-tail searches.
+              </p>
             </div>
           </div>
         </div>

@@ -4,9 +4,9 @@
     "sections": {
       "hero": {
         "id": "hero",
-        "title": "Play Harmonium Online",
+        "title": "Web Harmonium Online",
         "highlight_text": "Online",
-        "description": "A browser-based harmonium tool with keyboard shortcuts, touch controls, Sargam labels, and a lightweight SaaS foundation for future premium features.",
+        "description": "A browser-based web harmonium tool with keyboard shortcuts, touch controls, Sargam labels, and a lightweight SaaS foundation for future premium features.",
         "buttons": [
           {
             "title": "Start Playing",
@@ -86,4 +86,5 @@
     }
   }
 }
+
 

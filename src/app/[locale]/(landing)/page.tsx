@@ -6,9 +6,9 @@ import { getMetadata } from '@/shared/lib/seo';
 export const revalidate = 3600;
 
 export const generateMetadata = getMetadata({
-  title: 'Play Harmonium Online | Play Harmonium',
+  title: 'Web Harmonium Online | Play Harmonium',
   description:
-    'Practice harmonium in your browser with touch, keyboard shortcuts, Sargam labels, octave controls, and transpose.',
+    'Play web harmonium online in your browser with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and beginner guides.',
   keywords:
     'web harmonium, online harmonium, play harmonium online, virtual harmonium, harmonium keyboard, sargam notes',
   canonicalUrl: '/',
@@ -16,10 +16,10 @@ export const generateMetadata = getMetadata({
 
 const copy = {
   en: {
-    badge: 'Browser-based practice tool',
-    title: 'Play Harmonium Online Without Downloads',
+    badge: 'Web harmonium practice tool',
+    title: 'Web Harmonium Online for Daily Practice',
     description:
-      'Use a clean, responsive web harmonium with keyboard shortcuts, touch controls, Sargam labels, and quick settings for daily practice.',
+      'Use a clean, responsive web harmonium online with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and quick settings for daily practice.',
     primaryCta: 'Start Playing',
     secondaryCta: 'Read Guides',
     trust: [
@@ -27,7 +27,7 @@ const copy = {
       'Works on desktop and mobile',
       'Built for practice-first SEO traffic',
     ],
-    featureTitle: 'Why this format fits the keyword',
+    featureTitle: 'Why this web harmonium fits the keyword',
     featureDescription:
       'People searching for web harmonium want an instrument they can use immediately. The first version should feel like a useful practice surface, not a gated SaaS dashboard.',
     features: [
@@ -49,23 +49,23 @@ const copy = {
     ],
     guideTitle: 'Launch content around the tool',
     guideDescription:
-      'Use a few practical pages to cover adjacent intent while the homepage targets the main keyword cluster.',
+      'Use a few practical pages to cover adjacent intent while the homepage targets the main web harmonium keyword cluster.',
     guides: [
       {
-        title: 'How to play harmonium online for free',
-        href: '/blog',
+        title: 'How to play web harmonium online for free',
+        href: '/blog/how-to-play-harmonium-online-for-free',
         description:
           'A beginner-friendly walkthrough for first-time visitors who need context before they play.',
       },
       {
-        title: 'Harmonium keyboard notes for beginners',
-        href: '/blog',
+        title: 'Web harmonium keyboard notes for beginners',
+        href: '/blog/harmonium-keyboard-notes-for-beginners',
         description:
           'Map the visual keys to note names and common practice patterns for SEO and retention.',
       },
       {
         title: 'Sargam notes guide for web practice',
-        href: '/blog',
+        href: '/blog/harmonium-keyboard-notes-for-beginners',
         description:
           'Bridge western note labels and Indian notation so the tool feels useful for both audiences.',
       },
@@ -93,80 +93,80 @@ const copy = {
           'Yes. The current template already has auth, payments, blog, and settings pages, so premium features can be added after demand is validated.',
       },
     ],
-    seoTitle: 'Built to validate the keyword before heavy product work',
+    seoTitle: 'Built to validate the web harmonium keyword before heavy product work',
     seoDescription:
-      'This first pass deliberately keeps the experience simple: playable instrument first, content second, SaaS features later.',
+      'This first pass deliberately keeps the experience simple: playable instrument first, useful search text second, SaaS features later.',
   },
   zh: {
-    badge: '浏览器练习工具',
-    title: '直接在线弹 Harmonium，不用下载',
+    badge: 'Web Harmonium 练习工具',
+    title: 'Web Harmonium 在线练习页',
     description:
-      '这个版本优先解决搜索用户“马上能弹”的需求，提供键盘快捷键、触控演奏、Sargam 标注、八度和移调设置。',
+      '用浏览器直接练习 Web Harmonium，支持键盘快捷键、触控演奏、Sargam 标注、八度切换、移调和快速设置。',
     primaryCta: '开始演奏',
     secondaryCta: '查看指南',
-    trust: ['免下载', '支持桌面和移动端', '先验证搜索需求，再加 SaaS'],
-    featureTitle: '为什么首页要先做成工具页',
+    trust: ['无需下载', '支持桌面和移动端', '先验证搜索需求，再扩展产品'],
+    featureTitle: '为什么首页要围绕 Web Harmonium 来做',
     featureDescription:
-      '搜 web harmonium 的用户，核心诉求不是注册账号，而是立刻使用。首页先给可演奏键盘，才符合关键词意图。',
+      '搜索 Web Harmonium 的用户核心诉求不是注册账号，而是立刻找到一个能演奏、能练习、能看懂键位的在线工具。',
     features: [
       {
-        title: '首屏直接可用',
+        title: '首屏即可使用',
         description:
-          '用户进入页面后不用找入口，马上就能点按或用键盘演奏，减少流失。',
+          '用户进入页面后就能立刻看到可演奏键盘，让搜索意图和落地页体验保持一致。',
       },
       {
-        title: '围绕练习场景设计',
+        title: '围绕练习设计',
         description:
-          '八度、移调、标签切换这些控制项，比默认的 SaaS CTA 更符合真实使用场景。',
+          '八度、移调、标签切换这些控制项，比传统 SaaS 首页里的注册按钮更符合真实使用场景。',
       },
       {
-        title: '对 SEO 更友好',
+        title: '更适合 SEO',
         description:
-          '工具页周围保留足够的可见文本、FAQ 和指南入口，更容易成为能收录和排名的页面。',
+          '工具页周围保留足够的介绍文本、FAQ 和内容入口，更容易被搜索引擎理解和收录。',
       },
     ],
-    guideTitle: '内容页围绕工具展开',
+    guideTitle: '让内容页围绕工具展开',
     guideDescription:
-      '首页打主词，文章页补长尾，这样最省事，也更适合你现有模板的博客能力。',
+      '首页主打 Web Harmonium，文章页承接长尾关键词，这样更适合新站做 SEO 验证。',
     guides: [
       {
-        title: 'How to play harmonium online for free',
-        href: '/blog',
-        description: '承接第一次接触这个词的用户，告诉他怎么开始用。',
+        title: '如何免费在线使用 Web Harmonium',
+        href: '/blog/how-to-play-harmonium-online-for-free',
+        description: '给第一次接触这个词的用户一个清晰的上手路径。',
       },
       {
-        title: 'Harmonium keyboard notes for beginners',
-        href: '/blog',
-        description: '解释键位、音名和基础映射，兼顾留存和长尾 SEO。',
+        title: 'Web Harmonium 键位与音符入门',
+        href: '/blog/harmonium-keyboard-notes-for-beginners',
+        description: '解释键位、音名与练习路径，帮助页面覆盖更多搜索需求。',
       },
       {
-        title: 'Sargam notes guide for web practice',
-        href: '/blog',
-        description: '把西方音名和 Sargam 联系起来，让页面更贴近真实练习。',
+        title: 'Sargam 标注如何配合网页练习',
+        href: '/blog/harmonium-keyboard-notes-for-beginners',
+        description: '帮助用户把西方音名和 Sargam 对应起来，降低使用门槛。',
       },
     ],
     faqTitle: '常见问题',
     faqs: [
       {
-        question: '这是要下载安装的软件吗？',
+        question: '这是需要下载安装的软件吗？',
         answer: '不是。这个版本的目标就是让用户直接在浏览器里开始练习。',
       },
       {
-        question: '需要注册账号才能使用吗？',
-        answer: '核心演奏功能不需要。后续如果数据表现好，再接保存设置和会员能力。',
+        question: '需要先注册账号吗？',
+        answer: '不需要。核心演奏功能保持开放，后续再根据数据决定是否增加会员能力。',
       },
       {
-        question: '为什么首页就要放 Sargam 和移调？',
+        question: '为什么首页就放 Sargam 和移调？',
         answer: '因为这更符合真实练习需求，比先引导注册更有价值。',
       },
       {
-        question: '后面还能接付费功能吗？',
-        answer: '可以。这套模板已经有登录、支付、博客和设置页，等流量验证后再加就行。',
+        question: '后面还能做付费功能吗？',
+        answer: '可以。等搜索流量和使用数据稳定后，再接入高级功能和会员能力。',
       },
     ],
-    seoTitle: '先验证关键词，再决定要不要重投入',
+    seoTitle: '先把 Web Harmonium 关键词验证出来，再决定产品投入',
     seoDescription:
-      '这个首页版本刻意保持轻量：先把乐器做好用，再根据 GSC 和用户行为决定下一步。',
+      '这个首页版本故意保持轻量：先把工具做好用，再根据 GSC 和用户行为决定下一步。',
   },
 };
 
