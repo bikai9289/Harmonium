@@ -8,9 +8,9 @@ export const revalidate = 3600;
 export const generateMetadata = getMetadata({
   title: 'Web Harmonium Keyboard | Practice Mode',
   description:
-    'Open a focused web harmonium practice page with touch controls, keyboard shortcuts, Sargam labels, octave switching, and transpose.',
+    'Play Web Harmonium online on a focused keyboard page with touch controls, keyboard shortcuts, Sargam labels, octave switching, and transpose.',
   keywords:
-    'harmonium keyboard, web harmonium keyboard, practice harmonium online, virtual harmonium keyboard',
+    'web harmonium keyboard, play web harmonium online, harmonium keyboard, virtual harmonium keyboard',
   canonicalUrl: '/keyboard',
 });
 

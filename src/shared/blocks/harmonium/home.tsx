@@ -423,7 +423,7 @@ export function HarmoniumHome({
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-[1.6rem] border border-black/7 bg-white/85 p-5 shadow-sm">
               <h3 className="text-lg font-semibold">
-                Play harmonium online without downloads
+                Play Web Harmonium online without downloads
               </h3>
               <p className="mt-3 text-sm leading-7 text-slate-600">
                 A useful Web Harmonium should load in one tab, support touch and
@@ -450,7 +450,7 @@ export function HarmoniumHome({
               <p className="mt-3 text-sm leading-7 text-slate-600">
                 The dedicated keyboard route gives search engines and users a
                 clearer destination for phrases like Web Harmonium keyboard,
-                practice Web Harmonium online, and virtual harmonium keyboard.
+                play Web Harmonium online, and virtual harmonium keyboard.
               </p>
             </div>
 

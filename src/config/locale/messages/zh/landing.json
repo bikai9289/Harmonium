@@ -14,7 +14,7 @@
     "nav": {
       "items": [
         {
-          "title": "演奏",
+          "title": "弹奏",
           "url": "/keyboard",
           "icon": "Music"
         },
@@ -64,7 +64,7 @@
     "id": "footer",
     "brand": {
       "title": "Play Harmonium",
-      "description": "在浏览器里直接练习 harmonium，先满足搜索用户的工具需求，再逐步扩展高级功能和付费能力。",
+      "description": "围绕 Web Harmonium 新词构建的浏览器练习工具，先满足在线弹奏和练习需求，再根据搜索数据扩展高级功能。",
       "logo": {
         "src": "/logo.png",
         "alt": "Play Harmonium",
@@ -79,7 +79,7 @@
           "title": "产品",
           "children": [
             {
-              "title": "在线演奏",
+              "title": "在线弹奏",
               "url": "/keyboard"
             }
           ]
