@@ -1,14 +1,37 @@
-﻿# Play Harmonium
+# Play Web Harmonium
 
-Play Harmonium is a browser-based harmonium practice site built on top of a modern Next.js SaaS template. The project focuses on fast online play, SEO-friendly landing pages, blog content, and room for future premium features.
+Play Web Harmonium is a browser-based **Web Harmonium** built for daily practice. It helps users play Web Harmonium online with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and beginner-friendly guides.
 
-## Core Features
+[Visit Website](https://playharmonium.com/) | [Open Keyboard](https://playharmonium.com/keyboard) | [Read the Blog](https://playharmonium.com/blog)
 
-- Play harmonium online with keyboard shortcuts and touch input
+## Why This Project Exists
+
+People searching for **Web Harmonium** usually want a playable instrument in the browser, not a gated SaaS homepage. This project is designed to match that intent: load fast, let people start playing immediately, and support the tool with SEO-friendly educational content.
+
+## What You Can Do
+
+- Play Web Harmonium online without installing software
+- Use keyboard shortcuts or touch controls
 - Switch between Sargam and Western note labels
 - Adjust octave, transpose, and volume in the browser
-- Blog, pricing, auth, admin, and settings pages ready for expansion
-- Postgres-backed auth and RBAC support from the template foundation
+- Read Web Harmonium guides and beginner articles
+- Extend the project later with auth, pricing, admin, and premium features
+
+## Product Pages
+
+- Homepage: [https://playharmonium.com/](https://playharmonium.com/)
+- Keyboard page: [https://playharmonium.com/keyboard](https://playharmonium.com/keyboard)
+- Blog: [https://playharmonium.com/blog](https://playharmonium.com/blog)
+
+## Tech Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- next-intl
+- Drizzle ORM
+- PostgreSQL
+- Tailwind CSS
 
 ## Local Development
 
@@ -18,12 +41,6 @@ Play Harmonium is a browser-based harmonium practice site built on top of a mode
 4. Seed defaults with `pnpm rbac:init` and `pnpm config:init`
 5. Start the app with `pnpm dev`
 
-## Environment Files
-
-- Local development: `D:\bikai\saas\harmonium\.env.development`
-- Production values: `D:\bikai\saas\harmonium\.env.production`
-- Shared example: `D:\bikai\saas\harmonium\.env.example`
-
 ## Deployment
 
 - Production domain: [playharmonium.com](https://playharmonium.com)
@@ -32,4 +49,4 @@ Play Harmonium is a browser-based harmonium practice site built on top of a mode
 
 ## Docs
 
-Project planning, setup notes, and test logs live under `D:\bikai\saas\harmonium\doc`.
+Project planning, setup notes, and test logs live under [`doc/`](./doc).
