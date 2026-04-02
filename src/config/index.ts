@@ -26,7 +26,7 @@ export const envConfigs: ConfigMap = {
     process.env.NEXT_PUBLIC_APP_DESCRIPTION ??
     'Practice web harmonium online with keyboard shortcuts, touch controls, and Sargam labels.',
   app_logo: process.env.NEXT_PUBLIC_APP_LOGO ?? '/logo.png',
-  app_favicon: process.env.NEXT_PUBLIC_APP_FAVICON ?? '/favicon.ico',
+  app_favicon: process.env.NEXT_PUBLIC_APP_FAVICON ?? '/favicon.png',
   app_preview_image:
     process.env.NEXT_PUBLIC_APP_PREVIEW_IMAGE ?? '/preview.png',
   theme: process.env.NEXT_PUBLIC_THEME ?? 'default',

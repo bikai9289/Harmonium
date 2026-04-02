@@ -555,3 +555,23 @@ export const chatMessage = table(
     index('idx_chat_message_user_id').on(table.userId, table.status),
   ]
 );
+
+export const harmoniumPracticeState = table(
+  'harmonium_practice_state',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .unique()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    workspace: text('workspace').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_harmonium_practice_state_user_id').on(table.userId),
+    index('idx_harmonium_practice_state_updated_at').on(table.updatedAt),
+  ]
+);

@@ -5,50 +5,147 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { NoteKey } from './constants';
 
 type Voice = {
-  sources: AudioScheduledSourceNode[];
   gain: GainNode;
+  sources: AudioScheduledSourceNode[];
 };
 
 type PlaybackMode = 'samples' | 'oscillator';
+type ReedMode = 'single' | 'double';
 
-const SAMPLE_EXTENSIONS = ['mp3', 'wav', 'ogg'];
-const SAMPLE_BASE_PATH = '/audio/harmonium';
+const REFERENCE_SAMPLE_URL = '/harmonium-kannan-orig.wav';
+const REFERENCE_REVERB_URL = '/reverb.wav';
+const REFERENCE_ROOT_MIDI = 62;
+const REFERENCE_LOOP_START = 0.5;
 
-function getPitchRatio(semitones: number) {
-  return 2 ** (semitones / 12);
+async function fetchAudioBuffer(context: AudioContext, url: string) {
+  const response = await fetch(url, { cache: 'force-cache' }).catch(() => null);
+
+  if (!response?.ok) {
+    return null;
+  }
+
+  const buffer = await response.arrayBuffer();
+  return context.decodeAudioData(buffer.slice(0));
+}
+
+function createReferenceSource({
+  buffer,
+  context,
+  destination,
+  midi,
+}: {
+  buffer: AudioBuffer;
+  context: AudioContext;
+  destination: AudioNode;
+  midi: number;
+}) {
+  const source = context.createBufferSource();
+  source.buffer = buffer;
+  source.loop = true;
+  source.loopStart = REFERENCE_LOOP_START;
+  source.detune.value = (midi - REFERENCE_ROOT_MIDI) * 100;
+  source.connect(destination);
+  source.start(0);
+
+  return source;
+}
+
+function createFallbackSource({
+  context,
+  destination,
+  frequency,
+  type,
+}: {
+  context: AudioContext;
+  destination: AudioNode;
+  frequency: number;
+  type: OscillatorType;
+}) {
+  const oscillator = context.createOscillator();
+  oscillator.type = type;
+  oscillator.frequency.value = frequency;
+  oscillator.connect(destination);
+  oscillator.start(0);
+
+  return oscillator;
 }
 
 export function useHarmoniumPlayer({
   octave,
   transpose,
   volume,
+  reverbEnabled,
+  reedMode,
 }: {
   octave: number;
   transpose: number;
   volume: number;
+  reverbEnabled: boolean;
+  reedMode: ReedMode;
 }) {
   const [activeNoteIds, setActiveNoteIds] = useState<string[]>([]);
-  const [playbackMode, setPlaybackMode] = useState<PlaybackMode>('oscillator');
+  const [playbackMode, setPlaybackMode] = useState<PlaybackMode>('samples');
 
   const audioContextRef = useRef<AudioContext | null>(null);
-  const masterGainRef = useRef<GainNode | null>(null);
+  const gainNodeRef = useRef<GainNode | null>(null);
+  const reverbNodeRef = useRef<ConvolverNode | null>(null);
+  const reverbConnectedRef = useRef(false);
   const voicesRef = useRef<Map<string, Voice>>(new Map());
-  const sampleCacheRef = useRef<Map<string, Promise<AudioBuffer | null>>>(
-    new Map()
-  );
-  const settingsRef = useRef({ octave, transpose, volume });
+  const requestedVoiceIdsRef = useRef<Set<string>>(new Set());
+  const sustainEnabledRef = useRef(false);
+  const sustainedVoiceIdsRef = useRef<Set<string>>(new Set());
+  const sampleBufferPromiseRef = useRef<Promise<AudioBuffer | null> | null>(null);
+  const reverbBufferPromiseRef = useRef<Promise<AudioBuffer | null> | null>(null);
+  const settingsRef = useRef({
+    octave,
+    transpose,
+    volume,
+    reverbEnabled,
+    reedMode,
+  });
 
-  useEffect(() => {
-    settingsRef.current = { octave, transpose, volume };
+  const syncReverbRoute = useCallback((enabled: boolean) => {
+    const gainNode = gainNodeRef.current;
+    const reverbNode = reverbNodeRef.current;
 
-    const context = audioContextRef.current;
-    const masterGain = masterGainRef.current;
-    if (!context || !masterGain) {
+    if (!gainNode || !reverbNode?.buffer) {
       return;
     }
 
-    masterGain.gain.setTargetAtTime(volume, context.currentTime, 0.03);
-  }, [octave, transpose, volume]);
+    if (enabled && !reverbConnectedRef.current) {
+      gainNode.connect(reverbNode);
+      reverbConnectedRef.current = true;
+      return;
+    }
+
+    if (!enabled && reverbConnectedRef.current) {
+      try {
+        gainNode.disconnect(reverbNode);
+      } catch (error) {
+        console.error('Failed to disconnect harmonium reverb', error);
+      }
+      reverbConnectedRef.current = false;
+    }
+  }, []);
+
+  useEffect(() => {
+    settingsRef.current = {
+      octave,
+      transpose,
+      volume,
+      reverbEnabled,
+      reedMode,
+    };
+
+    const context = audioContextRef.current;
+    const gainNode = gainNodeRef.current;
+    if (!context || !gainNode) {
+      return;
+    }
+
+    gainNode.gain.setTargetAtTime(volume, context.currentTime, 0.03);
+    syncReverbRoute(reverbEnabled);
+  }, [octave, transpose, volume, reverbEnabled, reedMode, syncReverbRoute]);
 
   const ensureAudio = useCallback(async () => {
     if (!audioContextRef.current) {
@@ -62,12 +159,16 @@ export function useHarmoniumPlayer({
       }
 
       const context = new AudioContextClass();
-      const masterGain = context.createGain();
-      masterGain.gain.value = settingsRef.current.volume;
-      masterGain.connect(context.destination);
+      const gainNode = context.createGain();
+      const reverbNode = context.createConvolver();
+
+      gainNode.gain.value = settingsRef.current.volume;
+      gainNode.connect(context.destination);
+      reverbNode.connect(context.destination);
 
       audioContextRef.current = context;
-      masterGainRef.current = masterGain;
+      gainNodeRef.current = gainNode;
+      reverbNodeRef.current = reverbNode;
     }
 
     if (audioContextRef.current.state === 'suspended') {
@@ -77,141 +178,257 @@ export function useHarmoniumPlayer({
     return audioContextRef.current;
   }, []);
 
-  const loadSampleBuffer = useCallback(
-    async (context: AudioContext, noteId: string) => {
-      const cached = sampleCacheRef.current.get(noteId);
-      if (cached) {
-        return cached;
+  const loadReferenceSample = useCallback(async (context: AudioContext) => {
+    if (!sampleBufferPromiseRef.current) {
+      sampleBufferPromiseRef.current = fetchAudioBuffer(
+        context,
+        REFERENCE_SAMPLE_URL
+      ).catch((error) => {
+        console.error('Failed to load harmonium reference sample', error);
+        return null;
+      });
+    }
+
+    return sampleBufferPromiseRef.current;
+  }, []);
+
+  const loadReferenceReverb = useCallback(
+    async (context: AudioContext) => {
+      if (!reverbBufferPromiseRef.current) {
+        reverbBufferPromiseRef.current = fetchAudioBuffer(
+          context,
+          REFERENCE_REVERB_URL
+        ).catch((error) => {
+          console.error('Failed to load harmonium reverb response', error);
+          return null;
+        });
       }
 
-      const loader = (async () => {
-        for (const extension of SAMPLE_EXTENSIONS) {
-          const response = await fetch(
-            `${SAMPLE_BASE_PATH}/${noteId}.${extension}`,
-            {
-              cache: 'force-cache',
-            }
-          ).catch(() => null);
-
-          if (!response?.ok) {
-            continue;
-          }
-
-          const buffer = await response.arrayBuffer();
-          return context.decodeAudioData(buffer.slice(0));
-        }
-
+      const buffer = await reverbBufferPromiseRef.current;
+      const reverbNode = reverbNodeRef.current;
+      if (!buffer || !reverbNode) {
         return null;
-      })();
+      }
 
-      sampleCacheRef.current.set(noteId, loader);
-      return loader;
+      reverbNode.buffer = buffer;
+      syncReverbRoute(settingsRef.current.reverbEnabled);
+      return buffer;
     },
-    []
+    [syncReverbRoute]
   );
 
   const stopNote = useCallback((noteId: string) => {
     const context = audioContextRef.current;
     const voice = voicesRef.current.get(noteId);
-    if (!context || !voice) {
+    requestedVoiceIdsRef.current.delete(noteId);
+    if (!voice) {
       return;
     }
 
-    voice.gain.gain.cancelScheduledValues(context.currentTime);
-    voice.gain.gain.setValueAtTime(
-      Math.max(voice.gain.gain.value, 0.0001),
-      context.currentTime
-    );
-    voice.gain.gain.exponentialRampToValueAtTime(
-      0.0001,
-      context.currentTime + 0.14
-    );
+    if (context) {
+      voice.gain.gain.cancelScheduledValues(context.currentTime);
+      voice.gain.gain.setValueAtTime(
+        Math.max(voice.gain.gain.value, 0.0001),
+        context.currentTime
+      );
+      voice.gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        context.currentTime + 0.03
+      );
+    }
 
     for (const source of voice.sources) {
-      source.stop(context.currentTime + 0.16);
+      try {
+        source.stop(context ? context.currentTime + 0.04 : 0);
+      } catch (error) {
+        console.error('Failed to stop harmonium note', error);
+      }
     }
 
     voicesRef.current.delete(noteId);
+    sustainedVoiceIdsRef.current.delete(noteId);
     setActiveNoteIds((current) => current.filter((id) => id !== noteId));
+
+    window.setTimeout(() => {
+      try {
+        voice.gain.disconnect();
+      } catch {
+        // Ignore disconnect races during teardown.
+      }
+    }, 120);
   }, []);
 
   const stopAllNotes = useCallback(() => {
+    requestedVoiceIdsRef.current.clear();
     for (const noteId of [...voicesRef.current.keys()]) {
       stopNote(noteId);
     }
+    sustainedVoiceIdsRef.current.clear();
   }, [stopNote]);
 
-  const startNote = useCallback(
-    async (note: NoteKey) => {
-      if (voicesRef.current.has(note.id)) {
+  const setMidiSustain = useCallback(
+    (enabled: boolean) => {
+      sustainEnabledRef.current = enabled;
+
+      if (enabled) {
+        return;
+      }
+
+      for (const voiceId of [...sustainedVoiceIdsRef.current]) {
+        stopNote(voiceId);
+      }
+      sustainedVoiceIdsRef.current.clear();
+    },
+    [stopNote]
+  );
+
+  const startVoice = useCallback(
+    async ({ voiceId, desiredMidi }: { voiceId: string; desiredMidi: number }) => {
+      requestedVoiceIdsRef.current.add(voiceId);
+      sustainedVoiceIdsRef.current.delete(voiceId);
+
+      if (voicesRef.current.has(voiceId)) {
         return;
       }
 
       const context = await ensureAudio();
-      const masterGain = masterGainRef.current;
-      if (!context || !masterGain) {
+      const gainNode = gainNodeRef.current;
+      if (!context || !gainNode) {
         return;
       }
 
-      const semitoneShift =
-        (settingsRef.current.octave - 4) * 12 + settingsRef.current.transpose;
-      const filter = context.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.value = 1900;
-      filter.Q.value = 0.8;
+      void loadReferenceReverb(context);
 
-      const gain = context.createGain();
-      gain.gain.setValueAtTime(0.0001, context.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.18, context.currentTime + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.13, context.currentTime + 0.12);
-      filter.connect(gain);
-      gain.connect(masterGain);
+      const voiceGain = context.createGain();
+      voiceGain.gain.value = 1;
+      voiceGain.connect(gainNode);
 
-      const sampleBuffer = await loadSampleBuffer(context, note.id);
-      if (sampleBuffer) {
-        const source = context.createBufferSource();
-        source.buffer = sampleBuffer;
-        source.playbackRate.value = getPitchRatio(semitoneShift);
-        source.connect(filter);
-        source.start();
+      const sampleBuffer = await loadReferenceSample(context);
 
-        voicesRef.current.set(note.id, {
-          sources: [source],
-          gain,
-        });
-        setPlaybackMode('samples');
-      } else {
-        const midi = 60 + note.offset + semitoneShift;
-        const frequency = 440 * 2 ** ((midi - 69) / 12);
-
-        const primary = context.createOscillator();
-        primary.type = 'sawtooth';
-        primary.frequency.value = frequency;
-
-        const body = context.createOscillator();
-        body.type = 'triangle';
-        body.frequency.value = frequency * 0.5;
-        body.detune.value = 3;
-
-        primary.connect(filter);
-        body.connect(filter);
-        primary.start();
-        body.start();
-
-        voicesRef.current.set(note.id, {
-          sources: [primary, body],
-          gain,
-        });
-        setPlaybackMode((current) =>
-          current === 'samples' ? current : 'oscillator'
-        );
+      if (
+        voicesRef.current.has(voiceId) ||
+        !requestedVoiceIdsRef.current.has(voiceId)
+      ) {
+        voiceGain.disconnect();
+        return;
       }
 
+      const sources: AudioScheduledSourceNode[] = [];
+
+      if (sampleBuffer) {
+        sources.push(
+          createReferenceSource({
+            buffer: sampleBuffer,
+            context,
+            destination: voiceGain,
+            midi: desiredMidi,
+          })
+        );
+
+        if (settingsRef.current.reedMode === 'double') {
+          sources.push(
+            createReferenceSource({
+              buffer: sampleBuffer,
+              context,
+              destination: voiceGain,
+              midi: desiredMidi + 12,
+            })
+          );
+        }
+
+        setPlaybackMode('samples');
+      } else {
+        const frequency = 440 * 2 ** ((desiredMidi - 69) / 12);
+
+        sources.push(
+          createFallbackSource({
+            context,
+            destination: voiceGain,
+            frequency,
+            type: 'sawtooth',
+          })
+        );
+        sources.push(
+          createFallbackSource({
+            context,
+            destination: voiceGain,
+            frequency: frequency * 0.5,
+            type: 'triangle',
+          })
+        );
+
+        if (settingsRef.current.reedMode === 'double') {
+          sources.push(
+            createFallbackSource({
+              context,
+              destination: voiceGain,
+              frequency: frequency * 2,
+              type: 'sawtooth',
+            })
+          );
+        }
+
+        setPlaybackMode('oscillator');
+      }
+
+      voicesRef.current.set(voiceId, {
+        gain: voiceGain,
+        sources,
+      });
+    },
+    [ensureAudio, loadReferenceReverb, loadReferenceSample]
+  );
+
+  const startNote = useCallback(
+    async (note: NoteKey) => {
+      await startVoice({
+        voiceId: note.id,
+        desiredMidi:
+          note.midi +
+          (settingsRef.current.octave - 4) * 12 +
+          settingsRef.current.transpose,
+      });
+    },
+    [startVoice]
+  );
+
+  const startMidiNote = useCallback(
+    async (voiceId: string, midi: number) => {
+      await startVoice({
+        voiceId,
+        desiredMidi: midi + settingsRef.current.transpose,
+      });
+    },
+    [startVoice]
+  );
+
+  const stopMidiNote = useCallback(
+    (voiceId: string) => {
+      if (sustainEnabledRef.current) {
+        sustainedVoiceIdsRef.current.add(voiceId);
+        return;
+      }
+
+      stopNote(voiceId);
+    },
+    [stopNote]
+  );
+
+  const wrappedStartNote = useCallback(
+    async (note: NoteKey) => {
+      await startNote(note);
       setActiveNoteIds((current) =>
         current.includes(note.id) ? current : [...current, note.id]
       );
     },
-    [ensureAudio, loadSampleBuffer]
+    [startNote]
+  );
+
+  const wrappedStopNote = useCallback(
+    (noteId: string) => {
+      stopNote(noteId);
+    },
+    [stopNote]
   );
 
   useEffect(() => {
@@ -224,8 +441,11 @@ export function useHarmoniumPlayer({
   return {
     activeNoteIds,
     playbackMode,
-    startNote,
-    stopNote,
+    setMidiSustain,
+    startMidiNote,
+    stopMidiNote,
+    startNote: wrappedStartNote,
+    stopNote: wrappedStopNote,
     stopAllNotes,
   };
 }

@@ -3,9 +3,12 @@
 import { useEffect, useState } from 'react';
 import {
   ArrowRight,
+  ChevronDown,
   Keyboard,
+  Layers3,
   NotebookPen,
   SlidersHorizontal,
+  Sparkles,
   Volume2,
 } from 'lucide-react';
 
@@ -13,7 +16,22 @@ import { Link } from '@/core/i18n/navigation';
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/lib/utils';
 
-import { NOTE_KEYS, STORAGE_KEY } from './constants';
+import {
+  BLACK_KEYCAP_HINT,
+  getNoteKeyByInput,
+  getOctaveOption,
+  KEYBOARD_HELP_GROUPS,
+  KEYBOARD_MIN_WIDTH,
+  NOTE_KEYS,
+  OCTAVE_OPTIONS,
+  STORAGE_KEY,
+  WHITE_KEYCAP_HINT,
+} from './constants';
+import { MidiPanel } from './midi-panel';
+import { PracticeSummaryCard } from './practice-summary-card';
+import { PracticeSettingsSnapshot } from './practice-workspace';
+import { useHarmoniumPractice } from './use-harmonium-practice';
+import { useMidiKeyboard } from './use-midi-keyboard';
 import { useHarmoniumPlayer } from './use-harmonium-player';
 
 type HomeCopy = {
@@ -45,14 +63,54 @@ export function HarmoniumHome({
   const [labelMode, setLabelMode] = useState<'western' | 'sargam'>('sargam');
   const [octave, setOctave] = useState(4);
   const [transpose, setTranspose] = useState(0);
-  const [volume, setVolume] = useState(0.45);
+  const [volume, setVolume] = useState(0.3);
+  const [reverbEnabled, setReverbEnabled] = useState(false);
+  const [reedMode, setReedMode] = useState<'single' | 'double'>('single');
+  const [midiInputId, setMidiInputId] = useState('');
+  const [showShortcutHelp, setShowShortcutHelp] = useState(false);
 
-  const { activeNoteIds, playbackMode, startNote, stopNote, stopAllNotes } =
-    useHarmoniumPlayer({
-      octave,
-      transpose,
-      volume,
+  const {
+    activeNoteIds,
+    playbackMode,
+    setMidiSustain,
+    startMidiNote,
+    startNote,
+    stopMidiNote,
+    stopNote,
+    stopAllNotes,
+  } = useHarmoniumPlayer({
+    octave,
+    transpose,
+    volume,
+    reverbEnabled,
+    reedMode,
+  });
+
+  const currentPracticeSettings: PracticeSettingsSnapshot = {
+    labelMode,
+    octave,
+    transpose,
+    reverbEnabled,
+    reedMode,
+  };
+
+  const { isAuthenticated, latestPreset, latestSession, syncStatus } =
+    useHarmoniumPractice({
+      currentSettings: currentPracticeSettings,
     });
+
+  const {
+    midiInputs,
+    refreshMidi,
+    selectedInputId,
+    setSelectedInputId,
+    supportState,
+  } = useMidiKeyboard({
+    onNoteOn: startMidiNote,
+    onNoteOff: stopMidiNote,
+    onSustainChange: setMidiSustain,
+    onVolumeChange: setVolume,
+  });
 
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
@@ -66,23 +124,55 @@ export function HarmoniumHome({
         octave?: number;
         transpose?: number;
         volume?: number;
+        reverbEnabled?: boolean;
+        reedMode?: 'single' | 'double';
+        midiInputId?: string;
       };
 
       if (parsed.labelMode) setLabelMode(parsed.labelMode);
-      if (typeof parsed.octave === 'number') setOctave(parsed.octave);
+      if (typeof parsed.octave === 'number') {
+        setOctave(getOctaveOption(parsed.octave).value);
+      }
       if (typeof parsed.transpose === 'number') setTranspose(parsed.transpose);
       if (typeof parsed.volume === 'number') setVolume(parsed.volume);
+      if (typeof parsed.reverbEnabled === 'boolean') {
+        setReverbEnabled(parsed.reverbEnabled);
+      }
+      if (parsed.reedMode) setReedMode(parsed.reedMode);
+      if (parsed.midiInputId) setMidiInputId(parsed.midiInputId);
     } catch (error) {
       console.error('Failed to read harmonium settings', error);
     }
   }, []);
 
   useEffect(() => {
+    if (midiInputId) {
+      setSelectedInputId(midiInputId);
+    }
+  }, [midiInputId, setSelectedInputId]);
+
+  useEffect(() => {
     window.localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ labelMode, octave, transpose, volume })
+      JSON.stringify({
+        labelMode,
+        octave,
+        transpose,
+        volume,
+        reverbEnabled,
+        reedMode,
+        midiInputId: selectedInputId,
+      })
     );
-  }, [labelMode, octave, transpose, volume]);
+  }, [
+    labelMode,
+    octave,
+    transpose,
+    volume,
+    reverbEnabled,
+    reedMode,
+    selectedInputId,
+  ]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -90,9 +180,7 @@ export function HarmoniumHome({
         return;
       }
 
-      const note = NOTE_KEYS.find(
-        (candidate) => candidate.keycap.toLowerCase() === event.key.toLowerCase()
-      );
+      const note = getNoteKeyByInput(event.key);
 
       if (!note) {
         return;
@@ -103,9 +191,7 @@ export function HarmoniumHome({
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
-      const note = NOTE_KEYS.find(
-        (candidate) => candidate.keycap.toLowerCase() === event.key.toLowerCase()
-      );
+      const note = getNoteKeyByInput(event.key);
 
       if (!note) {
         return;
@@ -130,6 +216,7 @@ export function HarmoniumHome({
 
   const whiteKeys = NOTE_KEYS.filter((note) => note.kind === 'white');
   const blackKeys = NOTE_KEYS.filter((note) => note.kind === 'black');
+  const octaveOption = getOctaveOption(octave);
 
   return (
     <main className="bg-[linear-gradient(180deg,#f8f1e6_0%,#f6efe6_30%,#fbfaf7_100%)] text-slate-950">
@@ -138,8 +225,8 @@ export function HarmoniumHome({
         className="relative overflow-hidden border-b border-black/5 pt-28 pb-16"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(190,124,62,0.18),transparent_32%),radial-gradient(circle_at_top_right,rgba(35,111,103,0.18),transparent_28%)]" />
-        <div className="container relative grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-          <div className="max-w-2xl space-y-6">
+        <div className="container relative max-w-[1500px] space-y-8">
+          <div className="max-w-3xl space-y-6">
             <span className="inline-flex items-center rounded-full border border-[#b77c4a]/20 bg-white/70 px-4 py-2 text-sm font-medium text-[#8f5f33] shadow-sm backdrop-blur">
               {copy.badge}
             </span>
@@ -148,8 +235,13 @@ export function HarmoniumHome({
               <h1 className="max-w-3xl text-4xl font-semibold text-balance sm:text-6xl">
                 {copy.title}
               </h1>
-              <p className="max-w-2xl text-lg leading-8 text-slate-700">
+              <p className="max-w-3xl text-lg leading-8 text-slate-700">
                 {copy.description}
+              </p>
+              <p className="max-w-3xl text-base leading-7 text-slate-600">
+                This Web Harmonium homepage explains the tool first, then opens
+                into a full play surface below so the instrument stays readable
+                and the keyboard remains the visual priority.
               </p>
             </div>
 
@@ -188,18 +280,21 @@ export function HarmoniumHome({
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#8f5f33]">
-                  Play Surface
+                  Web Harmonium play surface
                 </p>
                 <p className="mt-1 text-sm text-slate-600">
-                  Play with your keyboard or touch. Settings stay in local storage.
+                  Play with your keyboard or touch after the introduction above,
+                  while keeping the full keyboard visible below.
                 </p>
               </div>
               <div className="rounded-full border border-[#1f6b64]/15 bg-[#1f6b64]/8 px-3 py-2 text-sm text-[#1f6b64]">
-                {playbackMode === 'samples' ? 'Sample audio' : 'Oscillator fallback'}
+                {playbackMode === 'samples'
+                  ? 'Reference sample'
+                  : 'Fallback synth'}
               </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
               <ControlCard
                 icon={<Volume2 className="size-4" />}
                 title="Volume"
@@ -220,25 +315,28 @@ export function HarmoniumHome({
               <ControlCard
                 icon={<SlidersHorizontal className="size-4" />}
                 title="Octave"
-                value={`C${octave}`}
+                value={`C${octave} · ${octaveOption.description}`}
               >
-                <div className="flex gap-2">
-                  {[3, 4, 5].map((value) => (
+                <div className="flex flex-wrap gap-2">
+                  {OCTAVE_OPTIONS.map((option) => (
                     <button
-                      key={value}
+                      key={option.value}
                       type="button"
-                      onClick={() => setOctave(value)}
+                      onClick={() => setOctave(option.value)}
                       className={cn(
                         'rounded-full px-3 py-1 text-sm transition',
-                        octave === value
+                        octave === option.value
                           ? 'bg-[#1f6b64] text-white'
                           : 'bg-white text-slate-700 hover:bg-[#f0e0cf]'
                       )}
                     >
-                      {value}
+                      {option.shortLabel}
                     </button>
                   ))}
                 </div>
+                <p className="mt-3 text-xs leading-6 text-slate-500">
+                  Lower settings suit accompaniment and slower alap phrases. Higher settings keep melodic practice brighter and more cutting.
+                </p>
               </ControlCard>
 
               <ControlCard
@@ -260,6 +358,60 @@ export function HarmoniumHome({
                       )}
                     >
                       {value === 'sargam' ? 'Sargam' : 'Western'}
+                    </button>
+                  ))}
+                </div>
+              </ControlCard>
+
+              <ControlCard
+                icon={<Sparkles className="size-4" />}
+                title="Reverb"
+                value={reverbEnabled ? 'Room' : 'Dry'}
+              >
+                <div className="flex gap-2">
+                  {[
+                    { label: 'Dry', value: false },
+                    { label: 'Room', value: true },
+                  ].map((option) => (
+                    <button
+                      key={option.label}
+                      type="button"
+                      onClick={() => setReverbEnabled(option.value)}
+                      className={cn(
+                        'rounded-full px-3 py-1 text-sm transition',
+                        reverbEnabled === option.value
+                          ? 'bg-[#8f5f33] text-white'
+                          : 'bg-white text-slate-700 hover:bg-[#f0e0cf]'
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </ControlCard>
+
+              <ControlCard
+                icon={<Layers3 className="size-4" />}
+                title="Reeds"
+                value={reedMode === 'double' ? 'Double' : 'Single'}
+              >
+                <div className="flex gap-2">
+                  {[
+                    { label: 'Single', value: 'single' as const },
+                    { label: 'Double', value: 'double' as const },
+                  ].map((option) => (
+                    <button
+                      key={option.label}
+                      type="button"
+                      onClick={() => setReedMode(option.value)}
+                      className={cn(
+                        'rounded-full px-3 py-1 text-sm transition',
+                        reedMode === option.value
+                          ? 'bg-[#1f6b64] text-white'
+                          : 'bg-white text-slate-700 hover:bg-[#f0e0cf]'
+                      )}
+                    >
+                      {option.label}
                     </button>
                   ))}
                 </div>
@@ -296,8 +448,22 @@ export function HarmoniumHome({
                 </div>
               </div>
 
+              <MidiPanel
+                compact
+                midiInputs={midiInputs}
+                onRefresh={() => {
+                  void refreshMidi();
+                }}
+                onSelectedInputIdChange={setSelectedInputId}
+                selectedInputId={selectedInputId}
+                supportState={supportState}
+              />
+
               <div className="overflow-x-auto pb-2">
-                <div className="min-w-[680px] rounded-[1.75rem] bg-[#f7f1e8] p-3 shadow-inner">
+                <div
+                  className="rounded-[1.75rem] bg-[#f7f1e8] p-3 shadow-inner"
+                  style={{ minWidth: `${KEYBOARD_MIN_WIDTH}px` }}
+                >
                   <div className="relative h-64 overflow-hidden rounded-[1.4rem] border border-black/8 bg-[linear-gradient(180deg,#fbfaf8_0%,#f2eadf_100%)] px-3 pt-3 pb-4 sm:h-72">
                     <div className="absolute inset-x-0 top-0 h-6 bg-[radial-gradient(circle_at_top,rgba(183,124,74,0.24),transparent_70%)]" />
 
@@ -328,14 +494,14 @@ export function HarmoniumHome({
                             }}
                           >
                             <div>
-                              <p className="text-lg font-semibold text-slate-900">
+                              <p className="text-sm font-semibold text-slate-900 sm:text-base lg:text-lg">
                                 {labelMode === 'sargam' ? note.sargam : note.western}
                               </p>
-                              <p className="text-xs text-slate-500">
+                              <p className="text-[11px] text-slate-500 sm:text-xs">
                                 {labelMode === 'sargam' ? note.western : note.sargam}
                               </p>
                             </div>
-                            <span className="rounded-full bg-slate-950/6 px-2 py-1 text-xs font-medium text-slate-600">
+                            <span className="rounded-full bg-slate-950/6 px-2 py-1 text-[10px] font-medium text-slate-600 sm:text-xs">
                               {note.keycap}
                             </span>
                           </button>
@@ -344,7 +510,8 @@ export function HarmoniumHome({
 
                       {blackKeys.map((note) => {
                         const width = 100 / whiteKeys.length;
-                        const left = (note.whiteIndex + 1) * width - width * 0.3;
+                        const blackWidth = width * 0.62;
+                        const left = (note.whiteIndex + 1) * width - blackWidth / 2;
 
                         return (
                           <button
@@ -358,22 +525,25 @@ export function HarmoniumHome({
                             onPointerLeave={() => stopNote(note.id)}
                             onPointerCancel={() => stopNote(note.id)}
                             className={cn(
-                              'absolute top-0 z-10 flex h-[58%] w-[12%] flex-col justify-between rounded-b-[1rem] border border-black/10 px-2 pt-3 pb-2 text-left shadow-[0_14px_30px_rgba(15,23,42,0.24)] transition',
+                              'absolute top-0 z-10 flex h-[58%] flex-col justify-between rounded-b-[1rem] border border-black/10 px-2 pt-3 pb-2 text-left shadow-[0_14px_30px_rgba(15,23,42,0.24)] transition',
                               activeNoteIds.includes(note.id)
                                 ? 'bg-[linear-gradient(180deg,#16655e_0%,#0e3f3b_100%)]'
                                 : 'bg-[linear-gradient(180deg,#334155_0%,#111827_100%)]'
                             )}
-                            style={{ left: `${left}%` }}
+                            style={{
+                              left: `${left}%`,
+                              width: `${blackWidth}%`,
+                            }}
                           >
                             <div>
-                              <p className="text-sm font-semibold text-white">
+                              <p className="text-xs font-semibold text-white sm:text-sm">
                                 {labelMode === 'sargam' ? note.sargam : note.western}
                               </p>
-                              <p className="text-[11px] text-white/70">
+                              <p className="text-[10px] text-white/70 sm:text-[11px]">
                                 {labelMode === 'sargam' ? note.western : note.sargam}
                               </p>
                             </div>
-                            <span className="rounded-full bg-white/12 px-2 py-1 text-[11px] font-medium text-white/80">
+                            <span className="rounded-full bg-white/12 px-2 py-1 text-[10px] font-medium text-white/80 sm:text-[11px]">
                               {note.keycap}
                             </span>
                           </button>
@@ -386,19 +556,91 @@ export function HarmoniumHome({
 
               <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-600">
                 <span className="rounded-full bg-white/70 px-3 py-1.5">
-                  White keys: A S D F G H J K
+                  {WHITE_KEYCAP_HINT}
                 </span>
                 <span className="rounded-full bg-white/70 px-3 py-1.5">
-                  Black keys: W E T Y U
+                  {BLACK_KEYCAP_HINT}
                 </span>
                 <span className="rounded-full bg-white/70 px-3 py-1.5">
-                  Swipe horizontally on smaller screens.
+                  Scroll horizontally on smaller screens to access the full 23-key range.
                 </span>
+              </div>
+
+              <div className="mt-4 rounded-[1.5rem] border border-black/7 bg-white/75 p-4 shadow-sm">
+                <button
+                  type="button"
+                  onClick={() => setShowShortcutHelp((current) => !current)}
+                  className="flex w-full items-center justify-between gap-3 text-left"
+                  aria-expanded={showShortcutHelp}
+                >
+                  <div>
+                    <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#8f5f33]">
+                      Desktop shortcuts
+                    </p>
+                    <p className="mt-1 text-sm text-slate-600">
+                      Quick help for the expanded 23-key layout.
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-[#1f6b64]/10 px-3 py-2 text-sm font-medium text-[#1f6b64]">
+                    {showShortcutHelp ? 'Hide map' : 'Show map'}
+                    <ChevronDown
+                      className={cn(
+                        'size-4 transition-transform',
+                        showShortcutHelp ? 'rotate-180' : ''
+                      )}
+                    />
+                  </span>
+                </button>
+
+                {showShortcutHelp ? (
+                  <div className="mt-4 grid gap-3 md:grid-cols-3">
+                    {KEYBOARD_HELP_GROUPS.map((group) => (
+                      <div
+                        key={group.title}
+                        className="rounded-[1.2rem] border border-black/6 bg-[#fcfaf6] p-4"
+                      >
+                        <p className="text-sm font-semibold text-slate-900">
+                          {group.title}
+                        </p>
+                        <p className="mt-1 text-xs leading-6 text-slate-600">
+                          {group.description}
+                        </p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {group.notes.map((note) => (
+                            <span
+                              key={note.id}
+                              className={cn(
+                                'inline-flex min-w-11 items-center justify-center rounded-full px-3 py-1.5 text-xs font-medium',
+                                note.kind === 'white'
+                                  ? 'bg-[#efe3d5] text-slate-700'
+                                  : 'bg-slate-900 text-white'
+                              )}
+                            >
+                              {note.keycap}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <section className="border-b border-black/5 py-16">
+        <div className="container">
+          <PracticeSummaryCard
+            isAuthenticated={isAuthenticated}
+            latestPreset={latestPreset}
+            latestSession={latestSession}
+            syncStatus={syncStatus}
+          />
+        </div>
+      </section>
+
       <section className="border-b border-black/5 py-16">
         <div className="container grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="space-y-4">

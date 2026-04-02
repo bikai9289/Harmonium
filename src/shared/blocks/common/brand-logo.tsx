@@ -4,6 +4,10 @@ import { Link } from '@/core/i18n/navigation';
 import { Brand as BrandType } from '@/shared/types/blocks/common';
 
 export function BrandLogo({ brand }: { brand: BrandType }) {
+  const logoSrc = brand.logo?.src || '';
+  const shouldBypassOptimizer =
+    logoSrc.startsWith('/') || logoSrc.startsWith('http');
+
   return (
     <Link
       href={brand.url || ''}
@@ -12,12 +16,12 @@ export function BrandLogo({ brand }: { brand: BrandType }) {
     >
       {brand.logo && (
         <Image
-          src={brand.logo.src}
+          src={logoSrc}
           alt={brand.logo.alt || brand.title || 'Logo'}
           width={brand.logo.width || 80}
           height={brand.logo.height || 80}
           className="h-8 w-auto rounded-lg"
-          unoptimized={brand.logo.src.startsWith('http')}
+          unoptimized={shouldBypassOptimizer}
         />
       )}
       {brand.title && (
