@@ -101,6 +101,10 @@
           "title": "Company",
           "children": [
             {
+              "title": "Contact",
+              "url": "mailto:support@playharmonium.com"
+            },
+            {
               "title": "Privacy Policy",
               "url": "/privacy-policy"
             },
@@ -118,6 +122,10 @@
     "agreement": {
       "items": [
         {
+          "title": "Contact",
+          "url": "mailto:support@playharmonium.com"
+        },
+        {
           "title": "Privacy Policy",
           "url": "/privacy-policy"
         },
@@ -131,4 +139,3 @@
     "show_locale": false
   }
 }
-
