@@ -7,6 +7,7 @@ import { db } from '@/core/db';
 import { logsSource, pagesSource, postsSource } from '@/core/docs/source';
 import { generateTOC } from '@/core/docs/toc';
 import { post } from '@/config/db/schema';
+import { defaultLocale } from '@/config/locale';
 import { MarkdownContent } from '@/shared/blocks/common/markdown-content';
 import {
   Category as BlogCategoryType,
@@ -288,7 +289,7 @@ export async function getLocalPage({
     author_name: frontmatter.author_name || '',
     author_image: frontmatter.author_image || '',
     author_role: '',
-    url: `/${locale}/${slug}`,
+    url: `${locale === defaultLocale ? '' : `/${locale}`}/${slug}`,
   };
 
   return post;

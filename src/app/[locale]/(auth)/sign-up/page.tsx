@@ -38,6 +38,10 @@ export async function generateMetadata({
           ? `${envConfigs.app_url}/${locale}/sign-up`
           : `${envConfigs.app_url}/sign-up`,
     },
+    robots: {
+      index: false,
+      follow: false,
+    },
   };
 }
 

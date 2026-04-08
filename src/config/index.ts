@@ -19,8 +19,16 @@ if (
 
 export type ConfigMap = Record<string, string>;
 
+const normalizedAppUrl = (
+  process.env.NEXT_PUBLIC_APP_URL ?? 'https://playharmonium.com'
+).replace(/\/$/, '');
+
+const normalizedAuthUrl = (
+  process.env.AUTH_URL || process.env.NEXT_PUBLIC_APP_URL || normalizedAppUrl
+).replace(/\/$/, '');
+
 export const envConfigs: ConfigMap = {
-  app_url: process.env.NEXT_PUBLIC_APP_URL ?? 'https://playharmonium.com',
+  app_url: normalizedAppUrl,
   app_name: process.env.NEXT_PUBLIC_APP_NAME ?? 'Play Harmonium',
   app_description:
     process.env.NEXT_PUBLIC_APP_DESCRIPTION ??
@@ -49,7 +57,7 @@ export const envConfigs: ConfigMap = {
     process.env.DB_MIGRATIONS_OUT ?? './src/config/db/migrations',
   db_singleton_enabled: process.env.DB_SINGLETON_ENABLED || 'false',
   db_max_connections: process.env.DB_MAX_CONNECTIONS || '1',
-  auth_url: process.env.AUTH_URL || process.env.NEXT_PUBLIC_APP_URL || '',
+  auth_url: normalizedAuthUrl,
   auth_secret: process.env.AUTH_SECRET ?? '', // openssl rand -base64 32
   version: packageJson.version,
   locale_detect_enabled:

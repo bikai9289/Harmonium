@@ -21,6 +21,10 @@ export async function generateMetadata({
           ? `${envConfigs.app_url}/${locale}/verify-email`
           : `${envConfigs.app_url}/verify-email`,
     },
+    robots: {
+      index: false,
+      follow: false,
+    },
   };
 }
 

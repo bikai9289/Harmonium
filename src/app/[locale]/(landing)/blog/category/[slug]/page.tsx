@@ -1,9 +1,9 @@
+import { notFound } from 'next/navigation';
 import moment from 'moment';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { getThemePage } from '@/core/theme';
 import { envConfigs } from '@/config';
-import { Empty } from '@/shared/blocks/common';
 import {
   PostType as DBPostType,
   getPosts,
@@ -30,9 +30,17 @@ export async function generateMetadata({
 }) {
   const { locale, slug } = await params;
   const t = await getTranslations('pages.blog.metadata');
+  const category = await findTaxonomy({
+    slug,
+    status: TaxonomyStatus.PUBLISHED,
+  });
+
+  if (!category) {
+    notFound();
+  }
 
   return {
-    title: `${slug} | ${t('title')}`,
+    title: `${category.title} | ${t('title')}`,
     description: t('description'),
     alternates: {
       canonical:
@@ -66,7 +74,7 @@ export default async function CategoryBlogPage({
     status: TaxonomyStatus.PUBLISHED,
   });
   if (!categoryData) {
-    return <Empty message={`category not found`} />;
+    notFound();
   }
 
   // get posts data

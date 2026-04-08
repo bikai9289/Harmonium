@@ -1,5 +1,6 @@
 import '@/config/style/global.css';
 
+import type { Metadata } from 'next';
 import { JetBrains_Mono, Merriweather, Noto_Sans_Mono } from 'next/font/google';
 import { getLocale, setRequestLocale } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
@@ -34,6 +35,10 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
   preload: true,
 });
+
+export const metadata: Metadata = {
+  metadataBase: new URL(envConfigs.app_url),
+};
 
 export default async function RootLayout({
   children,
@@ -127,6 +132,7 @@ export default async function RootLayout({
                 href={`${appUrl}${loc === 'en' ? '' : `/${loc}`}`}
               />
             ))}
+            <link rel="alternate" hrefLang="x-default" href={appUrl} />
           </>
         ) : null}
 
