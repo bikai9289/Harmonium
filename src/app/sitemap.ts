@@ -31,6 +31,24 @@ function buildAbsoluteUrl(path: string) {
   return `${appUrl}${path === '/' ? '' : path}`;
 }
 
+function normalizePublicPath(path: string) {
+  if (!path.startsWith('/')) {
+    return `/${path}`;
+  }
+
+  if (defaultLocale === 'en') {
+    if (path === `/${defaultLocale}`) {
+      return '/';
+    }
+
+    if (path.startsWith(`/${defaultLocale}/`)) {
+      return path.slice(defaultLocale.length + 1) || '/';
+    }
+  }
+
+  return path;
+}
+
 function parseLastModified(value: unknown, fallback: Date) {
   if (value instanceof Date && !Number.isNaN(value.getTime())) {
     return value;
@@ -60,8 +78,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   for (const page of pagesSource.getPages(defaultLocale)) {
-    sitemapEntries.set(page.url, {
-      url: buildAbsoluteUrl(page.url),
+    const pagePath = normalizePublicPath(page.url);
+    sitemapEntries.set(pagePath, {
+      url: buildAbsoluteUrl(pagePath),
       lastModified: parseLastModified((page.data as any).created_at, now),
       changeFrequency: 'monthly',
       priority: 0.3,
@@ -69,8 +88,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   for (const post of postsSource.getPages(defaultLocale)) {
-    sitemapEntries.set(post.url, {
-      url: buildAbsoluteUrl(post.url),
+    const postPath = normalizePublicPath(post.url);
+    sitemapEntries.set(postPath, {
+      url: buildAbsoluteUrl(postPath),
       lastModified: parseLastModified((post.data as any).created_at, now),
       changeFrequency: 'monthly',
       priority: 0.7,
