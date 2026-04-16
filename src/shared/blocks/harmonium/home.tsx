@@ -40,6 +40,7 @@ type HomeCopy = {
   description: string;
   primaryCta: string;
   secondaryCta: string;
+  secondaryHref?: string;
   trust: string[];
   featureTitle: string;
   featureDescription: string;
@@ -226,19 +227,19 @@ export function HarmoniumHome({
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(190,124,62,0.18),transparent_32%),radial-gradient(circle_at_top_right,rgba(35,111,103,0.18),transparent_28%)]" />
         <div className="container relative max-w-[1500px] space-y-8">
-          <div className="max-w-3xl space-y-6">
+          <div className="space-y-6">
             <span className="inline-flex items-center rounded-full border border-[#b77c4a]/20 bg-white/70 px-4 py-2 text-sm font-medium text-[#8f5f33] shadow-sm backdrop-blur">
               {copy.badge}
             </span>
 
             <div className="space-y-4">
-              <h1 className="max-w-3xl text-4xl font-semibold text-balance sm:text-6xl">
+              <h1 className="w-full max-w-[18ch] text-4xl font-semibold leading-[0.96] text-balance sm:max-w-[20ch] sm:text-6xl 2xl:max-w-[24ch]">
                 {copy.title}
               </h1>
-              <p className="max-w-3xl text-lg leading-8 text-slate-700">
+              <p className="w-full max-w-[90rem] text-lg leading-8 text-slate-700 text-pretty">
                 {copy.description}
               </p>
-              <p className="max-w-3xl text-base leading-7 text-slate-600">
+              <p className="w-full max-w-[90rem] text-base leading-7 text-slate-600 text-pretty">
                 This Web Harmonium homepage explains the tool first, then opens
                 into a full play surface below so the instrument stays readable
                 and the keyboard remains the visual priority.
@@ -257,7 +258,12 @@ export function HarmoniumHome({
                 variant="outline"
                 className="border-[#b77c4a]/30 bg-white/75 px-5 text-[#7f4e2a]"
               >
-                <Link href="/blog" title="Read Web Harmonium guides and tips">{copy.secondaryCta}</Link>
+                <Link
+                  href={copy.secondaryHref || '/blog'}
+                  title="Open the next learning step"
+                >
+                  {copy.secondaryCta}
+                </Link>
               </Button>
             </div>
 
@@ -271,6 +277,29 @@ export function HarmoniumHome({
                 </span>
               ))}
             </div>
+
+            {locale === 'en' ? (
+              <div className="grid gap-4 pt-2 md:grid-cols-3">
+                <QuickStartLink
+                  description="Open the full keyboard immediately if you already know the note map."
+                  href="/keyboard"
+                  icon={<Keyboard className="size-5" />}
+                  title="Play"
+                />
+                <QuickStartLink
+                  description="Review note labels, shortcuts, and beginner patterns before you start."
+                  href="/notes"
+                  icon={<NotebookPen className="size-5" />}
+                  title="Notes"
+                />
+                <QuickStartLink
+                  description="Follow highlighted notes with a guided lesson and autoplay demo."
+                  href="/tutorial"
+                  icon={<Sparkles className="size-5" />}
+                  title="Tutorial"
+                />
+              </div>
+            ) : null}
           </div>
 
           <div
@@ -842,5 +871,34 @@ function ControlCard({
       <p className="mb-3 text-sm font-medium text-slate-800">{title}</p>
       {children}
     </div>
+  );
+}
+
+function QuickStartLink({
+  description,
+  href,
+  icon,
+  title,
+}: {
+  description: string;
+  href: string;
+  icon: React.ReactNode;
+  title: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group rounded-[1.4rem] border border-black/7 bg-white/82 p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+    >
+      <div className="inline-flex rounded-full bg-[#1f6b64]/10 p-3 text-[#1f6b64]">
+        {icon}
+      </div>
+      <h2 className="mt-4 text-lg font-semibold text-slate-950">{title}</h2>
+      <p className="mt-2 text-sm leading-7 text-slate-600">{description}</p>
+      <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-[#1f6b64]">
+        Open
+        <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+      </span>
+    </Link>
   );
 }

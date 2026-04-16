@@ -16,20 +16,21 @@ export const generateMetadata = getMetadata({
 
 const copy = {
   en: {
-    badge: 'Web Harmonium practice tool',
-    title: 'Web Harmonium Online for Daily Practice',
+    badge: 'No sign-up required',
+    title: 'Play Web Harmonium Online, Then Learn It Fast',
     description:
-      'Play Web Harmonium online with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and quick settings for daily practice.',
+      'Play Web Harmonium online with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and a clearer path into notes and tutorial practice.',
     primaryCta: 'Start Playing',
-    secondaryCta: 'Read Guides',
+    secondaryCta: 'Start Tutorial',
+    secondaryHref: '/tutorial',
     trust: [
-      'No download required',
+      'No sign-up required',
       'Works on desktop and mobile',
-      'Built for practice-first SEO traffic',
+      'Notes and tutorial included',
     ],
     featureTitle: 'Why people search Web Harmonium',
     featureDescription:
-      'People searching for Web Harmonium want an instrument they can use immediately. A strong Web Harmonium landing page should feel like a useful practice surface, not a gated SaaS dashboard.',
+      'People searching for Web Harmonium want an instrument they can use immediately, plus a fast path into note learning. A strong landing page should feel like a playable tool with an obvious next step.',
     features: [
       {
         title: 'Instant interaction',
@@ -52,22 +53,22 @@ const copy = {
       'Use a few practical pages to cover adjacent intent while the homepage targets the main Web Harmonium keyword cluster and the exact Web Harmonium phrase.',
     guides: [
       {
-        title: 'How to play Web Harmonium online for free',
+        title: 'Web Harmonium notes and key mapping',
+        href: '/notes',
+        description:
+          'Review the 23-key layout, shortcut map, and Sargam-to-western note relationships on one page.',
+      },
+      {
+        title: 'Guided tutorial mode for beginners',
+        href: '/tutorial',
+        description:
+          'Practice with highlighted target notes, autoplay demos, and simple note matching.',
+      },
+      {
+        title: 'Beginner-friendly Web Harmonium guides',
         href: '/blog/how-to-play-harmonium-online-for-free',
         description:
-          'A beginner-friendly walkthrough for first-time visitors who need context before they play.',
-      },
-      {
-        title: 'Web Harmonium keyboard notes for beginners',
-        href: '/blog/harmonium-keyboard-notes-for-beginners',
-        description:
-          'Map the visual keys to note names and common practice patterns for SEO and retention.',
-      },
-      {
-        title: 'Sargam notes guide for Web Harmonium practice',
-        href: '/blog/harmonium-keyboard-notes-for-beginners',
-        description:
-          'Bridge western note labels and Indian notation so the tool feels useful for both audiences.',
+          'Add broader context and practice tips once the user already understands the instrument.',
       },
     ],
     faqTitle: 'Web Harmonium FAQ',
@@ -81,6 +82,11 @@ const copy = {
         question: 'Do I need an account to use the harmonium?',
         answer:
           'No account is needed for the core experience. Authentication and paid features can be layered in later if the traffic sustains.',
+      },
+      {
+        question: 'Where should a new player start first?',
+        answer:
+          'Start on the notes page if you want the key map first, or use tutorial mode if you want a guided phrase to follow right away.',
       },
       {
         question: 'Why include Sargam and transpose controls on the homepage?',

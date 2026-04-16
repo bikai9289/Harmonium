@@ -17,6 +17,8 @@ const staticRoutes: Array<{
 }> = [
   { path: '/', changeFrequency: 'daily', priority: 1 },
   { path: '/keyboard', changeFrequency: 'daily', priority: 0.9 },
+  { path: '/notes', changeFrequency: 'weekly', priority: 0.85 },
+  { path: '/tutorial', changeFrequency: 'weekly', priority: 0.85 },
   { path: '/blog', changeFrequency: 'weekly', priority: 0.8 },
   { path: '/pricing', changeFrequency: 'weekly', priority: 0.8 },
   { path: '/showcases', changeFrequency: 'weekly', priority: 0.7 },

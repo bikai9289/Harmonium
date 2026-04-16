@@ -19,17 +19,17 @@
           "icon": "Music"
         },
         {
-          "title": "Features",
-          "url": "/#features",
+          "title": "Notes",
+          "url": "/notes",
+          "icon": "NotebookPen"
+        },
+        {
+          "title": "Tutorial",
+          "url": "/tutorial",
           "icon": "Sparkles"
         },
         {
-          "title": "FAQ",
-          "url": "/#faq",
-          "icon": "CircleHelp"
-        },
-        {
-          "title": "Blog",
+          "title": "Guides",
           "url": "/blog",
           "icon": "Newspaper"
         }
@@ -81,6 +81,14 @@
             {
               "title": "Play Online",
               "url": "/keyboard"
+            },
+            {
+              "title": "Notes",
+              "url": "/notes"
+            },
+            {
+              "title": "Tutorial",
+              "url": "/tutorial"
             }
           ]
         },
@@ -88,7 +96,7 @@
           "title": "Resources",
           "children": [
             {
-              "title": "Blog",
+              "title": "Guides",
               "url": "/blog"
             },
             {
