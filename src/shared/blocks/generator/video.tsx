@@ -816,7 +816,7 @@ export function VideoGenerator({
                         {t('credits_remaining', { credits: remainingCredits })}
                       </span>
                     </div>
-                    <Link href="/pricing">
+                    <Link href="/keyboard">
                       <Button variant="outline" className="w-full" size="lg">
                         <CreditCard className="mr-2 h-4 w-4" />
                         {t('buy_credits')}

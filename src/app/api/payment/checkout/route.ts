@@ -217,7 +217,7 @@ export async function POST(req: Request) {
         ...(metadata || {}),
       },
       successUrl: `${configs.app_url}/api/payment/callback?order_no=${orderNo}`,
-      cancelUrl: `${callbackBaseUrl}/pricing`,
+      cancelUrl: `${callbackBaseUrl}/keyboard`,
     };
 
     // checkout with predefined product

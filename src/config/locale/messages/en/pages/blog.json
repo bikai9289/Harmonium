@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Web Harmonium Blog | Play Harmonium",
-    "description": "Read web harmonium guides, beginner tips, keyboard explainers, and product updates from Play Harmonium."
+    "description": "Read web harmonium guides, beginner tips, keyboard explainers, Sargam notes, MIDI setup, and vocal practice ideas."
   },
   "page": {
     "title": "Web Harmonium Blog | Play Harmonium",
@@ -9,7 +9,7 @@
       "blog": {
         "id": "blog",
         "title": "Web Harmonium Blog | Play Harmonium",
-        "description": "Read web harmonium practice guides, keyboard note explainers, and launch updates from Play Harmonium."
+        "description": "Read web harmonium practice guides, keyboard note explainers, Sargam lessons, MIDI setup, and vocal warm-up ideas."
       }
     }
   },
@@ -20,5 +20,3 @@
     "toc": "Table of Contents"
   }
 }
-
-

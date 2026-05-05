@@ -68,7 +68,7 @@ export async function GET(req: Request) {
         : `${envConfigs.app_url}/settings/payments`);
   } catch (e: any) {
     console.log('checkout callback failed:', e);
-    redirectUrl = `${envConfigs.app_url}/pricing`;
+    redirectUrl = `${envConfigs.app_url}/keyboard`;
   }
 
   redirect(redirectUrl);

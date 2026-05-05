@@ -119,18 +119,7 @@ export default async function CreditsPage({
 
   return (
     <div className="space-y-8">
-      <PanelCard
-        title={t('view.title')}
-        buttons={[
-          {
-            title: t('view.buttons.purchase'),
-            url: '/pricing',
-            target: '_blank',
-            icon: 'Coins',
-          },
-        ]}
-        className="max-w-md"
-      >
+      <PanelCard title={t('view.title')} className="max-w-md">
         <div className="text-primary text-3xl font-bold">
           {remainingCredits}
         </div>

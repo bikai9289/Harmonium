@@ -1,15 +1,15 @@
 {
   "metadata": {
-    "title": "博客",
-    "description": "阅读我们最新的产品功能、解决方案和更新内容。"
+    "title": "Web Harmonium 教程 | Play Harmonium",
+    "description": "阅读 web harmonium 教程、键盘音名、Sargam、MIDI 设置和声乐练习指南。"
   },
   "page": {
-    "title": "ShipAny 博客",
+    "title": "Web Harmonium 教程 | Play Harmonium",
     "sections": {
       "blog": {
         "id": "blog",
-        "title": "博客",
-        "description": "阅读我们最新的产品功能、解决方案和更新内容。"
+        "title": "Web Harmonium 教程 | Play Harmonium",
+        "description": "阅读 web harmonium 练习指南、键盘音名、Sargam、MIDI 设置和声乐热身内容。"
       }
     }
   },

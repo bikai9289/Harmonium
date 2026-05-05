@@ -621,7 +621,7 @@ export function MusicGenerator({ className, srOnlyTitle }: SongGeneratorProps) {
                         credits: user?.credits?.remainingCredits || 0,
                       })}
                     </span>
-                    <Link href="/pricing">
+                    <Link href="/keyboard">
                       <Button className="w-full" size="lg" variant="outline">
                         <CreditCard className="size-4" />{' '}
                         {t('generator.buy_credits')}

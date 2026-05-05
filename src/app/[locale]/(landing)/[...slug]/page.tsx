@@ -7,6 +7,23 @@ import { getLocalPage } from '@/shared/models/post';
 
 export const revalidate = 3600;
 
+const BLOCKED_PUBLIC_SLUGS = new Set([
+  'pricing',
+  'showcases',
+  'updates',
+  'ai-image-generator',
+  'ai-music-generator',
+  'ai-video-generator',
+]);
+
+function normalizeSlug(slug: string | string[]) {
+  return typeof slug === 'string' ? slug : slug.join('/') || '';
+}
+
+function isBlockedPublicSlug(slug: string | string[]) {
+  return BLOCKED_PUBLIC_SLUGS.has(normalizeSlug(slug));
+}
+
 // dynamic page metadata
 export async function generateMetadata({
   params,
@@ -14,6 +31,10 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+
+  if (isBlockedPublicSlug(slug)) {
+    notFound();
+  }
 
   // metadata values
   let title = '';
@@ -24,8 +45,7 @@ export async function generateMetadata({
   // content/pages/**/*.mdx
 
   // static page slug
-  const staticPageSlug =
-    typeof slug === 'string' ? slug : (slug as string[]).join('/') || '';
+  const staticPageSlug = normalizeSlug(slug);
 
   // filter invalid slug
   if (staticPageSlug.includes('.')) {
@@ -102,12 +122,15 @@ export default async function DynamicPage({
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
+  if (isBlockedPublicSlug(slug)) {
+    return notFound();
+  }
+
   // 1. try to get static page from
   // content/pages/**/*.mdx
 
   // static page slug
-  const staticPageSlug =
-    typeof slug === 'string' ? slug : (slug as string[]).join('/') || '';
+  const staticPageSlug = normalizeSlug(slug);
 
   // filter invalid slug
   if (staticPageSlug.includes('.')) {

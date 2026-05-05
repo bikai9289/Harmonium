@@ -20,12 +20,6 @@ const staticRoutes: Array<{
   { path: '/notes', changeFrequency: 'weekly', priority: 0.85 },
   { path: '/tutorial', changeFrequency: 'weekly', priority: 0.85 },
   { path: '/blog', changeFrequency: 'weekly', priority: 0.8 },
-  { path: '/pricing', changeFrequency: 'weekly', priority: 0.8 },
-  { path: '/showcases', changeFrequency: 'weekly', priority: 0.7 },
-  { path: '/updates', changeFrequency: 'weekly', priority: 0.7 },
-  { path: '/ai-image-generator', changeFrequency: 'weekly', priority: 0.7 },
-  { path: '/ai-music-generator', changeFrequency: 'weekly', priority: 0.7 },
-  { path: '/ai-video-generator', changeFrequency: 'weekly', priority: 0.7 },
 ];
 
 function buildAbsoluteUrl(path: string) {

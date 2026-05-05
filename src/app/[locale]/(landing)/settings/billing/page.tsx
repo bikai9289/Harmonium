@@ -197,15 +197,6 @@ export default async function BillingPage({
 
   let buttons: ButtonType[] = [];
   if (currentSubscription) {
-    buttons = [
-      {
-        title: t('view.buttons.adjust'),
-        url: '/pricing',
-        target: '_blank',
-        icon: 'Pencil',
-        size: 'sm',
-      },
-    ];
     if (currentSubscription.paymentUserId) {
       buttons.push({
         title: t('view.buttons.manage'),
@@ -216,16 +207,6 @@ export default async function BillingPage({
         variant: 'outline',
       });
     }
-  } else {
-    buttons = [
-      {
-        title: t('view.buttons.subscribe'),
-        url: '/pricing',
-        target: '_blank',
-        icon: 'ArrowUpRight',
-        size: 'sm',
-      },
-    ];
   }
 
   return (
