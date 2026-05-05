@@ -76,7 +76,7 @@ export function MidiPanel({
           </p>
         </div>
 
-        <span className="inline-flex items-center gap-2 rounded-full bg-[#1f6b64]/10 px-3 py-2 text-sm font-medium text-[#1f6b64]">
+        <span className="inline-flex items-center gap-2 rounded-full bg-[#8b2e2e]/10 px-3 py-2 text-sm font-medium text-[#8b2e2e]">
           <Cable className="size-4" />
           {getStatusLabel(supportState, midiInputs.length)}
         </span>
@@ -102,7 +102,7 @@ export function MidiPanel({
             <select
               value={selectedInputId}
               onChange={(event) => onSelectedInputIdChange(event.target.value)}
-              className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#1f6b64]/40"
+              className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#8b2e2e]/40"
             >
               {midiInputs.length ? null : (
                 <option value="">No MIDI devices detected</option>

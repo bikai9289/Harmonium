@@ -1,7 +1,8 @@
 'use client';
 
-import { NOTE_KEYS, NoteKey } from './constants';
 import { cn } from '@/shared/lib/utils';
+
+import { NOTE_KEYS, NoteKey } from './constants';
 
 export function TutorialKeyboard({
   activeNoteIds,
@@ -45,9 +46,9 @@ export function TutorialKeyboard({
                   className={cn(
                     'absolute top-0 bottom-0 flex flex-col justify-between rounded-b-[1.3rem] border px-2 pt-4 pb-3 text-left transition',
                     isActive
-                      ? 'border-[#f3bf6c] bg-[linear-gradient(180deg,#fff4df_0%,#f6d5a2_100%)]'
+                      ? 'border-[#c8633a] bg-[linear-gradient(180deg,#fff0e5_0%,#efc09a_100%)]'
                       : 'border-white/15 bg-[linear-gradient(180deg,#ffffff_0%,#eef2f8_100%)]',
-                    isHighlighted ? 'ring-4 ring-[#f3bf6c]/45' : ''
+                    isHighlighted ? 'ring-4 ring-[#c8633a]/35' : ''
                   )}
                   style={{
                     left: `${note.whiteIndex * width}%`,
@@ -94,9 +95,9 @@ export function TutorialKeyboard({
                   className={cn(
                     'absolute top-0 z-10 flex h-[60%] flex-col justify-between rounded-b-[1.1rem] border px-2 pt-3 pb-2 text-left transition',
                     isActive
-                      ? 'border-[#f3bf6c]/60 bg-[linear-gradient(180deg,#e88d09_0%,#8a4d00_100%)]'
+                      ? 'border-[#c8633a]/60 bg-[linear-gradient(180deg,#c8633a_0%,#7d3320_100%)]'
                       : 'border-white/10 bg-[linear-gradient(180deg,#25354a_0%,#0a111d_100%)]',
-                    isHighlighted ? 'ring-4 ring-[#f3bf6c]/45' : ''
+                    isHighlighted ? 'ring-4 ring-[#c8633a]/35' : ''
                   )}
                   style={{
                     left: `${left}%`,

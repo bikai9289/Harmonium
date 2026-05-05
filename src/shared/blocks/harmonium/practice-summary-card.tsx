@@ -97,7 +97,7 @@ export function PracticeSummaryCard({
           </p>
         </div>
 
-        <span className="inline-flex items-center gap-2 rounded-full bg-[#1f6b64]/10 px-3 py-2 text-sm font-medium text-[#1f6b64]">
+        <span className="inline-flex items-center gap-2 rounded-full bg-[#8b2e2e]/10 px-3 py-2 text-sm font-medium text-[#8b2e2e]">
           <SyncIcon className="size-4" />
           {syncCopy.label}
         </span>
@@ -146,9 +146,9 @@ export function PracticeSummaryCard({
         </div>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-[1.2rem] border border-[#1f6b64]/10 bg-[#1f6b64]/6 px-4 py-3">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-[1.2rem] border border-[#8b2e2e]/10 bg-[#8b2e2e]/6 px-4 py-3">
         <p className="text-sm text-slate-600">{syncCopy.description}</p>
-        <Button asChild className="bg-[#1f6b64] text-white hover:bg-[#17544f]">
+        <Button asChild className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]">
           <Link href="/keyboard">
             Open Practice Studio
             <ArrowRight className="size-4" />

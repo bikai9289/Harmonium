@@ -82,63 +82,72 @@ export function Header({ header }: { header: HeaderType }) {
   // Navigation menu for large screens
   const NavMenu = () => {
     return (
-      <NavigationMenu
-        viewport={false}
-        className="**:data-[slot=navigation-menu-content]:top-10 max-lg:hidden"
+      <nav
+        aria-label="Main navigation"
+        className="flex items-center gap-2 max-lg:hidden"
       >
-        <NavigationMenuList className="gap-2">
+        <div className="flex items-center gap-2">
           {header.nav?.items?.map((item, idx) => {
             if (!item.children || item.children.length === 0) {
               return (
-                <NavigationMenuLink key={idx} asChild>
-                  <Link
-                    href={item.url || ''}
-                    target={item.target || '_self'}
-                    className={`flex flex-row items-center gap-2 px-4 py-1.5 text-sm ${
-                      item.is_active || pathname.endsWith(item.url as string)
-                        ? 'bg-muted/40 text-muted-foreground'
-                        : ''
-                    }`}
-                  >
-                    {item.icon && <SmartIcon name={item.icon as string} />}
-                    {item.title}
-                  </Link>
-                </NavigationMenuLink>
+                <Link
+                  key={idx}
+                  href={item.url || ''}
+                  target={item.target || '_self'}
+                  className={cn(
+                    'relative z-10 flex flex-row items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-[#4f4038] transition hover:bg-[#fff4e8] hover:text-[#8b2e2e]',
+                    item.is_active || pathname.endsWith(item.url as string)
+                      ? 'bg-[#fff0e5] text-[#8b2e2e]'
+                      : ''
+                  )}
+                >
+                  {item.icon && <SmartIcon name={item.icon as string} />}
+                  {item.title}
+                </Link>
               );
             }
 
             return (
-              <NavigationMenuItem key={idx}>
-                <NavigationMenuTrigger className="flex flex-row items-center gap-2 text-sm">
-                  {item.icon && (
-                    <SmartIcon name={item.icon as string} className="h-4 w-4" />
-                  )}
-                  {item.title}
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="min-w-2xs origin-top p-0.5">
-                  <div className="border-foreground/5 bg-card ring-foreground/5 rounded-[calc(var(--radius)-2px)] border border-transparent p-2 shadow ring-1">
-                    <ul className="mt-1 space-y-2">
-                      {item.children?.map((subItem: NavItem, index: number) => (
-                        <ListItem
-                          key={index}
-                          href={subItem.url || ''}
-                          target={subItem.target || '_self'}
-                          title={subItem.title || ''}
-                          description={subItem.description || ''}
-                        >
-                          {subItem.icon && (
-                            <SmartIcon name={subItem.icon as string} />
+              <NavigationMenu key={idx} viewport={false}>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="flex flex-row items-center gap-2 text-sm">
+                      {item.icon && (
+                        <SmartIcon
+                          name={item.icon as string}
+                          className="h-4 w-4"
+                        />
+                      )}
+                      {item.title}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="min-w-2xs origin-top p-0.5">
+                      <div className="border-foreground/5 bg-card ring-foreground/5 rounded-[calc(var(--radius)-2px)] border border-transparent p-2 shadow ring-1">
+                        <ul className="mt-1 space-y-2">
+                          {item.children?.map(
+                            (subItem: NavItem, index: number) => (
+                              <ListItem
+                                key={index}
+                                href={subItem.url || ''}
+                                target={subItem.target || '_self'}
+                                title={subItem.title || ''}
+                                description={subItem.description || ''}
+                              >
+                                {subItem.icon && (
+                                  <SmartIcon name={subItem.icon as string} />
+                                )}
+                              </ListItem>
+                            )
                           )}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+                        </ul>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
             );
           })}
-        </NavigationMenuList>
-      </NavigationMenu>
+        </div>
+      </nav>
     );
   };
 
@@ -249,14 +258,14 @@ export function Header({ header }: { header: HeaderType }) {
       <header
         data-state={isMobileMenuOpen ? 'active' : 'inactive'}
         {...(isScrolled && { 'data-scrolled': true })}
-        className="has-data-[state=open]:bg-background/50 fixed inset-x-0 top-0 z-50 has-data-[state=open]:h-screen has-data-[state=open]:backdrop-blur"
+        className="fixed inset-x-0 top-0 z-50 border-b border-[#e8dfd2] bg-white/85 backdrop-blur-md has-data-[state=open]:bg-white/90"
       >
         <div
           className={cn(
-            'absolute inset-x-0 top-0 z-50 h-18 border-transparent ring-1 ring-transparent transition-all duration-300',
-            'in-data-scrolled:border-foreground/5 in-data-scrolled:bg-background/75 in-data-scrolled:border-b in-data-scrolled:backdrop-blur',
-            'has-data-[state=open]:ring-foreground/5 has-data-[state=open]:bg-card/75 has-data-[state=open]:h-[calc(var(--navigation-menu-viewport-height)+3.4rem)] has-data-[state=open]:border-b has-data-[state=open]:shadow-lg has-data-[state=open]:shadow-black/10 has-data-[state=open]:backdrop-blur',
-            'max-lg:in-data-[state=active]:bg-background/75 max-lg:h-14 max-lg:overflow-hidden max-lg:border-b max-lg:in-data-[state=active]:h-screen max-lg:in-data-[state=active]:backdrop-blur'
+            'relative z-50 min-h-18 border-b border-[#e8dfd2] bg-white/85 ring-1 ring-transparent backdrop-blur-md transition-all duration-300',
+            'in-data-scrolled:bg-white/92 in-data-scrolled:shadow-sm',
+            'has-data-[state=open]:ring-foreground/5 has-data-[state=open]:h-[calc(var(--navigation-menu-viewport-height)+3.4rem)] has-data-[state=open]:border-b has-data-[state=open]:bg-white/92 has-data-[state=open]:shadow-lg has-data-[state=open]:shadow-black/10',
+            'max-lg:h-14 max-lg:overflow-hidden max-lg:border-b max-lg:bg-white/92 max-lg:in-data-[state=active]:h-screen'
           )}
         >
           <div className="container">

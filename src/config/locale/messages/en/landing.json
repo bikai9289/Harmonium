@@ -127,22 +127,7 @@
     "social": {
       "items": []
     },
-    "agreement": {
-      "items": [
-        {
-          "title": "Contact",
-          "url": "mailto:support@playharmonium.com"
-        },
-        {
-          "title": "Privacy Policy",
-          "url": "/privacy-policy"
-        },
-        {
-          "title": "Terms of Service",
-          "url": "/terms-of-service"
-        }
-      ]
-    },
+    "agreement": null,
     "show_theme": false,
     "show_locale": false
   }

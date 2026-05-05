@@ -77,16 +77,16 @@ const WESTERN_NAMES = [
 
 const SWARAM_NAMES = [
   'Sa',
-  'Re b',
+  'Re♭',
   'Re',
-  'Ga b',
+  'Ga♭',
   'Ga',
   'Ma',
-  'Ma #',
+  'Ma♯',
   'Pa',
-  'Dha b',
+  'Dha♭',
   'Dha',
-  'Ni b',
+  'Ni♭',
   'Ni',
 ];
 
@@ -217,7 +217,8 @@ export function getBuiltInPracticePresets(): PracticePreset[] {
       id: 'builtin-beginner-sargam',
       kind: 'built-in',
       name: 'Beginner Sargam',
-      description: 'Middle octave, dry single-reed practice for steady scale work.',
+      description:
+        'Middle octave, dry single-reed practice for steady scale work.',
       updatedAt: timestamp,
       settings: {
         labelMode: 'sargam',
@@ -231,7 +232,8 @@ export function getBuiltInPracticePresets(): PracticePreset[] {
       id: 'builtin-lower-accompaniment',
       kind: 'built-in',
       name: 'Lower Accompaniment',
-      description: 'A warmer lower register for accompaniment phrases and drone feel.',
+      description:
+        'A warmer lower register for accompaniment phrases and drone feel.',
       updatedAt: timestamp,
       settings: {
         labelMode: 'sargam',
@@ -245,7 +247,8 @@ export function getBuiltInPracticePresets(): PracticePreset[] {
       id: 'builtin-bright-melody',
       kind: 'built-in',
       name: 'Bright Melody',
-      description: 'Higher octave with room reverb and double reeds for lead runs.',
+      description:
+        'Higher octave with room reverb and double reeds for lead runs.',
       updatedAt: timestamp,
       settings: {
         labelMode: 'sargam',
@@ -259,7 +262,8 @@ export function getBuiltInPracticePresets(): PracticePreset[] {
       id: 'builtin-western-note-drill',
       kind: 'built-in',
       name: 'Western Note Drill',
-      description: 'Middle octave with western labels for note-name repetition.',
+      description:
+        'Middle octave with western labels for note-name repetition.',
       updatedAt: timestamp,
       settings: {
         labelMode: 'western',
@@ -284,13 +288,18 @@ export function getPracticePresetById(
     return null;
   }
 
-  return getAllPracticePresets(workspace).find((preset) => preset.id === presetId) ?? null;
+  return (
+    getAllPracticePresets(workspace).find((preset) => preset.id === presetId) ??
+    null
+  );
 }
 
 export function getLatestPracticeSession(workspace: PracticeWorkspace) {
-  return [...workspace.sessions].sort((left, right) =>
-    compareIsoDates(right.updatedAt, left.updatedAt)
-  )[0] ?? null;
+  return (
+    [...workspace.sessions].sort((left, right) =>
+      compareIsoDates(right.updatedAt, left.updatedAt)
+    )[0] ?? null
+  );
 }
 
 export function formatPracticeSessionTitle(value = nowIso()) {
@@ -372,7 +381,10 @@ export function sanitizePracticeWorkspace(input: unknown): PracticeWorkspace {
                         ? nextEvent.sargam
                         : names.sargam,
                     startedAtMs: toFiniteNumber(nextEvent.startedAtMs),
-                    durationMs: Math.max(0, toFiniteNumber(nextEvent.durationMs)),
+                    durationMs: Math.max(
+                      0,
+                      toFiniteNumber(nextEvent.durationMs)
+                    ),
                   };
                 })
                 .filter((event): event is PracticeNoteEvent => !!event)
@@ -466,6 +478,7 @@ export function sanitizePracticeWorkspace(input: unknown): PracticeWorkspace {
     presets,
     lastSessionId:
       typeof data.lastSessionId === 'string' ? data.lastSessionId : '',
-    lastPresetId: typeof data.lastPresetId === 'string' ? data.lastPresetId : '',
+    lastPresetId:
+      typeof data.lastPresetId === 'string' ? data.lastPresetId : '',
   };
 }

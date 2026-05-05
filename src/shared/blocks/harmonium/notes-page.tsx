@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ArrowRight, BookOpenText, NotebookPen, Piano, Sparkles } from 'lucide-react';
+import { ArrowRight, NotebookPen, Play } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
 import { Button } from '@/shared/components/ui/button';
@@ -30,6 +30,17 @@ const PRACTICE_PATTERNS = [
     steps: ['c4', 'd4', 'e4', 'f4', 'g4'],
   },
 ] as const;
+
+const CORE_NOTE_IDS = ['c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5'] as const;
+const ALTERED_NOTE_IDS = ['csharp4', 'dsharp4', 'fsharp4', 'gsharp4', 'asharp4'] as const;
+
+const ALTERED_LABELS: Record<string, string> = {
+  csharp4: 'Komal Re',
+  dsharp4: 'Komal Ga',
+  fsharp4: 'Tivra Ma',
+  gsharp4: 'Komal Dha',
+  asharp4: 'Komal Ni',
+};
 
 function getNotesByIds(ids: readonly string[]) {
   return ids
@@ -114,26 +125,21 @@ export function HarmoniumNotesPage() {
   }, [clearPlaybackQueue]);
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#f6efe2_0%,#f8f4ec_40%,#fbfaf7_100%)] text-slate-950">
-      <section className="border-b border-black/5 bg-white/70 pt-24 pb-10 backdrop-blur sm:pt-28">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#faf7f2_0%,#f8f4ec_40%,#fbfaf7_100%)] font-sans text-[#2a1f1a]">
+      <section className="border-b border-[#2a1f1a]/10 bg-white/70 pt-20 pb-10 backdrop-blur sm:pt-24">
         <div className="container max-w-[1400px] space-y-6">
-          <div className="max-w-4xl">
-            <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#8f5f33]">
-              Web Harmonium notes
-            </p>
-            <h1 className="mt-3 text-3xl font-semibold sm:text-5xl">
-              Learn the keyboard notes before you start guessing
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="font-serif text-4xl font-bold sm:text-5xl">
+              Harmonium Notes - Sargam & Western
             </h1>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">
-              This English notes page turns the browser keyboard into a simple
-              note map. Tap any key to hear it, switch between Sargam and
-              western labels, and use the built-in practice patterns before
-              moving to the full play surface.
+            <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-[#6b5d52]">
+              Every key on the harmonium with Sa Re Ga Ma and C D E F labels,
+              plus a playable example for every note.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            <Button asChild className="bg-[#1f6b64] text-white hover:bg-[#17544f]">
+          <div className="flex flex-wrap justify-center gap-3">
+            <Button asChild className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]">
               <Link href="/keyboard">
                 Open Keyboard
                 <ArrowRight className="size-4" />
@@ -148,23 +154,41 @@ export function HarmoniumNotesPage() {
             </Button>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            <InfoCard
-              icon={<Piano className="size-5" />}
-              title="23 visible notes"
-              description="The current layout spans a lower lead-in, a middle learning zone, and an upper extension for short runs."
-            />
-            <InfoCard
-              icon={<BookOpenText className="size-5" />}
-              title="Sargam and western"
-              description="Switch the labels anytime so both notation systems stay on the same visual layout."
-            />
-            <InfoCard
-              icon={<Sparkles className="size-5" />}
-              title="No sign-up required"
-              description="The note map is open immediately, so beginners can start learning before touching any account flow."
-            />
-          </div>
+          <section className="rounded-2xl border border-[#2a1f1a]/10 bg-[#fffdf8] p-5 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#8b2e2e]">
+              Note map
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-8">
+              {getNotesByIds(CORE_NOTE_IDS).map((note) => (
+                <NoteMapButton
+                  key={note.id}
+                  active={activeNoteIds.includes(note.id)}
+                  label={note.sargam}
+                  note={note}
+                  onPress={() => {
+                    void previewNote(note);
+                  }}
+                />
+              ))}
+            </div>
+
+            <p className="mt-8 text-sm font-semibold uppercase tracking-[0.2em] text-[#8b2e2e]">
+              Komal and Tivra variants
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-2 md:grid-cols-5">
+              {getNotesByIds(ALTERED_NOTE_IDS).map((note) => (
+                <NoteMapButton
+                  key={note.id}
+                  active={activeNoteIds.includes(note.id)}
+                  label={ALTERED_LABELS[note.id] || note.sargam}
+                  note={note}
+                  onPress={() => {
+                    void previewNote(note);
+                  }}
+                />
+              ))}
+            </div>
+          </section>
         </div>
       </section>
 
@@ -189,7 +213,7 @@ export function HarmoniumNotesPage() {
                     onClick={() => setLabelMode(mode)}
                     className={`rounded-full px-4 py-2 text-sm transition ${
                       labelMode === mode
-                        ? 'bg-[#1f6b64] text-white'
+                        ? 'bg-[#8b2e2e] text-white'
                         : 'bg-[#f5ede1] text-slate-700 hover:bg-[#eadcc7]'
                     }`}
                   >
@@ -274,7 +298,7 @@ export function HarmoniumNotesPage() {
                     onClick={() => {
                       void playPattern(pattern.id, pattern.steps);
                     }}
-                    className="mt-5 bg-[#1f6b64] text-white hover:bg-[#17544f]"
+                    className="mt-5 bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
                   >
                     {playingPatternId === pattern.id ? 'Playing...' : 'Play pattern'}
                   </Button>
@@ -288,22 +312,35 @@ export function HarmoniumNotesPage() {
   );
 }
 
-function InfoCard({
-  description,
-  icon,
-  title,
+function NoteMapButton({
+  active,
+  label,
+  note,
+  onPress,
 }: {
-  description: string;
-  icon: React.ReactNode;
-  title: string;
+  active: boolean;
+  label: string;
+  note: NoteKey;
+  onPress: () => void;
 }) {
   return (
-    <div className="rounded-[1.5rem] border border-black/7 bg-white/82 p-5 shadow-sm">
-      <div className="inline-flex rounded-full bg-[#1f6b64]/10 p-3 text-[#1f6b64]">
-        {icon}
-      </div>
-      <h2 className="mt-4 text-lg font-semibold text-slate-950">{title}</h2>
-      <p className="mt-2 text-sm leading-7 text-slate-600">{description}</p>
-    </div>
+    <button
+      className={`rounded-lg border p-4 text-left transition ${
+        active
+          ? 'border-[#8b2e2e] bg-[#fff0e5]'
+          : 'border-[#e8dfd2] bg-white hover:border-[#c8633a]/50 hover:bg-[#fff8f1]'
+      }`}
+      onClick={onPress}
+      type="button"
+    >
+      <span className="block text-lg font-semibold text-[#8b2e2e]">{label}</span>
+      <span className="mt-1 block font-mono text-sm text-[#6b5d52]">
+        {note.western}
+      </span>
+      <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-[#c8633a]/10 px-2 py-1 text-xs font-medium text-[#8b2e2e]">
+        <Play className="size-3 fill-current" />
+        Play
+      </span>
+    </button>
   );
 }

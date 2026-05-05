@@ -67,7 +67,8 @@ const tutorialCatalog: TutorialSongCatalogItem[] = [
     id: 'two-tigers',
     slug: 'two-tigers',
     title: 'Two Tigers',
-    subtitle: 'A familiar beginner melody for steady step-by-step note matching.',
+    subtitle:
+      'A familiar beginner melody for steady step-by-step note matching.',
     description:
       'Use this first song to practice repeated phrases, short stepwise motion, and confident matching between the moving score and the keyboard.',
     difficulty: 'beginner',
@@ -81,12 +82,12 @@ const tutorialCatalog: TutorialSongCatalogItem[] = [
     title: 'Mo Li Hua (Jasmine Flower)',
     subtitle: 'A standard Jiangsu folk-song teaching score in 1=E, 2/4 meter.',
     description:
-      'Reserved for the first batch library. This lesson will focus on clean phrase endings and lyrical stepwise motion.',
+      'Coming soon. This lesson will focus on clean phrase endings and lyrical stepwise motion.',
     difficulty: 'easy',
     bpm: 76,
     meter: '2/4',
     status: 'planned',
-    availabilityNote: 'Reserved for the first batch library. Full guided practice comes next.',
+    availabilityNote: 'Coming soon. Full guided practice comes next.',
   },
   {
     id: 'twinkle-little-star',
@@ -95,12 +96,12 @@ const tutorialCatalog: TutorialSongCatalogItem[] = [
     subtitle:
       'A globally familiar beginner melody with clear repetition and stable phrase shapes.',
     description:
-      'Reserved for the first batch library. It will be used to teach repetition, leaps, and phrase memory.',
+      'Coming soon. It will be used to teach repetition, leaps, and phrase memory.',
     difficulty: 'beginner',
     bpm: 84,
     meter: '4/4',
     status: 'planned',
-    availabilityNote: 'Reserved for the first batch library. Full guided practice comes next.',
+    availabilityNote: 'Coming soon. Full guided practice comes next.',
   },
   {
     id: 'ode-to-joy',
@@ -109,12 +110,12 @@ const tutorialCatalog: TutorialSongCatalogItem[] = [
     subtitle:
       'A public-domain classical melody with slightly longer phrases and clean stepwise motion.',
     description:
-      'Reserved for the first batch library. It will introduce longer melodic lines after the first beginner songs are stable.',
+      'Coming soon. It will introduce longer melodic lines after the first beginner songs are stable.',
     difficulty: 'easy',
     bpm: 92,
     meter: '4/4',
     status: 'planned',
-    availabilityNote: 'Reserved for the first batch library. Full guided practice comes next.',
+    availabilityNote: 'Coming soon. Full guided practice comes next.',
   },
 ];
 
@@ -123,7 +124,8 @@ const tutorialSongs: TutorialSong[] = [
     id: 'two-tigers',
     slug: 'two-tigers',
     title: 'Two Tigers',
-    subtitle: 'A familiar beginner melody for steady step-by-step note matching.',
+    subtitle:
+      'A familiar beginner melody for steady step-by-step note matching.',
     description:
       'Use this first song to practice repeated phrases, short stepwise motion, and confident matching between the moving score and the keyboard.',
     difficulty: 'beginner',
@@ -133,7 +135,8 @@ const tutorialSongs: TutorialSong[] = [
       {
         id: 'phrase-1',
         title: 'Phrase 1',
-        description: 'The opening line climbs gently, then returns to the start.',
+        description:
+          'The opening line climbs gently, then returns to the start.',
         steps: [
           createStep('p1-1', 'c4', 1, 'Two'),
           createStep('p1-2', 'd4', 1, 'ti'),
@@ -161,7 +164,8 @@ const tutorialSongs: TutorialSong[] = [
       {
         id: 'phrase-3',
         title: 'Phrase 3',
-        description: 'This phrase introduces a longer descent with one higher step.',
+        description:
+          'This phrase introduces a longer descent with one higher step.',
         steps: [
           createStep('p3-1', 'g4', 1, 'one'),
           createStep('p3-2', 'a4', 1, 'is'),
@@ -180,7 +184,8 @@ const tutorialSongs: TutorialSong[] = [
       {
         id: 'phrase-4',
         title: 'Phrase 4',
-        description: 'A short closing phrase that lands home with a simple leap.',
+        description:
+          'A short closing phrase that lands home with a simple leap.',
         steps: [
           createStep('p4-1', 'c4', 1, 'where'),
           createStep('p4-2', 'g3', 1, 'did'),

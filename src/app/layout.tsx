@@ -1,7 +1,7 @@
 import '@/config/style/global.css';
 
 import type { Metadata } from 'next';
-import { JetBrains_Mono, Merriweather, Noto_Sans_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono, Merriweather } from 'next/font/google';
 import { getLocale, setRequestLocale } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
 
@@ -14,7 +14,7 @@ import { getAffiliateService } from '@/shared/services/affiliate';
 import { getAnalyticsService } from '@/shared/services/analytics';
 import { getCustomerService } from '@/shared/services/customer_service';
 
-const notoSansMono = Noto_Sans_Mono({
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
@@ -109,7 +109,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${notoSansMono.variable} ${merriweather.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${merriweather.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -119,7 +119,9 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel="alternate icon" href="/favicon.ico" />
+        <link rel="preload" as="image" href="/preview.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#8b2e2e" />
 
         {/* inject locales */}
         {locales ? (

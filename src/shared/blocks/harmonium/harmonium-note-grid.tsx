@@ -1,7 +1,22 @@
 'use client';
 
-import { KEYBOARD_HELP_GROUPS, NOTE_KEYS, NoteKey } from './constants';
 import { cn } from '@/shared/lib/utils';
+
+import { KEYBOARD_HELP_GROUPS, NOTE_KEYS, NoteKey } from './constants';
+
+const FORMAL_SARGAM_NAMES: Record<string, string> = {
+  csharp4: 'Komal Re',
+  dsharp4: 'Komal Ga',
+  fsharp4: 'Tivra Ma',
+  gsharp4: 'Komal Dha',
+  asharp4: 'Komal Ni',
+  csharp5: 'Komal Re',
+  dsharp5: 'Komal Ga',
+};
+
+function getFormalSargamName(note: NoteKey) {
+  return FORMAL_SARGAM_NAMES[note.id] ?? note.sargam;
+}
 
 export function HarmoniumNoteGrid({
   activeNoteIds,
@@ -28,7 +43,7 @@ export function HarmoniumNoteGrid({
               </p>
               <p className="mt-1 text-sm text-slate-600">{group.description}</p>
             </div>
-            <span className="rounded-full bg-[#1f6b64]/10 px-3 py-1.5 text-xs font-medium text-[#1f6b64]">
+            <span className="rounded-full bg-[#8b2e2e]/10 px-3 py-1.5 text-xs font-medium text-[#8b2e2e]">
               {group.notes.length} keys
             </span>
           </div>
@@ -51,9 +66,9 @@ export function HarmoniumNoteGrid({
                     isActive
                       ? note.kind === 'white'
                         ? 'border-[#b77c4a]/50 bg-[#f6d2aa]'
-                        : 'border-[#1f6b64] bg-[linear-gradient(180deg,#16655e_0%,#0e3f3b_100%)]'
+                        : 'border-[#8b2e2e] bg-[linear-gradient(180deg,#8b2e2e_0%,#4b1818_100%)]'
                       : 'border-black/8',
-                    isHighlighted ? 'ring-2 ring-[#1f6b64]/45' : ''
+                    isHighlighted ? 'ring-2 ring-[#8b2e2e]/45' : ''
                   )}
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -61,10 +76,14 @@ export function HarmoniumNoteGrid({
                       <p
                         className={cn(
                           'text-lg font-semibold',
-                          note.kind === 'white' ? 'text-slate-950' : 'text-white'
+                          note.kind === 'white'
+                            ? 'text-slate-950'
+                            : 'text-white'
                         )}
                       >
-                        {labelMode === 'sargam' ? note.sargam : note.western}
+                        {labelMode === 'sargam'
+                          ? getFormalSargamName(note)
+                          : note.western}
                       </p>
                       <p
                         className={cn(
@@ -74,7 +93,9 @@ export function HarmoniumNoteGrid({
                             : 'text-white/70'
                         )}
                       >
-                        {labelMode === 'sargam' ? note.western : note.sargam}
+                        {labelMode === 'sargam'
+                          ? note.western
+                          : getFormalSargamName(note)}
                       </p>
                     </div>
                     <span
@@ -92,9 +113,7 @@ export function HarmoniumNoteGrid({
                   <div
                     className={cn(
                       'mt-4 flex flex-wrap gap-2 text-xs',
-                      note.kind === 'white'
-                        ? 'text-slate-500'
-                        : 'text-white/70'
+                      note.kind === 'white' ? 'text-slate-500' : 'text-white/70'
                     )}
                   >
                     <span className="rounded-full bg-black/5 px-2.5 py-1">
@@ -114,7 +133,9 @@ export function HarmoniumNoteGrid({
       <section className="rounded-[1.5rem] border border-black/7 bg-white/80 p-4 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-slate-900">Full note list</p>
+            <p className="text-sm font-semibold text-slate-900">
+              Full note list
+            </p>
             <p className="mt-1 text-sm text-slate-600">
               Every key in the current 23-note browser layout.
             </p>
@@ -141,14 +162,16 @@ export function HarmoniumNoteGrid({
                   key={note.id}
                   className={cn(
                     'border-b border-black/5',
-                    highlightedNoteIds.includes(note.id) ? 'bg-[#1f6b64]/6' : ''
+                    highlightedNoteIds.includes(note.id) ? 'bg-[#8b2e2e]/6' : ''
                   )}
                 >
                   <td className="px-3 py-2 font-medium text-slate-900">
                     {note.keycap}
                   </td>
                   <td className="px-3 py-2 text-slate-700">{note.western}</td>
-                  <td className="px-3 py-2 text-slate-700">{note.sargam}</td>
+                  <td className="px-3 py-2 text-slate-700">
+                    {getFormalSargamName(note)}
+                  </td>
                   <td className="px-3 py-2 text-slate-600">{note.midi}</td>
                   <td className="px-3 py-2 text-slate-600">
                     {note.kind === 'white' ? 'White' : 'Black'}

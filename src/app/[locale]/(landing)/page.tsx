@@ -1,62 +1,147 @@
 import { setRequestLocale } from 'next-intl/server';
 
+import { envConfigs } from '@/config';
 import { HarmoniumHome } from '@/shared/blocks/harmonium/home';
+import {
+  absoluteUrl,
+  createBreadcrumbJsonLd,
+  createFaqJsonLd,
+  JsonLd,
+} from '@/shared/components/seo/json-ld';
 import { getMetadata } from '@/shared/lib/seo';
 
 export const revalidate = 3600;
 
 export const generateMetadata = getMetadata({
-  title: 'Web Harmonium Online for Daily Practice | Play Harmonium',
+  title: 'Free Web Harmonium - Play Online in Your Browser | Play Harmonium',
   description:
-    'Play Web Harmonium online in your browser with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and beginner-friendly guides.',
+    'Play a free web harmonium online with Sargam labels, MIDI keyboard input, touch controls, reed and reverb settings, transpose, and beginner-friendly raga practice guides.',
   keywords:
-    'web harmonium, web harmonium online, online harmonium, play web harmonium online, virtual harmonium, harmonium keyboard, sargam notes',
+    'web harmonium, free web harmonium, online harmonium, play harmonium online, virtual harmonium, harmonium keyboard, sargam notes, Indian classical music, raga practice, bhajan kirtan',
   canonicalUrl: '/',
 });
 
 const copy = {
   en: {
-    badge: 'No sign-up required',
-    title: 'Play Web Harmonium Online, Then Learn It Fast',
+    badge: 'Free browser instrument',
+    title: 'Free Online Harmonium',
     description:
-      'Play Web Harmonium online with keyboard shortcuts, touch controls, Sargam labels, octave switching, transpose, and a clearer path into notes and tutorial practice.',
+      'Play in your browser with MIDI, Sargam & transpose - for Indian Classical, vocal warm-ups, bhajan & kirtan.',
+    heroNote:
+      'Use your computer keyboard, touch screen, or MIDI keyboard to play a clear harmonium layout with Sargam and western note labels.',
     primaryCta: 'Start Playing',
-    secondaryCta: 'Start Tutorial',
+    secondaryCta: 'Learn Notes',
     secondaryHref: '/tutorial',
     trust: [
-      'No sign-up required',
-      'Works on desktop and mobile',
-      'Notes and tutorial included',
+      'No download',
+      'Works on desktop, tablet, and mobile',
+      'Sargam and western labels',
     ],
-    featureTitle: 'Why people search Web Harmonium',
+    useCases: [
+      'Indian Classical',
+      'Vocal Warm-Ups',
+      'Raga Exploration',
+      'Bhajan & Kirtan',
+      'Ear Training',
+    ],
+    quickStartOpen: 'Open',
+    quickStarts: [
+      {
+        title: 'Play',
+        href: '/keyboard',
+        description:
+          'Open the full harmonium keyboard when you already know the note map.',
+      },
+      {
+        title: 'Notes',
+        href: '/notes',
+        description:
+          'Review Sargam labels, western notes, shortcuts, and beginner patterns.',
+      },
+      {
+        title: 'Tutorial',
+        href: '/tutorial',
+        description:
+          'Follow highlighted notes with a guided lesson and autoplay demo.',
+      },
+    ],
+    keyboardEyebrow: 'Web Harmonium play surface',
+    keyboardDescription:
+      'Play with your keyboard, touch screen, or MIDI controller while the full 23-key range stays close at hand.',
+    playbackSample: 'Reference sample',
+    playbackSynth: 'Fallback synth',
+    featureTitle: 'Real practice features',
+    featureHeading: 'Controls that match daily harmonium practice',
     featureDescription:
-      'People searching for Web Harmonium want an instrument they can use immediately, plus a fast path into note learning. A strong landing page should feel like a playable tool with an obvious next step.',
+      'Play naturally in the browser with the controls singers, students, and harmonium players reach for during practice.',
     features: [
       {
-        title: 'Instant interaction',
+        title: 'MIDI Support',
         description:
-          'The first screen opens directly into a playable keyboard so search intent and landing-page experience stay aligned.',
+          'Use a MIDI keyboard, laptop shortcuts, or touch controls depending on where you practice.',
       },
       {
-        title: 'Practice-focused controls',
+        title: 'Sargam + Western Labels',
         description:
-          'Octave, transpose, and label toggles are surfaced up front because they matter more than account setup.',
+          'Switch between Sa Re Ga Ma and western note names when learning raga phrases or simple melodies.',
       },
       {
-        title: 'SEO-friendly structure',
+        title: 'Reed + Reverb Layers',
         description:
-          'The page keeps visible text, FAQs, and guide links around the tool so it can rank as a real content page.',
+          'Blend single or double reed tone and add room ambience when you want a fuller practice sound.',
+      },
+      {
+        title: 'Transpose + Octave',
+        description:
+          'Move the instrument into a comfortable vocal range without relearning the visible key layout.',
+      },
+      {
+        title: 'Mobile Touch',
+        description:
+          'Play on phones and tablets with touch-friendly keys and horizontal scrolling for the full range.',
+      },
+      {
+        title: 'Local Sessions',
+        description:
+          'Keep your label mode, octave, transpose, volume, reed, reverb, and MIDI input ready for the next visit.',
       },
     ],
-    guideTitle: 'Build Web Harmonium content around the tool',
+    intentTitle: 'Practice uses',
+    intentHeading: 'A web harmonium for quick, focused music practice',
+    intentDescription:
+      'Open the instrument for a short vocal warm-up, a Sargam exercise, a bhajan melody, or a quick raga idea without setting up a full studio session.',
+    intentCards: [
+      {
+        title: 'Find your Sa before singing',
+        description:
+          'Use transpose and octave controls to settle into a comfortable tonic before vocal practice.',
+      },
+      {
+        title: 'Learn Sargam on the keyboard',
+        description:
+          'See Sa Re Ga Ma labels directly on the keys while you connect notation to sound.',
+      },
+      {
+        title: 'Sketch raga and melody ideas',
+        description:
+          'Try phrases quickly with a warm harmonium tone, then repeat them with steadier timing.',
+      },
+      {
+        title: 'Practice bhajan and kirtan lines',
+        description:
+          'Use the browser instrument for simple melodic support when rehearsing devotional songs.',
+      },
+    ],
+    guideTitle: 'Learning paths',
+    guideHeading: 'Move from first notes to steadier practice',
     guideDescription:
-      'Use a few practical pages to cover adjacent intent while the homepage targets the main Web Harmonium keyword cluster and the exact Web Harmonium phrase.',
+      'Start with the keyboard, learn the note layout, then use guided exercises when you want more structure.',
     guides: [
       {
         title: 'Web Harmonium notes and key mapping',
         href: '/notes',
         description:
-          'Review the 23-key layout, shortcut map, and Sargam-to-western note relationships on one page.',
+          'Review the 23-key layout, shortcut map, and Sargam-to-western note relationships.',
       },
       {
         title: 'Guided tutorial mode for beginners',
@@ -68,122 +153,205 @@ const copy = {
         title: 'Beginner-friendly Web Harmonium guides',
         href: '/blog/how-to-play-harmonium-online-for-free',
         description:
-          'Add broader context and practice tips once the user already understands the instrument.',
+          'Read practical tips for playing harmonium online and building a simple practice routine.',
       },
     ],
     faqTitle: 'Web Harmonium FAQ',
+    faqHeading: 'Questions before you start playing',
+    faqDescription:
+      'A few quick answers for singers, learners, and keyboard players using Play Harmonium in the browser.',
     faqs: [
       {
-        question: 'Is this a downloadable app?',
+        question: 'What is Sa Re Ga Ma?',
         answer:
-          'No. The goal of this version is to keep practice inside the browser so users can start playing right away.',
+          'Sa Re Ga Ma is the Sargam note system used in Indian classical and devotional music. You can show those labels on the keys while you play.',
       },
       {
-        question: 'Do I need an account to use the harmonium?',
+        question: 'How do I find Sa for my voice?',
         answer:
-          'No account is needed for the core experience. Authentication and paid features can be layered in later if the traffic sustains.',
+          'Start in the middle octave, hold a comfortable note, then use transpose until the pitch matches your singing range.',
       },
       {
-        question: 'Where should a new player start first?',
+        question: 'Can I use my MIDI keyboard?',
         answer:
-          'Start on the notes page if you want the key map first, or use tutorial mode if you want a guided phrase to follow right away.',
+          'Yes, on browsers that support Web MIDI. Connect your keyboard, choose the input, and play the harmonium sound from your controller.',
       },
       {
-        question: 'Why include Sargam and transpose controls on the homepage?',
+        question: 'Does it work on iPad and mobile?',
         answer:
-          'They match real practice intent better than generic SaaS actions and make the instrument useful much sooner.',
+          'Yes. The harmonium supports touch input and horizontal scrolling for smaller screens.',
       },
       {
-        question: 'Can this later become a paid product?',
+        question: 'Is this suitable for kirtan and bhajan?',
         answer:
-          'Yes. The current template already has auth, payments, blog, and settings pages, so premium features can be added after demand is validated.',
+          'Yes. It works well as a quick pitch and melody reference for bhajan, kirtan, and other devotional singing practice.',
+      },
+      {
+        question: 'How is this different from a real harmonium?',
+        answer:
+          'A real harmonium gives physical bellows and reed response. This web harmonium is for instant pitch reference, Sargam learning, MIDI practice, and quick daily repetition.',
       },
     ],
-    seoTitle: 'Built to validate the Web Harmonium keyword before heavy product work',
-    seoDescription:
-      'This first pass deliberately keeps the experience simple: playable Web Harmonium instrument first, useful search text second, SaaS features later.',
   },
   zh: {
-    badge: 'Web Harmonium 在线练习工具',
-    title: 'Web Harmonium 在线练习页',
+    badge: '免费浏览器乐器',
+    title: '免费在线 Harmonium',
     description:
-      '直接在浏览器里 play Web Harmonium online，支持键盘快捷键、触控、Sargam 标注、八度切换、移调和日常练习所需的快捷设置。',
+      '直接在浏览器里弹奏，支持 MIDI、Sargam 和移调，适合印度古典、声乐热身、Bhajan 与 Kirtan。',
+    heroNote:
+      '你可以用电脑键盘、触控屏或 MIDI 键盘演奏，并在 Sargam 与西方音名之间自由切换。',
     primaryCta: '开始弹奏',
-    secondaryCta: '阅读指南',
+    secondaryCta: '学习音名',
+    secondaryHref: '/tutorial',
     trust: [
       '无需下载',
-      '桌面和手机都可用',
-      '先验证搜索需求，再扩展产品功能',
+      '桌面、平板、手机都可用',
+      '支持 Sargam 和西方音名',
     ],
-    featureTitle: '为什么用户会搜索 Web Harmonium',
+    useCases: [
+      '印度古典',
+      '声乐热身',
+      'Raga 探索',
+      'Bhajan & Kirtan',
+      '听音训练',
+    ],
+    quickStartOpen: '打开',
+    quickStarts: [
+      {
+        title: '弹奏',
+        href: '/keyboard',
+        description: '已经熟悉键位时，直接打开完整 harmonium 键盘。',
+      },
+      {
+        title: '音名',
+        href: '/notes',
+        description: '查看 Sargam、西方音名、快捷键和入门练习方式。',
+      },
+      {
+        title: '教程',
+        href: '/tutorial',
+        description: '跟随高亮音符和自动示范进行基础练习。',
+      },
+    ],
+    keyboardEyebrow: 'Web Harmonium 演奏区',
+    keyboardDescription:
+      '使用电脑键盘、触控屏或 MIDI 控制器演奏，完整 23 键范围就在页面中。',
+    playbackSample: '采样音色',
+    playbackSynth: '合成音色',
+    featureTitle: '真实练习功能',
+    featureHeading: '围绕日常 harmonium 练习设计的控制项',
     featureDescription:
-      '搜索 Web Harmonium 的用户，通常想立刻打开一个可用的网页乐器，而不是先看到一个需要注册登录的 SaaS 首页。一个更强的 Web Harmonium 落地页，应该先满足演奏和练习意图。',
+      '无论是声乐学习者、印度古典音乐学生，还是需要快速找旋律的人，都可以在浏览器里直接开始。',
     features: [
       {
-        title: '先弹再说',
-        description:
-          '首屏直接进入可演奏区域，让“搜到词”和“点进来后的体验”保持一致。',
+        title: 'MIDI 支持',
+        description: '根据练习场景选择 MIDI 键盘、笔记本快捷键或手机触控。',
       },
       {
-        title: '围绕练习设计控制项',
+        title: 'Sargam + 西方音名',
         description:
-          '把八度、移调、Sargam 切换这些真正影响练习体验的功能放在前面，而不是先推注册。',
+          '练习 Raga 片段或简单旋律时，可以在 Sa Re Ga Ma 与西方音名之间切换。',
       },
       {
-        title: '工具页也能做 SEO',
+        title: '簧片 + 混响层次',
         description:
-          '页面保留清晰的可抓取文本、FAQ 和文章内链，让首页不只是工具，还能承接搜索流量。',
+          '选择单簧片或双簧片音色，也可以加入房间混响，让练习声音更丰满。',
+      },
+      {
+        title: '移调 + 八度',
+        description:
+          '不用重新记键位，也能把音高移动到更适合自己声区的位置。',
+      },
+      {
+        title: '移动端触控',
+        description:
+          '手机和平板也能触控演奏，小屏幕可以横向滚动查看完整键盘。',
+      },
+      {
+        title: '本地练习设置',
+        description:
+          '标签、八度、移调、音量、簧片、混响和 MIDI 输入会保留到下次访问。',
       },
     ],
-    guideTitle: '围绕工具扩展 Web Harmonium 内容',
+    intentTitle: '练习场景',
+    intentHeading: '适合快速、专注练习的 Web Harmonium',
+    intentDescription:
+      '打开页面就能做声乐热身、Sargam 练习、Bhajan 旋律复习，或快速尝试一个 Raga 乐句。',
+    intentCards: [
+      {
+        title: '唱歌前找到主音 Sa',
+        description: '用八度和移调控制找到舒服的音高，再开始声乐练习。',
+      },
+      {
+        title: '在键盘上学习 Sargam',
+        description: '直接在琴键上看到 Sa Re Ga Ma，把记谱和声音连接起来。',
+      },
+      {
+        title: '快速记录 Raga 与旋律想法',
+        description: '用温暖的 harmonium 音色试弹短句，再反复练稳。',
+      },
+      {
+        title: '练习 Bhajan 和 Kirtan 旋律',
+        description: '排练 devotional song 时，用网页乐器做简单旋律支撑。',
+      },
+    ],
+    guideTitle: '学习路径',
+    guideHeading: '从第一组音开始，逐步进入稳定练习',
     guideDescription:
-      '首页主打 Web Harmonium 这个新词，文章页去承接 play Web Harmonium online、键位说明、Sargam 练习等更细的搜索意图。',
+      '先打开键盘，再熟悉音名和快捷键，需要结构化练习时进入教程模式。',
     guides: [
       {
-        title: '如何免费在线弹奏 Web Harmonium',
-        href: '/blog/how-to-play-harmonium-online-for-free',
-        description:
-          '适合第一次接触这个词的用户，先解释它是什么，再引导开始练习。',
+        title: 'Web Harmonium 键位与音名',
+        href: '/notes',
+        description: '查看 23 键布局、快捷键，以及 Sargam 和西方音名关系。',
       },
       {
-        title: 'Web Harmonium 键位与音名入门',
-        href: '/blog/harmonium-keyboard-notes-for-beginners',
-        description:
-          '把网页键位、音名和常见练习方式讲清楚，帮助首页承接更多长尾词。',
+        title: '新手引导练习',
+        href: '/tutorial',
+        description: '跟随高亮音符、自动示范和基础短句一步步练习。',
       },
       {
-        title: 'Web Harmonium 的 Sargam 练习思路',
+        title: 'Web Harmonium 入门指南',
         href: '/blog/harmonium-keyboard-notes-for-beginners',
-        description:
-          '把西方音名和印度记谱体系关联起来，让工具对更多学习者更有用。',
+        description: '阅读键位、音名和日常练习建议，建立简单练习流程。',
       },
     ],
     faqTitle: 'Web Harmonium 常见问题',
+    faqHeading: '开始弹奏前的几个问题',
+    faqDescription:
+      '给声乐学习者、键盘玩家和 harmonium 初学者的快速说明。',
     faqs: [
       {
-        question: '这是需要下载的软件吗？',
+        question: '什么是 Sa Re Ga Ma？',
         answer:
-          '不是。当前版本的目标就是让你在浏览器里直接开始练习，不需要额外下载安装。',
+          'Sa Re Ga Ma 是印度古典和 devotional music 中常用的 Sargam 音名系统。你可以直接把这些标注显示在琴键上。',
       },
       {
-        question: '使用这个 harmonium 需要登录吗？',
+        question: '怎样找到适合自己声音的 Sa？',
         answer:
-          '核心演奏体验不需要登录。后续如果流量和需求稳定，再考虑叠加账号和高级功能。',
+          '从中间八度开始，按住一个舒服的音，再用移调功能调整到适合你声区的位置。',
       },
       {
-        question: '为什么首页就放 Sargam 和移调？',
+        question: '可以连接 MIDI 键盘吗？',
         answer:
-          '因为这更贴近真实练习意图。对于搜索 Web Harmonium 的用户来说，这些控制项比 SaaS 式按钮更有价值。',
+          '可以，在支持 Web MIDI 的浏览器中连接键盘，选择输入设备后就能用 MIDI 控制 harmonium 音色。',
       },
       {
-        question: '以后可以做成付费产品吗？',
+        question: 'iPad 和手机能用吗？',
         answer:
-          '可以。现在先验证 Web Harmonium 这个词的需求强度，后面再根据搜索数据和用户行为决定是否增加会员功能。',
+          '可以。页面支持触控输入，小屏幕上可以横向滚动查看完整键盘。',
+      },
+      {
+        question: '适合 Kirtan 和 Bhajan 吗？',
+        answer:
+          '适合。它可以作为快速音高参考和旋律练习工具，用于 Bhajan、Kirtan 和 devotional singing。',
+      },
+      {
+        question: '它和实体 Harmonium 有什么不同？',
+        answer:
+          '实体 harmonium 有风箱、触感和真实簧片反应；Web Harmonium 更适合快速找音、学习 Sargam、连接 MIDI 和日常短时间重复练习。',
       },
     ],
-    seoTitle: '先用 Web Harmonium 验证需求，再决定做多重产品化',
-    seoDescription:
-      '这一版刻意保持简单：先提供能直接弹奏的 Web Harmonium 工具，再补充可抓取的说明内容，最后再考虑更重的 SaaS 功能。',
   },
 };
 
@@ -195,7 +363,58 @@ export default async function LandingPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const pageCopy = locale === 'zh' ? copy.zh : copy.en;
+  const homepageUrl = absoluteUrl(
+    envConfigs.app_url,
+    locale === envConfigs.locale ? '/' : `/${locale}`
+  );
+  const keyboardUrl = absoluteUrl(
+    envConfigs.app_url,
+    locale === envConfigs.locale ? '/keyboard' : `/${locale}/keyboard`
+  );
+
+  const webApplicationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Play Harmonium',
+    alternateName: 'Free Web Harmonium',
+    url: homepageUrl,
+    applicationCategory: 'MusicApplication',
+    operatingSystem: 'Web Browser',
+    browserRequirements: 'Requires a modern browser with Web Audio support.',
+    description: pageCopy.description,
+    inLanguage: locale,
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    featureList: [
+      ...pageCopy.useCases,
+      'Sargam note labels',
+      'Western note labels',
+      'MIDI keyboard input',
+      'Touch controls',
+      'Transpose',
+      'Reed and reverb settings',
+    ],
+    potentialAction: {
+      '@type': 'PlayAction',
+      target: keyboardUrl,
+    },
+  };
+
   return (
-    <HarmoniumHome locale={locale} copy={locale === 'zh' ? copy.zh : copy.en} />
+    <>
+      <JsonLd data={webApplicationJsonLd} />
+      <JsonLd data={createFaqJsonLd(pageCopy.faqs)} />
+      <JsonLd
+        data={createBreadcrumbJsonLd([
+          { name: 'Play Harmonium', url: homepageUrl },
+        ])}
+      />
+      <HarmoniumHome copy={pageCopy} />
+    </>
   );
 }

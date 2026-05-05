@@ -124,7 +124,7 @@ export function PracticeStudio({
           </p>
         </div>
 
-        <span className="inline-flex items-center gap-2 rounded-full bg-[#1f6b64]/10 px-3 py-2 text-sm font-medium text-[#1f6b64]">
+        <span className="inline-flex items-center gap-2 rounded-full bg-[#8b2e2e]/10 px-3 py-2 text-sm font-medium text-[#8b2e2e]">
           <Cloud className="size-4" />
           {formatSyncStatus({ isAuthenticated, syncStatus })}
         </span>
@@ -179,7 +179,7 @@ export function PracticeStudio({
                     <Button
                       type="button"
                       onClick={onStartRecording}
-                      className="bg-[#1f6b64] text-white hover:bg-[#17544f]"
+                      className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
                     >
                       Start recording
                     </Button>
@@ -259,7 +259,7 @@ export function PracticeStudio({
                           className={cn(
                             'rounded-[1rem] border p-3 transition',
                             isSelected
-                              ? 'border-[#1f6b64]/35 bg-[#1f6b64]/8'
+                              ? 'border-[#8b2e2e]/35 bg-[#8b2e2e]/8'
                               : 'border-black/6 bg-[#fcfaf6]'
                           )}
                         >
@@ -337,7 +337,7 @@ export function PracticeStudio({
                       type="text"
                       value={selectedSession.title}
                       onChange={(event) => onRenameSession(event.target.value)}
-                      className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#1f6b64]/40"
+                      className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#8b2e2e]/40"
                     />
                   </label>
 
@@ -358,7 +358,7 @@ export function PracticeStudio({
                       type="button"
                       onClick={onSaveSession}
                       disabled={!canSaveSession}
-                      className="bg-[#1f6b64] text-white hover:bg-[#17544f]"
+                      className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
                     >
                       <Save className="size-4" />
                       Save session
@@ -398,7 +398,7 @@ export function PracticeStudio({
                               MIDI {noteEvent.midi} · {noteEvent.source}
                             </p>
                           </div>
-                          <span className="rounded-full bg-[#1f6b64]/8 px-3 py-1 text-xs font-medium text-[#1f6b64]">
+                          <span className="rounded-full bg-[#8b2e2e]/8 px-3 py-1 text-xs font-medium text-[#8b2e2e]">
                             {noteEvent.durationMs} ms
                           </span>
                         </div>
@@ -433,7 +433,7 @@ export function PracticeStudio({
                   value={presetName}
                   onChange={(event) => setPresetName(event.target.value)}
                   placeholder="Preset name"
-                  className="h-11 flex-1 rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#1f6b64]/40"
+                  className="h-11 flex-1 rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#8b2e2e]/40"
                 />
                 <Button
                   type="button"
@@ -445,7 +445,7 @@ export function PracticeStudio({
                     onSavePreset(presetName);
                     setPresetName('');
                   }}
-                  className="bg-[#1f6b64] text-white hover:bg-[#17544f]"
+                  className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
                 >
                   <Save className="size-4" />
                   Save current preset
@@ -493,7 +493,7 @@ export function PracticeStudio({
                             type="button"
                             size="sm"
                             onClick={() => onApplyPreset(preset.id)}
-                            className="bg-[#1f6b64] text-white hover:bg-[#17544f]"
+                            className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
                           >
                             Load
                           </Button>

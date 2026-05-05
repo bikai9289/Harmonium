@@ -25,16 +25,16 @@ const WESTERN_NAMES = [
 
 const SWARAM_NAMES = [
   'Sa',
-  'Re b',
+  'Re♭',
   'Re',
-  'Ga b',
+  'Ga♭',
   'Ga',
   'Ma',
-  'Ma #',
+  'Ma♯',
   'Pa',
-  'Dha b',
+  'Dha♭',
   'Dha',
-  'Ni b',
+  'Ni♭',
   'Ni',
 ];
 
@@ -119,14 +119,20 @@ export const OCTAVE_OPTIONS = [
 ] as const;
 
 export function getOctaveOption(value: number) {
-  return OCTAVE_OPTIONS.find((option) => option.value === value) ?? OCTAVE_OPTIONS[2];
+  return (
+    OCTAVE_OPTIONS.find((option) => option.value === value) ?? OCTAVE_OPTIONS[2]
+  );
 }
 
-export const WHITE_KEYCAP_HINT = `White keys: ${NOTE_KEYS.filter((note) => note.kind === 'white')
+export const WHITE_KEYCAP_HINT = `White keys: ${NOTE_KEYS.filter(
+  (note) => note.kind === 'white'
+)
   .map((note) => note.keycap)
   .join(' ')}`;
 
-export const BLACK_KEYCAP_HINT = `Black keys: ${NOTE_KEYS.filter((note) => note.kind === 'black')
+export const BLACK_KEYCAP_HINT = `Black keys: ${NOTE_KEYS.filter(
+  (note) => note.kind === 'black'
+)
   .map((note) => note.keycap)
   .join(' ')}`;
 
@@ -141,17 +147,20 @@ export function getNoteKeyByInput(input: string) {
 export const KEYBOARD_HELP_GROUPS = [
   {
     title: 'Lower octave',
-    description: 'Start here when you want the softer lower register before the middle range.',
+    description:
+      'Start here when you want the softer lower register before the middle range.',
     notes: NOTE_KEYS.slice(0, 5),
   },
   {
     title: 'Middle octave',
-    description: 'This is the easiest range for first-time visitors and daily practice patterns.',
+    description:
+      'This is the easiest range for first-time visitors and daily practice patterns.',
     notes: NOTE_KEYS.slice(5, 17),
   },
   {
     title: 'Upper octave',
-    description: 'Use the last keys for ascending phrases and higher melodic runs.',
+    description:
+      'Use the last keys for ascending phrases and higher melodic runs.',
     notes: NOTE_KEYS.slice(17),
   },
 ] as const;

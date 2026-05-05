@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next';
 
+import { pagesSource, postsSource } from '@/core/docs/source';
 import { envConfigs } from '@/config';
 import { defaultLocale } from '@/config/locale';
-import { pagesSource, postsSource } from '@/core/docs/source';
 import { getPosts, PostStatus, PostType } from '@/shared/models/post';
 import {
   getTaxonomies,
@@ -66,6 +66,10 @@ function parseLastModified(value: unknown, fallback: Date) {
   return fallback;
 }
 
+function hasDatabaseUrl() {
+  return Boolean(process.env.DATABASE_URL);
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const sitemapEntries = new Map<string, MetadataRoute.Sitemap[number]>();
@@ -99,39 +103,41 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  try {
-    const [remotePosts, categories] = await Promise.all([
-      getPosts({
-        type: PostType.ARTICLE,
-        status: PostStatus.PUBLISHED,
-        limit: 500,
-      }),
-      getTaxonomies({
-        type: TaxonomyType.CATEGORY,
-        status: TaxonomyStatus.PUBLISHED,
-        limit: 500,
-      }),
-    ]);
+  if (hasDatabaseUrl()) {
+    try {
+      const [remotePosts, categories] = await Promise.all([
+        getPosts({
+          type: PostType.ARTICLE,
+          status: PostStatus.PUBLISHED,
+          limit: 500,
+        }),
+        getTaxonomies({
+          type: TaxonomyType.CATEGORY,
+          status: TaxonomyStatus.PUBLISHED,
+          limit: 500,
+        }),
+      ]);
 
-    for (const post of remotePosts) {
-      sitemapEntries.set(`/blog/${post.slug}`, {
-        url: buildAbsoluteUrl(`/blog/${post.slug}`),
-        lastModified: post.updatedAt || post.createdAt || now,
-        changeFrequency: 'monthly',
-        priority: 0.7,
-      });
-    }
+      for (const post of remotePosts) {
+        sitemapEntries.set(`/blog/${post.slug}`, {
+          url: buildAbsoluteUrl(`/blog/${post.slug}`),
+          lastModified: post.updatedAt || post.createdAt || now,
+          changeFrequency: 'monthly',
+          priority: 0.7,
+        });
+      }
 
-    for (const category of categories) {
-      sitemapEntries.set(`/blog/category/${category.slug}`, {
-        url: buildAbsoluteUrl(`/blog/category/${category.slug}`),
-        lastModified: category.updatedAt || category.createdAt || now,
-        changeFrequency: 'weekly',
-        priority: 0.5,
-      });
+      for (const category of categories) {
+        sitemapEntries.set(`/blog/category/${category.slug}`, {
+          url: buildAbsoluteUrl(`/blog/category/${category.slug}`),
+          lastModified: category.updatedAt || category.createdAt || now,
+          changeFrequency: 'weekly',
+          priority: 0.5,
+        });
+      }
+    } catch (error) {
+      console.log('sitemap generation skipped remote content:', error);
     }
-  } catch (error) {
-    console.log('sitemap generation skipped remote content:', error);
   }
 
   return Array.from(sitemapEntries.values());

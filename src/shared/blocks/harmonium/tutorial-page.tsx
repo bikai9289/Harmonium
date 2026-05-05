@@ -1,6 +1,13 @@
 'use client';
 
-import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import {
   ArrowRight,
   ChevronLeft,
@@ -40,7 +47,10 @@ function getCompletedSteps(song: ResolvedTutorialSong, cursor: Cursor) {
   const currentPhrase = song.phrases[cursor.phraseIndex];
 
   if (!currentPhrase) return song.totalSteps;
-  return completedBeforePhrase + Math.min(cursor.stepIndex, currentPhrase.steps.length);
+  return (
+    completedBeforePhrase +
+    Math.min(cursor.stepIndex, currentPhrase.steps.length)
+  );
 }
 
 function getNextCursor(song: ResolvedTutorialSong, cursor: Cursor) {
@@ -50,7 +60,10 @@ function getNextCursor(song: ResolvedTutorialSong, cursor: Cursor) {
 
   if (cursor.stepIndex + 1 < phrase.steps.length) {
     return {
-      cursor: { phraseIndex: cursor.phraseIndex, stepIndex: cursor.stepIndex + 1 },
+      cursor: {
+        phraseIndex: cursor.phraseIndex,
+        stepIndex: cursor.stepIndex + 1,
+      },
       completed: false,
       phraseCompleted: false,
     };
@@ -108,9 +121,22 @@ function getAccuracy(correctCount: number, mistakeCount: number) {
 export function HarmoniumTutorialPage() {
   const catalog = useMemo(() => getTutorialCatalog(), []);
   const songs = useMemo(() => getTutorialSongs(), []);
+  const readyCatalog = useMemo(
+    () => catalog.filter((item) => item.status === 'ready'),
+    [catalog]
+  );
+  const plannedCatalog = useMemo(
+    () => catalog.filter((item) => item.status === 'planned'),
+    [catalog]
+  );
   const [labelMode, setLabelMode] = useState<'western' | 'sargam'>('sargam');
-  const [activeSongId, setActiveSongId] = useState(songs[0]?.id ?? 'two-tigers');
-  const [cursor, setCursor] = useState<Cursor>({ phraseIndex: 0, stepIndex: 0 });
+  const [activeSongId, setActiveSongId] = useState(
+    songs[0]?.id ?? 'two-tigers'
+  );
+  const [cursor, setCursor] = useState<Cursor>({
+    phraseIndex: 0,
+    stepIndex: 0,
+  });
   const [mode, setMode] = useState<PracticeMode>('guided');
   const [tempoBpm, setTempoBpm] = useState(songs[0]?.bpm ?? 86);
   const [correctCount, setCorrectCount] = useState(0);
@@ -124,28 +150,32 @@ export function HarmoniumTutorialPage() {
   const [isAutoplaying, setIsAutoplaying] = useState(false);
   const [previewStepIndex, setPreviewStepIndex] = useState<number | null>(null);
   const [lastInputLabel, setLastInputLabel] = useState('Waiting for input');
-  const [lastInputState, setLastInputState] = useState<'idle' | 'correct' | 'wrong'>('idle');
+  const [lastInputState, setLastInputState] = useState<
+    'idle' | 'correct' | 'wrong'
+  >('idle');
 
   const timersRef = useRef<number[]>([]);
   const playbackTokenRef = useRef(0);
 
-  const song =
-    songs.find((item) => item.id === activeSongId) ??
-    songs[0];
+  const song = songs.find((item) => item.id === activeSongId) ?? songs[0];
   const currentSongMeta =
-    catalog.find((item) => item.id === song.id) ??
-    catalog[0];
+    catalog.find((item) => item.id === song.id) ?? catalog[0];
   const phrase = song.phrases[cursor.phraseIndex];
   const currentStep =
-    cursor.stepIndex < phrase.steps.length ? phrase.steps[cursor.stepIndex] : null;
+    cursor.stepIndex < phrase.steps.length
+      ? phrase.steps[cursor.stepIndex]
+      : null;
   const activeLaneIndex =
     previewStepIndex !== null
       ? previewStepIndex
       : Math.min(cursor.stepIndex, Math.max(phrase.steps.length - 1, 0));
   const completedSteps = getCompletedSteps(song, cursor);
-  const songProgressPercent = Math.round((completedSteps / song.totalSteps) * 100);
+  const songProgressPercent = Math.round(
+    (completedSteps / song.totalSteps) * 100
+  );
   const phraseProgressPercent = Math.round(
-    (Math.min(cursor.stepIndex, phrase.steps.length) / phrase.steps.length) * 100
+    (Math.min(cursor.stepIndex, phrase.steps.length) / phrase.steps.length) *
+      100
   );
   const accuracy = getAccuracy(correctCount, mistakeCount);
   const highlightedNoteIds =
@@ -162,8 +192,9 @@ export function HarmoniumTutorialPage() {
   const nextCursorState = currentStep ? getNextCursor(song, cursor) : null;
   const nextTargetStep =
     nextCursorState && !nextCursorState.completed
-      ? song.phrases[nextCursorState.cursor.phraseIndex]?.steps[nextCursorState.cursor.stepIndex] ??
-        null
+      ? (song.phrases[nextCursorState.cursor.phraseIndex]?.steps[
+          nextCursorState.cursor.stepIndex
+        ] ?? null)
       : null;
   const practiceStateLabel = isAutoplaying
     ? 'Listening'
@@ -185,13 +216,14 @@ export function HarmoniumTutorialPage() {
     Math.min(100, Math.round((transportIndex / phrase.steps.length) * 100))
   );
 
-  const { activeNoteIds, startNote, stopAllNotes, stopNote } = useHarmoniumPlayer({
-    octave: 4,
-    transpose: 0,
-    volume: 0.34,
-    reverbEnabled: false,
-    reedMode: 'single',
-  });
+  const { activeNoteIds, startNote, stopAllNotes, stopNote } =
+    useHarmoniumPlayer({
+      octave: 4,
+      transpose: 0,
+      volume: 0.34,
+      reverbEnabled: false,
+      reedMode: 'single',
+    });
 
   const clearPlaybackQueue = useCallback(() => {
     playbackTokenRef.current += 1;
@@ -254,7 +286,10 @@ export function HarmoniumTutorialPage() {
       queueTimer(async () => {
         if (token !== playbackTokenRef.current) return;
         setPreviewStepIndex(index);
-        const durationMs = Math.max(260, Math.round(step.durationBeats * msPerBeat * 0.82));
+        const durationMs = Math.max(
+          260,
+          Math.round(step.durationBeats * msPerBeat * 0.82)
+        );
         await playStepNote(step, durationMs);
       }, accumulatedDelay);
 
@@ -276,7 +311,9 @@ export function HarmoniumTutorialPage() {
     setCursor((current) => getPreviousCursor(song, current));
     setLastInputLabel('Waiting for input');
     setLastInputState('idle');
-    setStatusText('Moved back one note. Re-center on the next highlighted key.');
+    setStatusText(
+      'Moved back one note. Re-center on the next highlighted key.'
+    );
   }, [clearPlaybackQueue, song]);
 
   const moveForward = useCallback(() => {
@@ -308,13 +345,17 @@ export function HarmoniumTutorialPage() {
 
       if (result.phraseCompleted) {
         const nextPhrase = song.phrases[result.cursor.phraseIndex];
-        setStatusText(`Phrase complete. Next up: ${nextPhrase.title}. Keep going.`);
+        setStatusText(
+          `Phrase complete. Next up: ${nextPhrase.title}. Keep going.`
+        );
         return;
       }
 
       setStatusText(
         `Correct: ${note.sargam} / ${note.western}. ${
-          mode === 'step' ? 'Step-by-step keeps the pace calm.' : 'Stay with the moving score.'
+          mode === 'step'
+            ? 'Step-by-step keeps the pace calm.'
+            : 'Stay with the moving score.'
         }`
       );
     },
@@ -327,7 +368,9 @@ export function HarmoniumTutorialPage() {
       setStreak(0);
 
       if (!currentStep) {
-        setStatusText('This phrase is complete. Reset or jump to another phrase.');
+        setStatusText(
+          'This phrase is complete. Reset or jump to another phrase.'
+        );
         return;
       }
 
@@ -359,7 +402,14 @@ export function HarmoniumTutorialPage() {
       setLastInputState('wrong');
       handleIncorrectAttempt(note);
     },
-    [completeSuccessfulStep, currentStep, handleIncorrectAttempt, isAutoplaying, mode, startNote]
+    [
+      completeSuccessfulStep,
+      currentStep,
+      handleIncorrectAttempt,
+      isAutoplaying,
+      mode,
+      startNote,
+    ]
   );
 
   const selectSong = useCallback(
@@ -371,7 +421,7 @@ export function HarmoniumTutorialPage() {
         const reservedSong = catalog.find((item) => item.id === songId);
         setStatusText(
           reservedSong?.availabilityNote ??
-            'This lesson is reserved for the first batch library and is not playable yet.'
+            'This lesson is coming soon and is not playable yet.'
         );
         return;
       }
@@ -470,22 +520,25 @@ export function HarmoniumTutorialPage() {
         <div className="container max-w-[1440px] space-y-6">
           <div className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] xl:items-center">
             <div className="max-w-4xl">
-              <span className="inline-flex rounded-full border border-[#f0c97d] bg-[#fff7e7] px-5 py-2 text-sm font-medium uppercase tracking-[0.24em] text-[#ca8a04]">
+              <span className="inline-flex rounded-full border border-[#f0c97d] bg-[#fff7e7] px-5 py-2 text-sm font-medium tracking-[0.24em] text-[#ca8a04] uppercase">
                 Practice mode
               </span>
-              <h1 className="mt-6 max-w-4xl text-4xl font-semibold leading-[0.96] tracking-tight sm:text-6xl">
-                Web harmonium songs: guided practice and harmonium song keys
+              <h1 className="mt-6 max-w-4xl text-4xl leading-[0.96] font-semibold tracking-tight sm:text-6xl">
+                Guided harmonium practice
               </h1>
             </div>
 
             <div className="space-y-5">
               <p className="max-w-2xl text-base leading-8 text-slate-600">
-                This page is for practice, not note reference. Use auto-play to hear the phrase,
-                switch to guided practice to follow the moving score, or play manually and
-                advance note by note.
+                Practice harmonium song keys online with a moving score, Sargam
+                labels, browser keyboard input, and step-by-step beginner
+                lessons.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button asChild className="bg-[#1f6b64] text-white hover:bg-[#17544f]">
+                <Button
+                  asChild
+                  className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
+                >
                   <Link href="/keyboard">
                     Open Keyboard
                     <ArrowRight className="size-4" />
@@ -505,20 +558,20 @@ export function HarmoniumTutorialPage() {
           <div className="rounded-[2rem] border border-black/7 bg-white/88 p-5 shadow-sm sm:p-7">
             <div className="grid gap-6 xl:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)]">
               <div className="rounded-[1.6rem] border border-black/6 bg-[#fcfaf6] p-6">
-                <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#6f86a6]">
+                <p className="text-sm font-medium tracking-[0.24em] text-[#6f86a6] uppercase">
                   Tutorial mode
                 </p>
-                <h2 className="mt-4 text-5xl font-semibold leading-none tracking-tight text-slate-950">
+                <h2 className="mt-4 text-5xl leading-none font-semibold tracking-tight text-slate-950">
                   {song.title}
                 </h2>
                 <p className="mt-5 max-w-xl text-lg leading-9 text-slate-600">
                   {song.subtitle}
                 </p>
                 <div className="mt-8 flex flex-wrap gap-2">
-                  <span className="rounded-full bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[#8f5f33] shadow-sm">
+                  <span className="rounded-full bg-white px-4 py-2 text-xs font-medium tracking-[0.18em] text-[#8f5f33] uppercase shadow-sm">
                     {getDifficultyLabel(song)}
                   </span>
-                  <span className="rounded-full bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-slate-600 shadow-sm">
+                  <span className="rounded-full bg-white px-4 py-2 text-xs font-medium tracking-[0.18em] text-slate-600 uppercase shadow-sm">
                     {song.meter}
                   </span>
                 </div>
@@ -529,11 +582,11 @@ export function HarmoniumTutorialPage() {
 
               <div className="space-y-5">
                 <div className="rounded-[1.6rem] border border-black/6 bg-[#f7f9fc] p-4">
-                  <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#6f86a6]">
+                  <p className="text-sm font-medium tracking-[0.24em] text-[#6f86a6] uppercase">
                     Songs
                   </p>
                   <div className="mt-4 grid gap-3 md:grid-cols-2">
-                    {catalog.map((item) => {
+                    {readyCatalog.map((item) => {
                       const isActive = item.id === song.id;
 
                       return (
@@ -549,34 +602,41 @@ export function HarmoniumTutorialPage() {
                           )}
                         >
                           <div className="flex items-start justify-between gap-3">
-                            <h3 className="text-xl font-semibold text-slate-950">{item.title}</h3>
+                            <h3 className="text-xl font-semibold text-slate-950">
+                              {item.title}
+                            </h3>
                             <span
                               className={cn(
-                                'rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em]',
+                                'rounded-full px-3 py-1 text-[11px] font-medium tracking-[0.16em] uppercase',
                                 item.status === 'ready'
-                                  ? 'bg-[#eef7f4] text-[#1f6b64]'
+                                  ? 'bg-[#fff0e5] text-[#8b2e2e]'
                                   : 'bg-[#f6ebde] text-[#8f5f33]'
                               )}
                             >
-                              {item.status === 'ready' ? 'Ready' : 'Planned'}
+                              Ready
                             </span>
                           </div>
-                          <p className="mt-2 text-sm leading-7 text-slate-600">{item.subtitle}</p>
-                          {item.status === 'planned' ? (
-                            <p className="mt-3 text-xs leading-6 text-[#8f5f33]">
-                              {item.availabilityNote}
-                            </p>
-                          ) : null}
+                          <p className="mt-2 text-sm leading-7 text-slate-600">
+                            {item.subtitle}
+                          </p>
                         </button>
                       );
                     })}
                   </div>
+                  {plannedCatalog.length > 0 ? (
+                    <p className="mt-4 text-sm leading-7 text-[#8f5f33]">
+                      Coming soon:{' '}
+                      {plannedCatalog.map((item) => item.title).join(', ')}.
+                    </p>
+                  ) : null}
                 </div>
 
-                <div className="grid gap-3 md:grid-cols-3">
+                <div className="grid gap-3 md:grid-cols-2">
                   <MetricCard label="Tempo" value={`${tempoBpm} BPM`} />
-                  <MetricCard label="Progress" value={`${songProgressPercent}%`} />
-                  <MetricCard label="Mode" value={practiceStateLabel} />
+                  <MetricCard
+                    label="Progress"
+                    value={`${songProgressPercent}%`}
+                  />
                 </div>
               </div>
             </div>
@@ -590,7 +650,7 @@ export function HarmoniumTutorialPage() {
             <section className="rounded-[1.75rem] border border-black/7 bg-white/82 p-5 shadow-sm sm:p-6">
               <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div className="max-w-3xl">
-                  <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-[#8f5f33]">
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-medium tracking-[0.18em] text-[#8f5f33] uppercase">
                     <span>Phrase practice</span>
                     <span className="rounded-full bg-[#f6ebde] px-3 py-1 text-[11px] text-[#8f5f33]">
                       {getModeLabel(mode)}
@@ -600,8 +660,9 @@ export function HarmoniumTutorialPage() {
                     Start with Phrase 1, then work through the whole song
                   </h2>
                   <p className="mt-3 text-sm leading-7 text-slate-600">
-                    Use the phrase cards below to repeat one section until it feels natural,
-                    then continue through the full melody with the moving score.
+                    Use the phrase cards below to repeat one section until it
+                    feels natural, then continue through the full melody with
+                    the moving score.
                   </p>
                 </div>
 
@@ -614,7 +675,7 @@ export function HarmoniumTutorialPage() {
                       className={cn(
                         'rounded-full px-4 py-2 text-sm transition',
                         labelMode === value
-                          ? 'bg-[#1f6b64] text-white'
+                          ? 'bg-[#8b2e2e] text-white'
                           : 'bg-[#f5ede1] text-slate-700 hover:bg-[#eadcc7]'
                       )}
                     >
@@ -648,17 +709,21 @@ export function HarmoniumTutorialPage() {
                         className={cn(
                           'rounded-[1.2rem] border p-4 text-left transition',
                           isActive
-                            ? 'border-[#1f6b64]/30 bg-[#f3fbf8]'
+                            ? 'border-[#8b2e2e]/30 bg-[#fff8f1]'
                             : 'border-black/6 bg-[#fcfaf6] hover:border-[#8f5f33]/25'
                         )}
                       >
                         <div className="flex items-center justify-between gap-3">
-                          <h4 className="text-base font-semibold text-slate-950">{item.title}</h4>
+                          <h4 className="text-base font-semibold text-slate-950">
+                            {item.title}
+                          </h4>
                           <span className="rounded-full bg-white px-3 py-1 text-[11px] font-medium text-slate-600 shadow-sm">
                             {item.steps.length} notes
                           </span>
                         </div>
-                        <p className="mt-2 text-sm leading-7 text-slate-600">{item.description}</p>
+                        <p className="mt-2 text-sm leading-7 text-slate-600">
+                          {item.description}
+                        </p>
                       </button>
                     );
                   })}
@@ -669,11 +734,12 @@ export function HarmoniumTutorialPage() {
             <section className="rounded-[1.75rem] border border-black/7 bg-white/82 p-5 shadow-sm sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <p className="text-sm font-medium uppercase tracking-[0.22em] text-[#8f5f33]">
+                  <p className="text-sm font-medium tracking-[0.22em] text-[#8f5f33] uppercase">
                     Moving score
                   </p>
                   <h2 className="mt-2 text-2xl font-semibold text-slate-950">
-                    Follow the judgement line, then press the matching key right below it
+                    Follow the judgement line, then press the matching key right
+                    below it
                   </h2>
                 </div>
                 <div className="rounded-full bg-[#f6ebde] px-4 py-2 text-sm font-medium text-[#8f5f33]">
@@ -693,7 +759,9 @@ export function HarmoniumTutorialPage() {
                         className="rounded-[1rem] bg-[#ea8700] px-5 text-white hover:bg-[#d97900]"
                       >
                         <Music2 className="size-4" />
-                        {isAutoplaying ? 'Playing phrase...' : 'Play with sound'}
+                        {isAutoplaying
+                          ? 'Playing phrase...'
+                          : 'Play with sound'}
                       </Button>
                       <Button
                         type="button"
@@ -701,7 +769,9 @@ export function HarmoniumTutorialPage() {
                         onClick={() => switchMode('guided')}
                         className={cn(
                           'rounded-[1rem] border-[#d8dde8] bg-white text-slate-900 shadow-none hover:bg-white',
-                          mode === 'guided' ? 'border-[#f0c97d] bg-[#fff8e8] text-[#8a4d00]' : ''
+                          mode === 'guided'
+                            ? 'border-[#f0c97d] bg-[#fff8e8] text-[#8a4d00]'
+                            : ''
                         )}
                       >
                         Guided practice
@@ -709,7 +779,11 @@ export function HarmoniumTutorialPage() {
                       <Button
                         type="button"
                         variant="outline"
-                        onClick={() => resetCurrentSong(mode === 'autoplay' ? 'guided' : mode)}
+                        onClick={() =>
+                          resetCurrentSong(
+                            mode === 'autoplay' ? 'guided' : mode
+                          )
+                        }
                         className="rounded-[1rem] border-[#d8dde8] bg-white text-slate-900 shadow-none hover:bg-white"
                       >
                         <RotateCcw className="size-4" />
@@ -735,7 +809,9 @@ export function HarmoniumTutorialPage() {
                     </div>
 
                     <div className="flex min-w-[240px] flex-1 items-center gap-4 xl:max-w-[340px] xl:justify-end">
-                      <span className="text-sm font-medium text-slate-600">Tempo</span>
+                      <span className="text-sm font-medium text-slate-600">
+                        Tempo
+                      </span>
                       <input
                         type="range"
                         min={54}
@@ -745,7 +821,9 @@ export function HarmoniumTutorialPage() {
                         onChange={(event) => {
                           clearPlaybackQueue();
                           setTempoBpm(Number(event.target.value));
-                          setStatusText('Tempo updated. Listen again or continue practicing at the new speed.');
+                          setStatusText(
+                            'Tempo updated. Listen again or continue practicing at the new speed.'
+                          );
                         }}
                         className="h-2 flex-1 cursor-pointer appearance-none rounded-full bg-[#2f3440]"
                       />
@@ -759,9 +837,9 @@ export function HarmoniumTutorialPage() {
                     <div className="flex flex-wrap items-center gap-2">
                       <span
                         className={cn(
-                          'rounded-full px-3 py-1 text-xs font-medium uppercase tracking-[0.16em]',
+                          'rounded-full px-3 py-1 text-xs font-medium tracking-[0.16em] uppercase',
                           mode === 'step'
-                            ? 'bg-[#eef7f4] text-[#1f6b64]'
+                            ? 'bg-[#fff0e5] text-[#8b2e2e]'
                             : 'bg-white text-slate-600'
                         )}
                       >
@@ -771,10 +849,10 @@ export function HarmoniumTutorialPage() {
                         type="button"
                         onClick={() => resetCurrentSong('step')}
                         className={cn(
-                          'rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] transition',
+                          'rounded-full border px-3 py-1 text-xs font-medium tracking-[0.16em] uppercase transition',
                           mode === 'step'
-                            ? 'border-[#1f6b64] bg-[#eef7f4] text-[#1f6b64]'
-                            : 'border-[#d8dde8] bg-white text-slate-600 hover:border-[#1f6b64]/35'
+                            ? 'border-[#8b2e2e] bg-[#fff0e5] text-[#8b2e2e]'
+                            : 'border-[#d8dde8] bg-white text-slate-600 hover:border-[#8b2e2e]/35'
                         )}
                       >
                         Switch to step-by-step
@@ -793,25 +871,28 @@ export function HarmoniumTutorialPage() {
 
                   <div className="h-2 overflow-hidden rounded-full bg-[#dfe5ef]">
                     <div
-                      className="h-full rounded-full bg-[linear-gradient(90deg,#f59e0b_0%,#f472b6_18%,#8b5cf6_36%,#60a5fa_56%,#34d399_100%)] transition-[width] duration-300"
+                      className="h-full rounded-full bg-[#c8633a] transition-[width] duration-300"
                       style={{ width: `${transportProgressPercent}%` }}
                     />
                   </div>
                 </div>
 
-                <div className="relative mt-5 overflow-hidden rounded-[1.8rem] border border-[#3b2f24] bg-[linear-gradient(180deg,#2b241d_0%,#0f0f10_100%)] px-4 py-7 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-                  <div className="absolute right-5 top-5 z-20 flex gap-3">
+                <div className="relative mt-5 overflow-hidden rounded-[1.8rem] border border-[#3b2f24] bg-[linear-gradient(180deg,#2a1f1a_0%,#18110e_100%)] px-4 py-7 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+                  <div className="absolute top-5 right-5 z-20 flex gap-3">
                     <FloatingCounter label="Streak" value={streak} />
                     <FloatingCounter label="Best" value={bestStreak} />
                   </div>
                   <div className="absolute inset-x-7 top-1/2 h-px bg-white/10" />
                   <div
-                    className="absolute top-0 bottom-0 w-px bg-[#f3bf6c] shadow-[0_0_18px_rgba(243,191,108,0.8)]"
+                    className="absolute top-0 bottom-0 w-px bg-[#c8633a] shadow-[0_0_18px_rgba(200,99,58,0.76)]"
                     style={{ left: JUDGEMENT_LINE_OFFSET }}
                   />
-                  <div className="absolute inset-y-0 z-20" style={{ left: `calc(${JUDGEMENT_LINE_OFFSET} - 56px)` }}>
+                  <div
+                    className="absolute inset-y-0 z-20"
+                    style={{ left: `calc(${JUDGEMENT_LINE_OFFSET} - 56px)` }}
+                  >
                     <div className="flex h-full items-center">
-                      <span className="rounded-full bg-[#f3bf6c] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#432606]">
+                      <span className="rounded-full bg-[#c8633a] px-3 py-1 text-[11px] font-semibold tracking-[0.18em] text-white uppercase">
                         Hit line
                       </span>
                     </div>
@@ -827,11 +908,13 @@ export function HarmoniumTutorialPage() {
                     <div style={{ width: `${LANE_TRACK_PADDING}px` }} />
                     {phrase.steps.map((step, index) => {
                       const isPreview = previewStepIndex === index;
-                      const isCurrent = !isPreview && currentStep?.id === step.id;
+                      const isCurrent =
+                        !isPreview && currentStep?.id === step.id;
                       const isPassed =
                         previewStepIndex === null &&
                         (index < cursor.stepIndex ||
-                          (currentStep === null && index <= phrase.steps.length - 1));
+                          (currentStep === null &&
+                            index <= phrase.steps.length - 1));
 
                       return (
                         <div
@@ -839,29 +922,54 @@ export function HarmoniumTutorialPage() {
                           className={cn(
                             'shrink-0 rounded-[1.35rem] border px-3 py-4 transition',
                             isPreview || isCurrent
-                              ? 'border-[#f3bf6c]/60 bg-[linear-gradient(180deg,#ffcb57_0%,#8a4700_100%)] text-white shadow-[0_0_35px_rgba(255,196,88,0.34)]'
+                              ? 'border-[#c8633a]/70 bg-[linear-gradient(180deg,#c8633a_0%,#7d3320_100%)] text-white shadow-[0_0_35px_rgba(200,99,58,0.34)]'
                               : isPassed
                                 ? 'border-[#3f4f67] bg-[linear-gradient(180deg,#16181d_0%,#050608_100%)] text-white/82'
                                 : 'border-[#374151] bg-[linear-gradient(180deg,#22252c_0%,#07080a_100%)] text-white'
                           )}
-                          style={{ width: `${LANE_CARD_WIDTH}px`, minHeight: '8.5rem' }}
+                          style={{
+                            width: `${LANE_CARD_WIDTH}px`,
+                            minHeight: '8.5rem',
+                          }}
                         >
                           <div className="flex items-start justify-between gap-3">
                             <div>
-                              <p className={cn('text-xs uppercase tracking-[0.18em]', isPreview || isCurrent ? 'text-white/75' : 'text-white/45')}>
-                                {step.durationBeats === 2 ? 'Hold 2 beats' : '1 beat'}
+                              <p
+                                className={cn(
+                                  'text-xs tracking-[0.18em] uppercase',
+                                  isPreview || isCurrent
+                                    ? 'text-white/75'
+                                    : 'text-white/45'
+                                )}
+                              >
+                                {step.durationBeats === 2
+                                  ? 'Hold 2 beats'
+                                  : '1 beat'}
                               </p>
                               <h3 className="mt-2 text-2xl font-semibold">
-                                {labelMode === 'sargam' ? step.note.sargam : step.note.western}
+                                {labelMode === 'sargam'
+                                  ? step.note.sargam
+                                  : step.note.western}
                               </h3>
-                              <p className={cn('mt-1 text-sm', isPreview || isCurrent ? 'text-white/75' : 'text-white/62')}>
-                                {labelMode === 'sargam' ? step.note.western : step.note.sargam}
+                              <p
+                                className={cn(
+                                  'mt-1 text-sm',
+                                  isPreview || isCurrent
+                                    ? 'text-white/75'
+                                    : 'text-white/62'
+                                )}
+                              >
+                                {labelMode === 'sargam'
+                                  ? step.note.western
+                                  : step.note.sargam}
                               </p>
                             </div>
                             <span
                               className={cn(
                                 'rounded-full px-3 py-1 text-xs font-medium',
-                                isPreview || isCurrent ? 'bg-white/16 text-white' : 'bg-white/8 text-white/80'
+                                isPreview || isCurrent
+                                  ? 'bg-white/16 text-white'
+                                  : 'bg-white/8 text-white/80'
                               )}
                             >
                               {step.note.keycap}
@@ -881,7 +989,14 @@ export function HarmoniumTutorialPage() {
                             >
                               {step.lyric || 'Instrumental'}
                             </span>
-                            <span className={cn('text-xs', isPreview || isCurrent ? 'text-white/72' : 'text-white/55')}>
+                            <span
+                              className={cn(
+                                'text-xs',
+                                isPreview || isCurrent
+                                  ? 'text-white/72'
+                                  : 'text-white/55'
+                              )}
+                            >
                               {index + 1}/{phrase.steps.length}
                             </span>
                           </div>
@@ -894,7 +1009,7 @@ export function HarmoniumTutorialPage() {
 
                 <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm">
                   <p className="text-slate-600">{statusText}</p>
-                  <span className="rounded-full bg-white px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-[#8f5f33]">
+                  <span className="rounded-full bg-white px-3 py-1 text-xs font-medium tracking-[0.16em] text-[#8f5f33] uppercase">
                     Phrase progress {phraseProgressPercent}%
                   </span>
                 </div>
@@ -904,14 +1019,15 @@ export function HarmoniumTutorialPage() {
             <section className="rounded-[1.75rem] border border-black/7 bg-white/82 p-5 shadow-sm sm:p-6">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                 <div>
-                  <p className="text-sm font-medium uppercase tracking-[0.22em] text-[#8f5f33]">
+                  <p className="text-sm font-medium tracking-[0.22em] text-[#8f5f33] uppercase">
                     Keyboard sync
                   </p>
                   <h2 className="mt-2 text-2xl font-semibold text-slate-950">
                     Match the highlighted note on the live keyboard
                   </h2>
                   <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-                    Use your mouse or the browser keyboard shortcuts. The gold target is the next note to hit.
+                    Use your mouse or the browser keyboard shortcuts. The gold
+                    target is the next note to hit.
                   </p>
                 </div>
 
@@ -938,7 +1054,7 @@ export function HarmoniumTutorialPage() {
             <section className="rounded-[1.75rem] border border-black/7 bg-white/82 p-5 shadow-sm sm:p-6">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-sm font-medium uppercase tracking-[0.22em] text-[#8f5f33]">
+                  <p className="text-sm font-medium tracking-[0.22em] text-[#8f5f33] uppercase">
                     Session snapshot
                   </p>
                   <h2 className="mt-2 text-2xl font-semibold text-slate-950">
@@ -972,10 +1088,6 @@ export function HarmoniumTutorialPage() {
               </div>
 
               <div className="mt-5 grid grid-cols-2 gap-3">
-                <StatCard label="Streak" value={String(streak)} />
-                <StatCard label="Best" value={String(bestStreak)} />
-                <StatCard label="Correct" value={String(correctCount)} />
-                <StatCard label="Mistakes" value={String(mistakeCount)} />
                 <StatCard label="Accuracy" value={`${accuracy}%`} />
                 <StatCard label="Runs" value={String(completedRuns)} />
               </div>
@@ -983,14 +1095,16 @@ export function HarmoniumTutorialPage() {
               <div className="mt-5 rounded-[1.35rem] border border-black/6 bg-[#fcfaf6] p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#8f5f33]">
+                    <p className="text-xs font-medium tracking-[0.18em] text-[#8f5f33] uppercase">
                       Status
                     </p>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">{statusText}</p>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">
+                      {statusText}
+                    </p>
                   </div>
                   <span
                     className={cn(
-                      'mt-1 rounded-full px-3 py-1 text-xs font-medium uppercase tracking-[0.16em]',
+                      'mt-1 rounded-full px-3 py-1 text-xs font-medium tracking-[0.16em] uppercase',
                       lastInputState === 'correct'
                         ? 'bg-[#e8f8ef] text-[#1e9142]'
                         : lastInputState === 'wrong'
@@ -1009,7 +1123,7 @@ export function HarmoniumTutorialPage() {
             </section>
 
             <section className="rounded-[1.75rem] border border-black/7 bg-white/82 p-5 shadow-sm sm:p-6">
-              <p className="text-sm font-medium uppercase tracking-[0.22em] text-[#8f5f33]">
+              <p className="text-sm font-medium tracking-[0.22em] text-[#8f5f33] uppercase">
                 How to use it
               </p>
               <h2 className="mt-2 text-2xl font-semibold text-slate-950">
@@ -1033,7 +1147,7 @@ export function HarmoniumTutorialPage() {
             </section>
 
             <section className="rounded-[1.75rem] border border-black/7 bg-white/82 p-5 shadow-sm sm:p-6">
-              <p className="text-sm font-medium uppercase tracking-[0.22em] text-[#8f5f33]">
+              <p className="text-sm font-medium tracking-[0.22em] text-[#8f5f33] uppercase">
                 Lesson map
               </p>
               <h2 className="mt-2 text-2xl font-semibold text-slate-950">
@@ -1042,13 +1156,16 @@ export function HarmoniumTutorialPage() {
 
               <div className="mt-5 space-y-4">
                 <InfoRow label="Pattern">
-                  Repeated opening phrases make it easy to lock the first four notes into memory.
+                  Repeated opening phrases make it easy to lock the first four
+                  notes into memory.
                 </InfoRow>
                 <InfoRow label="Range">
-                  The melody stays in a comfortable, visible part of the current 23-note keyboard.
+                  The melody stays in a comfortable, visible part of the current
+                  23-note keyboard.
                 </InfoRow>
                 <InfoRow label="Transfer">
-                  Once this lesson feels stable, the same tutorial system can scale to more songs.
+                  Once this lesson feels stable, the same tutorial system can
+                  scale to more songs.
                 </InfoRow>
               </div>
             </section>
@@ -1059,31 +1176,23 @@ export function HarmoniumTutorialPage() {
   );
 }
 
-function FloatingCounter({
-  label,
-  value,
-}: {
-  label: string;
-  value: number;
-}) {
+function FloatingCounter({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-[1rem] border border-white/8 bg-white/6 px-4 py-3 text-right shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur">
-      <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/35">{label}</p>
+      <p className="text-[11px] font-medium tracking-[0.22em] text-white/35 uppercase">
+        {label}
+      </p>
       <p className="mt-2 text-2xl font-semibold text-white/82">{value}</p>
     </div>
   );
 }
 
-function MetricCard({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function MetricCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[1.35rem] border border-black/6 bg-[#f7f9fc] p-5">
-      <p className="text-sm font-medium uppercase tracking-[0.22em] text-[#6f86a6]">{label}</p>
+      <p className="text-sm font-medium tracking-[0.22em] text-[#6f86a6] uppercase">
+        {label}
+      </p>
       <p className="mt-3 text-3xl font-semibold text-slate-950">{value}</p>
     </div>
   );
@@ -1100,8 +1209,15 @@ function StatCard({
 }) {
   return (
     <div className="rounded-[1.2rem] border border-black/6 bg-[#fcfaf6] p-4">
-      <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#8f5f33]">{label}</p>
-      <p className={cn('mt-3 font-semibold text-slate-950', compact ? 'text-base leading-7' : 'text-2xl')}>
+      <p className="text-xs font-medium tracking-[0.18em] text-[#8f5f33] uppercase">
+        {label}
+      </p>
+      <p
+        className={cn(
+          'mt-3 font-semibold text-slate-950',
+          compact ? 'text-base leading-7' : 'text-2xl'
+        )}
+      >
         {value}
       </p>
     </div>
@@ -1123,16 +1239,12 @@ function TipCard({
   );
 }
 
-function InfoRow({
-  label,
-  children,
-}: {
-  label: string;
-  children: ReactNode;
-}) {
+function InfoRow({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="rounded-[1.2rem] border border-black/6 bg-[#fcfaf6] p-4">
-      <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#8f5f33]">{label}</p>
+      <p className="text-xs font-medium tracking-[0.18em] text-[#8f5f33] uppercase">
+        {label}
+      </p>
       <p className="mt-2 text-sm leading-7 text-slate-600">{children}</p>
     </div>
   );

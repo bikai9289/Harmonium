@@ -33,6 +33,10 @@ export enum PostStatus {
   ARCHIVED = 'archived', // archived means deleted
 }
 
+function hasDatabaseUrl() {
+  return Boolean(process.env.DATABASE_URL);
+}
+
 export async function addPost(data: NewPost) {
   const [result] = await db().insert(post).values(data).returning();
 
@@ -154,42 +158,47 @@ export async function getPost({
 }): Promise<BlogPostType | null> {
   let post: BlogPostType | null = null;
 
-  try {
-    // get post from database
-    const postData = await findPost({ slug, status: PostStatus.PUBLISHED });
-    if (postData) {
-      // post exist in database
-      const content = postData.content || '';
+  if (hasDatabaseUrl()) {
+    try {
+      // get post from database
+      const postData = await findPost({ slug, status: PostStatus.PUBLISHED });
+      if (postData) {
+        // post exist in database
+        const content = postData.content || '';
 
-      // Convert markdown content to MarkdownContent component
-      const body = content ? <MarkdownContent content={content} /> : undefined;
+        // Convert markdown content to MarkdownContent component
+        const body = content ? (
+          <MarkdownContent content={content} />
+        ) : undefined;
 
-      // Generate TOC from content
-      const toc = content ? generateTOC(content) : undefined;
+        // Generate TOC from content
+        const toc = content ? generateTOC(content) : undefined;
 
-      post = {
-        id: postData.id,
-        slug: postData.slug,
-        title: postData.title || '',
-        description: postData.description || '',
-        content: '',
-        body: body,
-        toc: toc,
-        created_at:
-          getPostDate({
-            created_at: postData.createdAt.toISOString(),
-            locale,
-          }) || '',
-        author_name: postData.authorName || '',
-        author_image: postData.authorImage || '',
-        author_role: '',
-        url: `${postPrefix}${postData.slug}`,
-      };
+        post = {
+          id: postData.id,
+          slug: postData.slug,
+          title: postData.title || '',
+          description: postData.description || '',
+          content: '',
+          body: body,
+          toc: toc,
+          created_at:
+            getPostDate({
+              created_at: postData.createdAt.toISOString(),
+              locale,
+            }) || '',
+          author_name: postData.authorName || '',
+          author_image: postData.authorImage || '',
+          image: postData.image || '',
+          author_role: '',
+          url: `${postPrefix}${postData.slug}`,
+        };
 
-      return post;
+        return post;
+      }
+    } catch (e) {
+      console.log('get post from database failed:', e);
     }
-  } catch (e) {
-    console.log('get post from database failed:', e);
   }
 
   // get post from locale file
@@ -240,6 +249,7 @@ export async function getLocalPost({
       : '',
     author_name: frontmatter.author_name || '',
     author_image: frontmatter.author_image || '',
+    image: frontmatter.image || '',
     author_role: '',
     url: `${postPrefix}${slug}`,
   };
@@ -288,6 +298,7 @@ export async function getLocalPage({
       : '',
     author_name: frontmatter.author_name || '',
     author_image: frontmatter.author_image || '',
+    image: frontmatter.image || '',
     author_role: '',
     url: `${locale === defaultLocale ? '' : `/${locale}`}/${slug}`,
   };
@@ -387,6 +398,15 @@ export async function getRemotePostsAndCategories({
 }) {
   const dbPostsList: BlogPostType[] = [];
   const dbCategoriesList: BlogCategoryType[] = [];
+
+  if (!hasDatabaseUrl()) {
+    return {
+      posts: dbPostsList,
+      postsCount: 0,
+      categories: dbCategoriesList,
+      categoriesCount: 0,
+    };
+  }
 
   try {
     // get posts from database

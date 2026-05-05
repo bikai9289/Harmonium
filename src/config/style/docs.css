@@ -6,6 +6,12 @@ body {
   background-color: var(--background);
 }
 
+.blog-toc a[data-active='true'],
+.blog-toc [data-active='true'] {
+  color: #8b2e2e;
+  font-weight: 600;
+}
+
 .docs strong {
   font-weight: 500;
 }

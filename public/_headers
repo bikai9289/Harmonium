@@ -3,3 +3,12 @@
 
 /imgs/*
   Cache-Control: public,max-age=31536000,immutable
+
+/audio/*
+  Cache-Control: public,max-age=31536000,immutable
+
+/*.mp3
+  Cache-Control: public,max-age=31536000,immutable
+
+/*.wav
+  Cache-Control: public,max-age=31536000,immutable

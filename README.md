@@ -38,17 +38,84 @@ Most people searching for an online harmonium want to start playing right away, 
 
 ## Local Development
 
-1. Install dependencies with `pnpm install`
-2. Start PostgreSQL and set `DATABASE_URL`
-3. Run `pnpm db:push`
-4. Seed defaults with `pnpm rbac:init` and `pnpm config:init`
-5. Start the app with `pnpm dev`
+### Requirements
+
+- Node.js 20 or newer
+- pnpm 10.33.0, matching the `packageManager` field
+- PostgreSQL for the default database setup
+
+Enable pnpm through Corepack if it is not already available:
+
+```bash
+corepack enable
+corepack prepare pnpm@10.33.0 --activate
+```
+
+### Install And Run
+
+1. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+2. Create a local environment file:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Then update `DATABASE_URL` and generate a real auth secret:
+
+   ```bash
+   openssl rand -base64 32
+   ```
+
+3. Start PostgreSQL and create the database named in `DATABASE_URL`.
+
+4. Push the Drizzle schema:
+
+   ```bash
+   pnpm db:push
+   ```
+
+5. Seed required defaults:
+
+   ```bash
+   pnpm rbac:init
+   pnpm config:init
+   ```
+
+6. Start the development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+7. Open [http://localhost:3000](http://localhost:3000).
+
+### Useful Commands
+
+- `pnpm lint` checks the codebase with ESLint.
+- `pnpm build` creates a production build.
+- `pnpm start` serves the production build after `pnpm build`.
+- `pnpm db:studio` opens Drizzle Studio for local database inspection.
+
+### Troubleshooting
+
+- If install fails after switching branches, remove `node_modules` and run `pnpm install` again.
+- If the app cannot connect to the database, confirm PostgreSQL is running and `DATABASE_URL` points to an existing database.
+- If auth-related pages fail locally, confirm `AUTH_SECRET` is set before starting `pnpm dev`.
 
 ## Deployment
 
 - Production domain: [playharmonium.com](https://playharmonium.com)
 - GitHub repository: [bikai9289/Harmonium](https://github.com/bikai9289/Harmonium)
 - Recommended hosting: Vercel
+- Install command: `pnpm install --frozen-lockfile`
+- Build command: `pnpm build`
+
+Set the same production environment variables in Vercel, especially `NEXT_PUBLIC_APP_URL`, `DATABASE_PROVIDER`, `DATABASE_URL`, and `AUTH_SECRET`.
 
 ## Docs
 

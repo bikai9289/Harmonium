@@ -21,6 +21,8 @@ const standaloneOutputEnabled =
 const nextConfig = {
   output: standaloneOutputEnabled ? 'standalone' : undefined,
   reactStrictMode: false,
+  devIndicators: false,
+  allowedDevOrigins: ['*.trycloudflare.com'],
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   images: {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -40,6 +42,33 @@ const nextConfig = {
     return [
       {
         source: '/imgs/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/audio/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/:path*.mp3',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/:path*.wav',
         headers: [
           {
             key: 'Cache-Control',

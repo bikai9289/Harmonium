@@ -119,22 +119,7 @@
     "social": {
       "items": []
     },
-    "agreement": {
-      "items": [
-        {
-          "title": "联系我们",
-          "url": "mailto:support@playharmonium.com"
-        },
-        {
-          "title": "隐私政策",
-          "url": "/privacy-policy"
-        },
-        {
-          "title": "服务条款",
-          "url": "/terms-of-service"
-        }
-      ]
-    },
+    "agreement": null,
     "show_theme": false,
     "show_locale": false
   }

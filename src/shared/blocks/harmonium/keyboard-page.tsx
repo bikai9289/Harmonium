@@ -29,9 +29,9 @@ import {
 import { MidiPanel } from './midi-panel';
 import { PracticeStudio } from './practice-studio';
 import { PracticeSettingsSnapshot } from './practice-workspace';
+import { useHarmoniumPlayer } from './use-harmonium-player';
 import { useHarmoniumPractice } from './use-harmonium-practice';
 import { useMidiKeyboard } from './use-midi-keyboard';
-import { useHarmoniumPlayer } from './use-harmonium-player';
 
 export function HarmoniumKeyboardPage() {
   const [labelMode, setLabelMode] = useState<'western' | 'sargam'>('sargam');
@@ -274,22 +274,17 @@ export function HarmoniumKeyboardPage() {
   const octaveOption = getOctaveOption(octave);
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#f6efe2_0%,#f8f4ec_40%,#fbfaf7_100%)] text-slate-950">
-      <section className="border-b border-black/5 bg-white/70 pt-24 pb-8 backdrop-blur sm:pt-28">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#faf7f2_0%,#f8f4ec_40%,#fbfaf7_100%)] font-sans text-[#2a1f1a]">
+      <section className="border-b border-[#2a1f1a]/10 bg-white/70 pt-20 pb-6 backdrop-blur sm:pt-24">
         <div className="container max-w-[1500px] space-y-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-3xl">
-              <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#8f5f33]">
-                Web Harmonium practice mode
-              </p>
-              <h1 className="mt-3 text-3xl font-semibold sm:text-5xl">
-                Play Web Harmonium Online on a full keyboard practice page
+              <h1 className="font-serif text-4xl font-bold sm:text-5xl">
+                Web Harmonium Keyboard
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-                This Web Harmonium page keeps the keyboard front and center, so
-                you can play online with touch, desktop shortcuts, MIDI input,
-                Sargam labels, octave control, transpose, and saved practice
-                settings without squeezing the instrument into a side column.
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-[#6b5d52] sm:text-base">
+                Full-width practice surface with MIDI, Sargam labels, transpose,
+                reed settings, reverb, and local recording.
               </p>
             </div>
 
@@ -304,7 +299,10 @@ export function HarmoniumKeyboardPage() {
                   Back Home
                 </Link>
               </Button>
-              <Button asChild className="bg-[#1f6b64] text-white hover:bg-[#17544f]">
+              <Button
+                asChild
+                className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
+              >
                 <Link href="/blog" title="Read Web Harmonium guides">
                   Read Guides
                 </Link>
@@ -312,15 +310,9 @@ export function HarmoniumKeyboardPage() {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-3 text-sm text-slate-600">
+          <div className="flex flex-wrap gap-3 text-sm text-[#6b5d52]">
             <span className="rounded-full bg-white px-3 py-1.5 shadow-sm">
               Full-width Web Harmonium keyboard first
-            </span>
-            <span className="rounded-full bg-white px-3 py-1.5 shadow-sm">
-              {WHITE_KEYCAP_HINT}
-            </span>
-            <span className="rounded-full bg-white px-3 py-1.5 shadow-sm">
-              {BLACK_KEYCAP_HINT}
             </span>
           </div>
         </div>
@@ -329,19 +321,17 @@ export function HarmoniumKeyboardPage() {
       <section className="py-8 sm:py-12">
         <div className="container grid max-w-[1500px] gap-6">
           <aside className="order-2 grid gap-4 lg:grid-cols-[0.92fr_1.08fr] xl:grid-cols-[0.95fr_1.05fr]">
-            <div className="rounded-[1.6rem] border border-black/7 bg-white/85 p-5 shadow-sm">
-              <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#8f5f33]">
-                Web Harmonium setup
-              </p>
-              <h2 className="mt-3 text-2xl font-semibold">Ready to play</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                Use your keyboard or tap the keys. This Web Harmonium keyboard
-                keeps your volume, octave, transpose, and label mode ready for
-                the next practice session without crowding the play surface.
+            <div className="rounded-lg border border-[#2a1f1a]/10 bg-white/85 p-5 shadow-sm">
+              <h2 className="text-2xl font-semibold">
+                Always visible controls
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-[#6b5d52]">
+                Keep pitch, label, reed, reverb, and volume settings close to
+                the keyboard without hiding the play surface.
               </p>
             </div>
 
-            <div className="rounded-[1.6rem] border border-black/7 bg-white/85 p-5 shadow-sm">
+            <div className="rounded-lg border border-[#2a1f1a]/10 bg-white/85 p-5 shadow-sm">
               <button
                 type="button"
                 onClick={() => setShowShortcutHelp((current) => !current)}
@@ -349,17 +339,14 @@ export function HarmoniumKeyboardPage() {
                 aria-expanded={showShortcutHelp}
               >
                 <div>
-                  <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#8f5f33]">
-                    Web Harmonium shortcut guide
-                  </p>
-                  <h2 className="mt-3 text-2xl font-semibold">Desktop key map</h2>
+                  <h2 className="text-2xl font-semibold">Desktop key map</h2>
                   <p className="mt-3 text-sm leading-7 text-slate-600">
                     Use the full desktop layout to move from the lower octave
                     through the middle register and into the upper notes without
                     pushing the keyboard into a narrow side panel.
                   </p>
                 </div>
-                <span className="mt-1 inline-flex items-center gap-2 rounded-full bg-[#1f6b64]/10 px-3 py-2 text-sm font-medium text-[#1f6b64]">
+                <span className="mt-1 inline-flex items-center gap-2 rounded-full bg-[#8b2e2e]/10 px-3 py-2 text-sm font-medium text-[#8b2e2e]">
                   {showShortcutHelp ? 'Collapse' : 'Expand'}
                   <ChevronDown
                     className={cn(
@@ -403,7 +390,13 @@ export function HarmoniumKeyboardPage() {
                             )}
                           >
                             <p className="font-semibold">{note.keycap}</p>
-                            <p className={cn(note.kind === 'white' ? 'text-slate-500' : 'text-white/70')}>
+                            <p
+                              className={cn(
+                                note.kind === 'white'
+                                  ? 'text-slate-500'
+                                  : 'text-white/70'
+                              )}
+                            >
                               {note.western}
                             </p>
                           </div>
@@ -438,7 +431,7 @@ export function HarmoniumKeyboardPage() {
                 step="0.01"
                 value={volume}
                 onChange={(event) => setVolume(Number(event.target.value))}
-                className="accent-[#1f6b64]"
+                className="accent-[#8b2e2e]"
               />
             </ControlCard>
 
@@ -486,7 +479,7 @@ export function HarmoniumKeyboardPage() {
                     className={cn(
                       'rounded-full px-3 py-1 text-sm transition',
                       reedMode === option.value
-                        ? 'bg-[#1f6b64] text-white'
+                        ? 'bg-[#8b2e2e] text-white'
                         : 'bg-white text-slate-700 hover:bg-[#f0e0cf]'
                     )}
                   >
@@ -510,7 +503,7 @@ export function HarmoniumKeyboardPage() {
                     className={cn(
                       'rounded-full px-3 py-1 text-sm transition',
                       octave === option.value
-                        ? 'bg-[#1f6b64] text-white'
+                        ? 'bg-[#8b2e2e] text-white'
                         : 'bg-white text-slate-700 hover:bg-[#f0e0cf]'
                     )}
                   >
@@ -519,7 +512,8 @@ export function HarmoniumKeyboardPage() {
                 ))}
               </div>
               <p className="mt-3 text-xs leading-6 text-slate-500">
-                Move down for accompaniment-style practice, stay at middle for default learning, or go higher for brighter lead phrases.
+                Move down for accompaniment-style practice, stay at middle for
+                default learning, or go higher for brighter lead phrases.
               </p>
             </ControlCard>
 
@@ -548,10 +542,10 @@ export function HarmoniumKeyboardPage() {
             </ControlCard>
           </aside>
 
-          <div className="order-1 rounded-[2rem] border border-black/8 bg-[linear-gradient(160deg,rgba(255,255,255,0.94),rgba(248,239,226,0.94))] p-5 shadow-[0_24px_80px_rgba(79,48,16,0.12)] backdrop-blur sm:p-6">
+          <div className="order-1 rounded-[2rem] border border-[#2a1f1a]/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.94),rgba(248,239,226,0.94))] p-5 shadow-[0_24px_80px_rgba(79,48,16,0.12)] backdrop-blur sm:p-6">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#8f5f33]">
+                <p className="text-sm font-medium tracking-[0.24em] text-[#8f5f33] uppercase">
                   Web Harmonium play surface
                 </p>
                 <p className="mt-1 text-sm text-slate-600">
@@ -559,17 +553,19 @@ export function HarmoniumKeyboardPage() {
                   on smaller screens when needed.
                 </p>
               </div>
-              <div className="rounded-full border border-[#1f6b64]/15 bg-[#1f6b64]/8 px-3 py-2 text-sm text-[#1f6b64]">
+              <div className="rounded-full border border-[#8b2e2e]/15 bg-[#8b2e2e]/8 px-3 py-2 text-sm text-[#8b2e2e]">
                 {playbackMode === 'samples'
                   ? 'Reference sample'
                   : 'Fallback synth'}
               </div>
             </div>
 
-            <div className="mb-4 rounded-3xl border border-black/8 bg-[#efe4d2] p-4">
+            <div className="mb-4 rounded-3xl border border-black/8 bg-[#f0ebe2] p-4">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-medium text-[#7f4e2a]">Transpose</p>
+                  <p className="text-sm font-medium text-[#7f4e2a]">
+                    Transpose
+                  </p>
                   <p className="text-xs text-slate-600">
                     Shift the Web Harmonium pitch in semitones to match your
                     range.
@@ -578,7 +574,9 @@ export function HarmoniumKeyboardPage() {
                 <div className="flex items-center gap-2 rounded-full bg-white/85 px-3 py-1.5 text-sm font-medium text-slate-700">
                   <button
                     type="button"
-                    onClick={() => setTranspose((current) => Math.max(-6, current - 1))}
+                    onClick={() =>
+                      setTranspose((current) => Math.max(-6, current - 1))
+                    }
                     className="rounded-full px-2 py-1 hover:bg-[#f0e0cf]"
                   >
                     -
@@ -589,7 +587,9 @@ export function HarmoniumKeyboardPage() {
                   </span>
                   <button
                     type="button"
-                    onClick={() => setTranspose((current) => Math.min(6, current + 1))}
+                    onClick={() =>
+                      setTranspose((current) => Math.min(6, current + 1))
+                    }
                     className="rounded-full px-2 py-1 hover:bg-[#f0e0cf]"
                   >
                     +
@@ -600,11 +600,11 @@ export function HarmoniumKeyboardPage() {
 
             <div className="overflow-x-auto pb-2">
               <div
-                className="rounded-[1.75rem] bg-[#f7f1e8] p-3 shadow-inner"
+                className="rounded-[1.75rem] border border-[#2a1f1a]/12 bg-[#8b4a2e] p-2 shadow-inner"
                 style={{ minWidth: `${KEYBOARD_MIN_WIDTH}px` }}
               >
-                <div className="relative h-[26rem] overflow-hidden rounded-[1.4rem] border border-black/8 bg-[linear-gradient(180deg,#fbfaf8_0%,#f2eadf_100%)] px-3 pt-3 pb-4 sm:h-[32rem]">
-                  <div className="absolute inset-x-0 top-0 h-6 bg-[radial-gradient(circle_at_top,rgba(183,124,74,0.24),transparent_70%)]" />
+                <div className="relative h-[26rem] overflow-hidden rounded-[1.35rem] border border-[#1f1b17]/35 bg-[linear-gradient(180deg,#f3eadf_0%,#e6d2bd_100%)] px-3 pt-3 pb-4 sm:h-[32rem]">
+                  <div className="absolute inset-x-0 top-0 h-8 bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent)]" />
 
                   <div className="relative h-full">
                     {whiteKeys.map((note) => {
@@ -615,16 +615,20 @@ export function HarmoniumKeyboardPage() {
                           key={note.id}
                           type="button"
                           onPointerDown={(event) => {
-                            event.currentTarget.setPointerCapture(event.pointerId);
+                            event.currentTarget.setPointerCapture(
+                              event.pointerId
+                            );
                             void handlePlayableNoteStart(note, 'pointer');
                           }}
                           onPointerUp={() => handlePlayableNoteStop(note.id)}
                           onPointerLeave={() => handlePlayableNoteStop(note.id)}
-                          onPointerCancel={() => handlePlayableNoteStop(note.id)}
+                          onPointerCancel={() =>
+                            handlePlayableNoteStop(note.id)
+                          }
                           className={cn(
-                            'absolute top-0 bottom-0 flex flex-col justify-between rounded-b-[1.2rem] border border-black/8 px-2 pt-4 pb-3 text-left shadow-[inset_0_-10px_24px_rgba(183,124,74,0.10)] transition',
+                            'absolute top-0 bottom-0 flex flex-col justify-between rounded-b-[1.2rem] border border-[#d7c8b6] border-r-[#bfae9b] px-2 pt-4 pb-3 text-left shadow-[inset_0_-20px_34px_rgba(139,74,46,0.14),0_8px_0_rgba(42,31,26,0.14)] transition duration-75',
                             activeNoteIds.includes(note.id)
-                              ? 'bg-[#f6d2aa]'
+                              ? 'translate-y-1 bg-[#f1c89d] shadow-[inset_0_-8px_18px_rgba(139,74,46,0.13),0_3px_0_rgba(42,31,26,0.12)]'
                               : 'bg-[linear-gradient(180deg,#fffdfa_0%,#efe3d5_100%)]'
                           )}
                           style={{
@@ -634,10 +638,14 @@ export function HarmoniumKeyboardPage() {
                         >
                           <div>
                             <p className="text-sm font-semibold text-slate-900 sm:text-base lg:text-lg">
-                              {labelMode === 'sargam' ? note.sargam : note.western}
+                              {labelMode === 'sargam'
+                                ? note.sargam
+                                : note.western}
                             </p>
                             <p className="text-[11px] text-slate-500 sm:text-xs">
-                              {labelMode === 'sargam' ? note.western : note.sargam}
+                              {labelMode === 'sargam'
+                                ? note.western
+                                : note.sargam}
                             </p>
                           </div>
                           <span className="rounded-full bg-slate-950/6 px-2 py-1 text-[10px] font-medium text-slate-600 sm:text-xs">
@@ -650,24 +658,29 @@ export function HarmoniumKeyboardPage() {
                     {blackKeys.map((note) => {
                       const width = 100 / whiteKeys.length;
                       const blackWidth = width * 0.62;
-                      const left = (note.whiteIndex + 1) * width - blackWidth / 2;
+                      const left =
+                        (note.whiteIndex + 1) * width - blackWidth / 2;
 
                       return (
                         <button
                           key={note.id}
                           type="button"
                           onPointerDown={(event) => {
-                            event.currentTarget.setPointerCapture(event.pointerId);
+                            event.currentTarget.setPointerCapture(
+                              event.pointerId
+                            );
                             void handlePlayableNoteStart(note, 'pointer');
                           }}
                           onPointerUp={() => handlePlayableNoteStop(note.id)}
                           onPointerLeave={() => handlePlayableNoteStop(note.id)}
-                          onPointerCancel={() => handlePlayableNoteStop(note.id)}
+                          onPointerCancel={() =>
+                            handlePlayableNoteStop(note.id)
+                          }
                           className={cn(
-                            'absolute top-0 z-10 flex h-[58%] flex-col justify-between rounded-b-[1rem] border border-black/10 px-2 pt-3 pb-2 text-left shadow-[0_14px_30px_rgba(15,23,42,0.24)] transition',
+                            'absolute top-0 z-10 flex h-[58%] flex-col justify-between rounded-b-[1rem] border border-white/10 px-2 pt-3 pb-2 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_16px_28px_rgba(31,27,23,0.36)] transition duration-75',
                             activeNoteIds.includes(note.id)
-                              ? 'bg-[linear-gradient(180deg,#16655e_0%,#0e3f3b_100%)]'
-                              : 'bg-[linear-gradient(180deg,#334155_0%,#111827_100%)]'
+                              ? 'translate-y-1 bg-[linear-gradient(180deg,#5a2620_0%,#1f1b17_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_7px_16px_rgba(31,27,23,0.3)]'
+                              : 'bg-[linear-gradient(180deg,#2a2520_0%,#1f1b17_100%)]'
                           )}
                           style={{
                             left: `${left}%`,
@@ -676,10 +689,14 @@ export function HarmoniumKeyboardPage() {
                         >
                           <div>
                             <p className="text-xs font-semibold text-white sm:text-sm">
-                              {labelMode === 'sargam' ? note.sargam : note.western}
+                              {labelMode === 'sargam'
+                                ? note.sargam
+                                : note.western}
                             </p>
                             <p className="text-[10px] text-white/70 sm:text-[11px]">
-                              {labelMode === 'sargam' ? note.western : note.sargam}
+                              {labelMode === 'sargam'
+                                ? note.western
+                                : note.sargam}
                             </p>
                           </div>
                           <span className="rounded-full bg-white/12 px-2 py-1 text-[10px] font-medium text-white/80 sm:text-[11px]">
@@ -705,7 +722,6 @@ export function HarmoniumKeyboardPage() {
                 keyboard playable.
               </span>
             </div>
-
           </div>
 
           <div className="order-3">
@@ -760,6 +776,3 @@ function ControlCard({
     </div>
   );
 }
-
-
-
