@@ -109,6 +109,10 @@
           "title": "Company",
           "children": [
             {
+              "title": "About",
+              "url": "/about"
+            },
+            {
               "title": "Contact",
               "url": "mailto:support@playharmonium.com"
             },
