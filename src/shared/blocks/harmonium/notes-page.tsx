@@ -130,11 +130,11 @@ export function HarmoniumNotesPage() {
         <div className="container max-w-[1400px] space-y-6">
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="font-serif text-4xl font-bold sm:text-5xl">
-              Harmonium Notes - Sargam & Western
+              Web Harmonium Notes
             </h1>
             <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-[#6b5d52]">
-              Every key on the harmonium with Sa Re Ga Ma and C D E F labels,
-              plus a playable example for every note.
+              Learn web harmonium notes with Sargam labels, western notes,
+              keyboard mapping, and playable examples for every note.
             </p>
           </div>
 

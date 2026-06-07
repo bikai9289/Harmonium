@@ -6,7 +6,7 @@
         "id": "hero",
         "title": "Web Harmonium Online",
         "highlight_text": "Online",
-        "description": "A browser-based web harmonium tool with keyboard shortcuts, touch controls, Sargam labels, and a lightweight SaaS foundation for future premium features.",
+        "description": "A browser-based web harmonium tool with keyboard shortcuts, touch controls, Sargam labels, and simple practice features for beginners.",
         "buttons": [
           {
             "title": "Start Playing",
@@ -31,8 +31,8 @@
       },
       "features": {
         "id": "features",
-        "title": "Built for Practice-First Search Traffic",
-        "description": "This fallback landing configuration keeps the product focused on fast play, clear note labels, and lightweight growth validation.",
+        "title": "Built for Web Harmonium Practice",
+        "description": "This page keeps the product focused on fast play, clear note labels, and practical beginner practice.",
         "items": [
           {
             "title": "Instant Play",
@@ -41,12 +41,12 @@
           },
           {
             "title": "Useful Controls",
-            "description": "Octave, transpose, and label toggles matter more than generic SaaS hero copy.",
+            "description": "Octave, transpose, and label toggles help learners match the instrument to their practice style.",
             "icon": "SlidersHorizontal"
           },
           {
-            "title": "SEO Support",
-            "description": "The tool is supported by blog content and explanatory sections so it can rank as a real page.",
+            "title": "Learning Support",
+            "description": "Notes, keyboard guidance, and tutorial content help beginners understand what they are playing.",
             "icon": "NotebookPen"
           }
         ]
@@ -62,7 +62,7 @@
           },
           {
             "question": "Do I need an account first?",
-            "answer": "No. The core playing experience should remain open, while premium features can be added later."
+            "answer": "No. The core playing experience is open so you can start practicing immediately."
           },
           {
             "question": "Why show Sargam and western labels?",
@@ -73,7 +73,7 @@
       "cta": {
         "id": "cta",
         "title": "Open the Tool and Start Practicing",
-        "description": "Use the homepage instrument first, then expand into content and premium features once demand is proven.",
+        "description": "Use the homepage instrument first, then explore notes, keyboard mapping, and beginner tutorials.",
         "buttons": [
           {
             "title": "Go to Homepage",

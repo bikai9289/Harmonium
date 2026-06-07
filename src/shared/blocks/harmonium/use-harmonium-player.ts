@@ -12,10 +12,26 @@ type Voice = {
 type PlaybackMode = 'samples' | 'oscillator';
 type ReedMode = 'single' | 'double';
 
+const SAMPLE_BASE_URL = '/audio/harmonium';
 const REFERENCE_SAMPLE_URL = '/harmonium-kannan-orig.wav';
 const REFERENCE_REVERB_URL = '/reverb.wav';
 const REFERENCE_ROOT_MIDI = 62;
 const REFERENCE_LOOP_START = 0.5;
+const SAMPLE_ROOT_BY_PITCH_CLASS: Record<number, { id: string; midi: number }> =
+  {
+    0: { id: 'c4', midi: 60 },
+    1: { id: 'csharp4', midi: 61 },
+    2: { id: 'd4', midi: 62 },
+    3: { id: 'dsharp4', midi: 63 },
+    4: { id: 'e4', midi: 64 },
+    5: { id: 'f4', midi: 65 },
+    6: { id: 'fsharp4', midi: 66 },
+    7: { id: 'g4', midi: 67 },
+    8: { id: 'gsharp4', midi: 68 },
+    9: { id: 'a4', midi: 69 },
+    10: { id: 'asharp4', midi: 70 },
+    11: { id: 'b4', midi: 71 },
+  };
 
 async function fetchAudioBuffer(context: AudioContext, url: string) {
   const response = await fetch(url, { cache: 'force-cache' }).catch(() => null);
@@ -44,6 +60,34 @@ function createReferenceSource({
   source.loop = true;
   source.loopStart = REFERENCE_LOOP_START;
   source.detune.value = (midi - REFERENCE_ROOT_MIDI) * 100;
+  source.connect(destination);
+  source.start(0);
+
+  return source;
+}
+
+function createSampleSource({
+  buffer,
+  context,
+  destination,
+  desiredMidi,
+  sampleMidi,
+}: {
+  buffer: AudioBuffer;
+  context: AudioContext;
+  destination: AudioNode;
+  desiredMidi: number;
+  sampleMidi: number;
+}) {
+  const source = context.createBufferSource();
+  source.buffer = buffer;
+  source.loop = true;
+  source.loopStart = Math.min(0.5, Math.max(0, buffer.duration - 0.15));
+  source.loopEnd = Math.min(
+    buffer.duration,
+    Math.max(source.loopStart + 0.1, buffer.duration - 0.08)
+  );
+  source.detune.value = (desiredMidi - sampleMidi) * 100;
   source.connect(destination);
   source.start(0);
 
@@ -95,6 +139,9 @@ export function useHarmoniumPlayer({
   const sustainEnabledRef = useRef(false);
   const sustainedVoiceIdsRef = useRef<Set<string>>(new Set());
   const sampleBufferPromiseRef = useRef<Promise<AudioBuffer | null> | null>(null);
+  const noteBufferPromisesRef = useRef(
+    new Map<string, Promise<AudioBuffer | null>>()
+  );
   const reverbBufferPromiseRef = useRef<Promise<AudioBuffer | null> | null>(null);
   const settingsRef = useRef({
     octave,
@@ -192,6 +239,27 @@ export function useHarmoniumPlayer({
     return sampleBufferPromiseRef.current;
   }, []);
 
+  const loadNoteSample = useCallback(
+    async (context: AudioContext, sampleId: string) => {
+      const existing = noteBufferPromisesRef.current.get(sampleId);
+      if (existing) {
+        return existing;
+      }
+
+      const promise = fetchAudioBuffer(
+        context,
+        `${SAMPLE_BASE_URL}/${sampleId}.mp3`
+      ).catch((error) => {
+        console.error(`Failed to load harmonium sample "${sampleId}"`, error);
+        return null;
+      });
+
+      noteBufferPromisesRef.current.set(sampleId, promise);
+      return promise;
+    },
+    []
+  );
+
   const loadReferenceReverb = useCallback(
     async (context: AudioContext) => {
       if (!reverbBufferPromiseRef.current) {
@@ -288,13 +356,13 @@ export function useHarmoniumPlayer({
       sustainedVoiceIdsRef.current.delete(voiceId);
 
       if (voicesRef.current.has(voiceId)) {
-        return;
+        return true;
       }
 
       const context = await ensureAudio();
       const gainNode = gainNodeRef.current;
       if (!context || !gainNode) {
-        return;
+        return false;
       }
 
       void loadReferenceReverb(context);
@@ -303,22 +371,53 @@ export function useHarmoniumPlayer({
       voiceGain.gain.value = 1;
       voiceGain.connect(gainNode);
 
-      const sampleBuffer = await loadReferenceSample(context);
+      const sampleInfo =
+        SAMPLE_ROOT_BY_PITCH_CLASS[((desiredMidi % 12) + 12) % 12];
+      const noteSampleBuffer = sampleInfo
+        ? await loadNoteSample(context, sampleInfo.id)
+        : null;
+      const referenceSampleBuffer = noteSampleBuffer
+        ? null
+        : await loadReferenceSample(context);
 
       if (
         voicesRef.current.has(voiceId) ||
         !requestedVoiceIdsRef.current.has(voiceId)
       ) {
         voiceGain.disconnect();
-        return;
+        return false;
       }
 
       const sources: AudioScheduledSourceNode[] = [];
 
-      if (sampleBuffer) {
+      if (noteSampleBuffer && sampleInfo) {
+        sources.push(
+          createSampleSource({
+            buffer: noteSampleBuffer,
+            context,
+            destination: voiceGain,
+            desiredMidi,
+            sampleMidi: sampleInfo.midi,
+          })
+        );
+
+        if (settingsRef.current.reedMode === 'double') {
+          sources.push(
+            createSampleSource({
+              buffer: noteSampleBuffer,
+              context,
+              destination: voiceGain,
+              desiredMidi: desiredMidi + 12,
+              sampleMidi: sampleInfo.midi,
+            })
+          );
+        }
+
+        setPlaybackMode('samples');
+      } else if (referenceSampleBuffer) {
         sources.push(
           createReferenceSource({
-            buffer: sampleBuffer,
+            buffer: referenceSampleBuffer,
             context,
             destination: voiceGain,
             midi: desiredMidi,
@@ -328,7 +427,7 @@ export function useHarmoniumPlayer({
         if (settingsRef.current.reedMode === 'double') {
           sources.push(
             createReferenceSource({
-              buffer: sampleBuffer,
+              buffer: referenceSampleBuffer,
               context,
               destination: voiceGain,
               midi: desiredMidi + 12,
@@ -375,13 +474,15 @@ export function useHarmoniumPlayer({
         gain: voiceGain,
         sources,
       });
+
+      return true;
     },
-    [ensureAudio, loadReferenceReverb, loadReferenceSample]
+    [ensureAudio, loadNoteSample, loadReferenceReverb, loadReferenceSample]
   );
 
   const startNote = useCallback(
     async (note: NoteKey) => {
-      await startVoice({
+      return startVoice({
         voiceId: note.id,
         desiredMidi:
           note.midi +
@@ -394,7 +495,7 @@ export function useHarmoniumPlayer({
 
   const startMidiNote = useCallback(
     async (voiceId: string, midi: number) => {
-      await startVoice({
+      return startVoice({
         voiceId,
         desiredMidi: midi + settingsRef.current.transpose,
       });
@@ -416,10 +517,12 @@ export function useHarmoniumPlayer({
 
   const wrappedStartNote = useCallback(
     async (note: NoteKey) => {
-      await startNote(note);
-      setActiveNoteIds((current) =>
-        current.includes(note.id) ? current : [...current, note.id]
-      );
+      const started = await startNote(note);
+      if (started) {
+        setActiveNoteIds((current) =>
+          current.includes(note.id) ? current : [...current, note.id]
+        );
+      }
     },
     [startNote]
   );

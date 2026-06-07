@@ -283,8 +283,8 @@ export function HarmoniumKeyboardPage() {
                 Web Harmonium Keyboard
               </h1>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-[#6b5d52] sm:text-base">
-                Full-width practice surface with MIDI, Sargam labels, transpose,
-                reed settings, reverb, and local recording.
+                Use your laptop keyboard, touch screen, or MIDI controller to
+                play web harmonium online.
               </p>
             </div>
 

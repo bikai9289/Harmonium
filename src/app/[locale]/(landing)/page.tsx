@@ -24,9 +24,9 @@ export const generateMetadata = getMetadata({
 const copy = {
   en: {
     badge: 'Free browser instrument',
-    title: 'Free Online Harmonium',
+    title: 'Free Web Harmonium Online',
     description:
-      'Play in your browser with MIDI, Sargam & transpose - for Indian Classical, vocal warm-ups, bhajan & kirtan.',
+      'Play a free web harmonium in your browser with Sargam labels, MIDI keyboard support, transpose, reed controls, and touch-friendly keys.',
     heroNote:
       'Use your computer keyboard, touch screen, or MIDI keyboard to play a clear harmonium layout with Sargam and western note labels.',
     primaryCta: 'Start Playing',
