@@ -70,5 +70,7 @@ src/config/db/migrations*
 .dev.vars
 .codex-*.log
 .codex-*.err.log
+.codex/
+openspec/
 download/
 doc/

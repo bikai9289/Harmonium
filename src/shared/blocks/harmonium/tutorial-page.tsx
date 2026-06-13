@@ -549,7 +549,7 @@ export function HarmoniumTutorialPage() {
                   variant="outline"
                   className="border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
                 >
-                  <Link href="/notes">Open Harmonium Notes</Link>
+                  <Link href="/harmonium-notes">Open Harmonium Notes</Link>
                 </Button>
               </div>
             </div>

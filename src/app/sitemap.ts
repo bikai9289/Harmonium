@@ -16,8 +16,12 @@ const staticRoutes: Array<{
   priority: number;
 }> = [
   { path: '/', changeFrequency: 'daily', priority: 1 },
+  { path: '/online-harmonium', changeFrequency: 'daily', priority: 0.9 },
+  { path: '/virtual-harmonium', changeFrequency: 'daily', priority: 0.88 },
   { path: '/keyboard', changeFrequency: 'daily', priority: 0.9 },
+  { path: '/harmonium-notes', changeFrequency: 'weekly', priority: 0.87 },
   { path: '/notes', changeFrequency: 'weekly', priority: 0.85 },
+  { path: '/laptop-harmonium', changeFrequency: 'weekly', priority: 0.86 },
   { path: '/tutorial', changeFrequency: 'weekly', priority: 0.85 },
   { path: '/blog', changeFrequency: 'weekly', priority: 0.8 },
 ];

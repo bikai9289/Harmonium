@@ -5,7 +5,13 @@ import { Cable, RefreshCw } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/lib/utils';
 
-type MidiSupportState = 'checking' | 'supported' | 'unsupported' | 'error';
+type MidiSupportState =
+  | 'not-requested'
+  | 'checking'
+  | 'supported'
+  | 'unsupported'
+  | 'permission-denied'
+  | 'error';
 
 type MidiInputSummary = {
   id: string;
@@ -14,16 +20,22 @@ type MidiInputSummary = {
 };
 
 function getStatusLabel(state: MidiSupportState, count: number) {
+  if (state === 'not-requested') return 'Optional';
   if (state === 'checking') return 'Checking';
   if (state === 'unsupported') return 'Unavailable';
+  if (state === 'permission-denied') return 'Permission denied';
   if (state === 'error') return 'Retry needed';
   if (!count) return 'No devices';
   return 'Ready';
 }
 
 function getDescription(state: MidiSupportState, count: number) {
+  if (state === 'not-requested') {
+    return 'MIDI is optional. Click Connect MIDI to choose a controller; touch and QWERTY input work without permission.';
+  }
+
   if (state === 'checking') {
-    return 'Looking for browser MIDI support and connected devices.';
+    return 'Checking browser MIDI support and connected devices after your request.';
   }
 
   if (state === 'unsupported') {
@@ -32,6 +44,10 @@ function getDescription(state: MidiSupportState, count: number) {
 
   if (state === 'error') {
     return 'Browser MIDI is present, but device access failed. Try refreshing after reconnecting your controller.';
+  }
+
+  if (state === 'permission-denied') {
+    return 'MIDI permission was denied. Touch input and laptop keyboard shortcuts are still available.';
   }
 
   if (!count) {
@@ -65,7 +81,7 @@ export function MidiPanel({
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-sm font-medium uppercase tracking-[0.24em] text-[#8f5f33]">
+          <p className="text-sm font-medium tracking-[0.24em] text-[#8f5f33] uppercase">
             MIDI input
           </p>
           <h3 className="mt-3 text-xl font-semibold text-slate-950">
@@ -91,18 +107,18 @@ export function MidiPanel({
           className="border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
         >
           <RefreshCw className="size-4" />
-          Refresh MIDI
+          {supportState === 'not-requested' ? 'Connect MIDI' : 'Refresh MIDI'}
         </Button>
 
         {supportState === 'supported' ? (
           <label className="min-w-[220px] flex-1">
-            <span className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+            <span className="mb-2 block text-xs font-medium tracking-[0.18em] text-slate-500 uppercase">
               Active device
             </span>
             <select
               value={selectedInputId}
               onChange={(event) => onSelectedInputIdChange(event.target.value)}
-              className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#8b2e2e]/40"
+              className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm transition outline-none focus:border-[#8b2e2e]/40"
             >
               {midiInputs.length ? null : (
                 <option value="">No MIDI devices detected</option>

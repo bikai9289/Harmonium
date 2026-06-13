@@ -13,11 +13,12 @@ import { getMetadata } from '@/shared/lib/seo';
 export const revalidate = 3600;
 
 export const generateMetadata = getMetadata({
-  title: 'Free Web Harmonium - Play Online in Your Browser | Play Harmonium',
+  title:
+    'Free Web Harmonium - Online & Virtual Harmonium Keyboard | Play Harmonium',
   description:
-    'Play a free web harmonium online with Sargam labels, MIDI keyboard input, touch controls, reed and reverb settings, transpose, and beginner-friendly raga practice guides.',
+    'Play a free web harmonium online with no download and no sign-up. Use laptop keyboard shortcuts, Sargam labels, optional MIDI input, touch controls, and beginner practice guides.',
   keywords:
-    'web harmonium, free web harmonium, online harmonium, play harmonium online, virtual harmonium, harmonium keyboard, sargam notes, Indian classical music, raga practice, bhajan kirtan',
+    'web harmonium, free web harmonium, online harmonium, play harmonium online, virtual harmonium, laptop harmonium, harmonium notes, Sa Re Ga Ma, sargam notes, no download harmonium',
   canonicalUrl: '/',
 });
 
@@ -26,14 +27,16 @@ const copy = {
     badge: 'Free browser instrument',
     title: 'Free Web Harmonium Online',
     description:
-      'Play a free web harmonium in your browser with Sargam labels, MIDI keyboard support, transpose, reed controls, and touch-friendly keys.',
+      'Play a free online harmonium and virtual harmonium in your browser with no download, no sign-up, Sargam labels, laptop keyboard shortcuts, MIDI support, transpose, and touch-friendly keys.',
     heroNote:
-      'Use your computer keyboard, touch screen, or MIDI keyboard to play a clear harmonium layout with Sargam and western note labels.',
+      'Use your laptop keyboard, touch screen, or MIDI keyboard to play a clear harmonium layout with Sa Re Ga Ma and western note labels.',
     primaryCta: 'Start Playing',
     secondaryCta: 'Learn Notes',
     secondaryHref: '/tutorial',
     trust: [
       'No download',
+      'No sign-up',
+      'Laptop keyboard shortcuts',
       'Works on desktop, tablet, and mobile',
       'Sargam and western labels',
     ],
@@ -47,27 +50,27 @@ const copy = {
     quickStartOpen: 'Open',
     quickStarts: [
       {
-        title: 'Play',
-        href: '/keyboard',
+        title: 'Online Harmonium',
+        href: '/online-harmonium',
         description:
-          'Open the full harmonium keyboard when you already know the note map.',
+          'Play harmonium online with no download, no sign-up, keyboard shortcuts, and optional MIDI.',
       },
       {
-        title: 'Notes',
-        href: '/notes',
+        title: 'Harmonium Notes',
+        href: '/harmonium-notes',
         description:
-          'Review Sargam labels, western notes, shortcuts, and beginner patterns.',
+          'Review Sa Re Ga Ma, western notes, shortcuts, and beginner note patterns.',
       },
       {
-        title: 'Tutorial',
-        href: '/tutorial',
+        title: 'Laptop Harmonium',
+        href: '/laptop-harmonium',
         description:
-          'Follow highlighted notes with a guided lesson and autoplay demo.',
+          'Learn how to use a laptop keyboard as a browser harmonium controller.',
       },
     ],
     keyboardEyebrow: 'Web Harmonium play surface',
     keyboardDescription:
-      'Play with your keyboard, touch screen, or MIDI controller while the full 23-key range stays close at hand.',
+      'Play with your laptop keyboard, touch screen, or MIDI controller while the full 23-key range stays close at hand.',
     playbackSample: 'Reference sample',
     playbackSynth: 'Fallback synth',
     featureTitle: 'Real practice features',
@@ -78,7 +81,7 @@ const copy = {
       {
         title: 'MIDI Support',
         description:
-          'Use a MIDI keyboard, laptop shortcuts, or touch controls depending on where you practice.',
+          'Use a MIDI keyboard after an explicit connect action, or keep playing with laptop shortcuts and touch controls.',
       },
       {
         title: 'Sargam + Western Labels',
@@ -138,22 +141,22 @@ const copy = {
       'Start with the keyboard, learn the note layout, then use guided exercises when you want more structure.',
     guides: [
       {
-        title: 'Web Harmonium notes and key mapping',
-        href: '/notes',
+        title: 'Harmonium notes and key mapping',
+        href: '/harmonium-notes',
         description:
-          'Review the 23-key layout, shortcut map, and Sargam-to-western note relationships.',
+          'Review Sa Re Ga Ma, western note names, the 23-key layout, and shortcut map.',
       },
       {
-        title: 'Guided tutorial mode for beginners',
-        href: '/tutorial',
+        title: 'Laptop harmonium keyboard map',
+        href: '/laptop-harmonium',
         description:
-          'Practice with highlighted target notes, autoplay demos, and simple note matching.',
+          'Learn the QWERTY key map for playing harmonium directly on a laptop keyboard.',
       },
       {
-        title: 'Beginner-friendly Web Harmonium guides',
-        href: '/blog/how-to-play-harmonium-online-for-free',
+        title: 'Virtual harmonium browser practice',
+        href: '/virtual-harmonium',
         description:
-          'Read practical tips for playing harmonium online and building a simple practice routine.',
+          'Understand how the browser instrument works for quick pitch reference and daily practice.',
       },
     ],
     faqTitle: 'Web Harmonium FAQ',
@@ -161,6 +164,16 @@ const copy = {
     faqDescription:
       'A few quick answers for singers, learners, and keyboard players using Play Harmonium in the browser.',
     faqs: [
+      {
+        question: 'Can I play harmonium online without download or sign-up?',
+        answer:
+          'Yes. The core web harmonium opens in the browser with no download and no sign-up, so you can start with laptop keyboard or touch controls immediately.',
+      },
+      {
+        question: 'Can I play harmonium on a laptop keyboard?',
+        answer:
+          'Yes. The keyboard page shows QWERTY shortcuts, and the laptop harmonium guide explains how to use those keys for daily practice.',
+      },
       {
         question: 'What is Sa Re Ga Ma?',
         answer:
@@ -203,11 +216,7 @@ const copy = {
     primaryCta: '开始弹奏',
     secondaryCta: '学习音名',
     secondaryHref: '/tutorial',
-    trust: [
-      '无需下载',
-      '桌面、平板、手机都可用',
-      '支持 Sargam 和西方音名',
-    ],
+    trust: ['无需下载', '桌面、平板、手机都可用', '支持 Sargam 和西方音名'],
     useCases: [
       '印度古典',
       '声乐热身',
@@ -259,13 +268,11 @@ const copy = {
       },
       {
         title: '移调 + 八度',
-        description:
-          '不用重新记键位，也能把音高移动到更适合自己声区的位置。',
+        description: '不用重新记键位，也能把音高移动到更适合自己声区的位置。',
       },
       {
         title: '移动端触控',
-        description:
-          '手机和平板也能触控演奏，小屏幕可以横向滚动查看完整键盘。',
+        description: '手机和平板也能触控演奏，小屏幕可以横向滚动查看完整键盘。',
       },
       {
         title: '本地练习设置',
@@ -318,8 +325,7 @@ const copy = {
     ],
     faqTitle: 'Web Harmonium 常见问题',
     faqHeading: '开始弹奏前的几个问题',
-    faqDescription:
-      '给声乐学习者、键盘玩家和 harmonium 初学者的快速说明。',
+    faqDescription: '给声乐学习者、键盘玩家和 harmonium 初学者的快速说明。',
     faqs: [
       {
         question: '什么是 Sa Re Ga Ma？',
@@ -338,8 +344,7 @@ const copy = {
       },
       {
         question: 'iPad 和手机能用吗？',
-        answer:
-          '可以。页面支持触控输入，小屏幕上可以横向滚动查看完整键盘。',
+        answer: '可以。页面支持触控输入，小屏幕上可以横向滚动查看完整键盘。',
       },
       {
         question: '适合 Kirtan 和 Bhajan 吗？',

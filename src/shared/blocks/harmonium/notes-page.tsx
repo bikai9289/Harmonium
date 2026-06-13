@@ -6,33 +6,42 @@ import { ArrowRight, NotebookPen, Play } from 'lucide-react';
 import { Link } from '@/core/i18n/navigation';
 import { Button } from '@/shared/components/ui/button';
 
-import { HarmoniumNoteGrid } from './harmonium-note-grid';
 import { NOTE_KEYS, NoteKey } from './constants';
+import { HarmoniumNoteGrid } from './harmonium-note-grid';
 import { useHarmoniumPlayer } from './use-harmonium-player';
 
 const PRACTICE_PATTERNS = [
   {
     id: 'ascending-middle',
     title: 'Ascending middle line',
-    description: 'A simple middle-register climb to connect note names with the visible layout.',
+    description:
+      'A simple middle-register climb to connect note names with the visible layout.',
     steps: ['c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5'],
   },
   {
     id: 'descending-middle',
     title: 'Descending return',
-    description: 'Come back down after the ascent so the mapping sticks in both directions.',
+    description:
+      'Come back down after the ascent so the mapping sticks in both directions.',
     steps: ['c5', 'b4', 'a4', 'g4', 'f4', 'e4', 'd4', 'c4'],
   },
   {
     id: 'sargam-core',
     title: 'Sa Re Ga Ma Pa',
-    description: 'A short Sargam-friendly phrase for beginners who want the central anchors first.',
+    description:
+      'A short Sargam-friendly phrase for beginners who want the central anchors first.',
     steps: ['c4', 'd4', 'e4', 'f4', 'g4'],
   },
 ] as const;
 
 const CORE_NOTE_IDS = ['c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5'] as const;
-const ALTERED_NOTE_IDS = ['csharp4', 'dsharp4', 'fsharp4', 'gsharp4', 'asharp4'] as const;
+const ALTERED_NOTE_IDS = [
+  'csharp4',
+  'dsharp4',
+  'fsharp4',
+  'gsharp4',
+  'asharp4',
+] as const;
 
 const ALTERED_LABELS: Record<string, string> = {
   csharp4: 'Komal Re',
@@ -55,13 +64,14 @@ export function HarmoniumNotesPage() {
   const timersRef = useRef<number[]>([]);
   const playbackTokenRef = useRef(0);
 
-  const { activeNoteIds, startNote, stopAllNotes, stopNote } = useHarmoniumPlayer({
-    octave: 4,
-    transpose: 0,
-    volume: 0.34,
-    reverbEnabled: false,
-    reedMode: 'single',
-  });
+  const { activeNoteIds, startNote, stopAllNotes, stopNote } =
+    useHarmoniumPlayer({
+      octave: 4,
+      transpose: 0,
+      volume: 0.34,
+      reverbEnabled: false,
+      reedMode: 'single',
+    });
 
   const clearPlaybackQueue = useCallback(() => {
     playbackTokenRef.current += 1;
@@ -109,11 +119,14 @@ export function HarmoniumNotesPage() {
         }, index * 520);
       });
 
-      queueTimer(() => {
-        if (token === playbackTokenRef.current) {
-          setPlayingPatternId(null);
-        }
-      }, Math.max(notes.length - 1, 0) * 520 + 460);
+      queueTimer(
+        () => {
+          if (token === playbackTokenRef.current) {
+            setPlayingPatternId(null);
+          }
+        },
+        Math.max(notes.length - 1, 0) * 520 + 460
+      );
     },
     [clearPlaybackQueue, queueTimer, startNote, stopNote]
   );
@@ -139,11 +152,21 @@ export function HarmoniumNotesPage() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-3">
-            <Button asChild className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]">
+            <Button
+              asChild
+              className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
+            >
               <Link href="/keyboard">
                 Open Keyboard
                 <ArrowRight className="size-4" />
               </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
+            >
+              <Link href="/harmonium-notes">Read Harmonium Notes Guide</Link>
             </Button>
             <Button
               asChild
@@ -155,7 +178,7 @@ export function HarmoniumNotesPage() {
           </div>
 
           <section className="rounded-2xl border border-[#2a1f1a]/10 bg-[#fffdf8] p-5 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#8b2e2e]">
+            <p className="text-sm font-semibold tracking-[0.2em] text-[#8b2e2e] uppercase">
               Note map
             </p>
             <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-8">
@@ -172,7 +195,7 @@ export function HarmoniumNotesPage() {
               ))}
             </div>
 
-            <p className="mt-8 text-sm font-semibold uppercase tracking-[0.2em] text-[#8b2e2e]">
+            <p className="mt-8 text-sm font-semibold tracking-[0.2em] text-[#8b2e2e] uppercase">
               Komal and Tivra variants
             </p>
             <div className="mt-4 grid grid-cols-2 gap-2 md:grid-cols-5">
@@ -197,7 +220,7 @@ export function HarmoniumNotesPage() {
           <div className="rounded-[1.7rem] border border-black/7 bg-white/82 p-5 shadow-sm sm:p-6">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium uppercase tracking-[0.22em] text-[#8f5f33]">
+                <p className="text-sm font-medium tracking-[0.22em] text-[#8f5f33] uppercase">
                   Label mode
                 </p>
                 <h2 className="mt-2 text-2xl font-semibold text-slate-950">
@@ -241,7 +264,7 @@ export function HarmoniumNotesPage() {
           <section className="rounded-[1.75rem] border border-black/7 bg-white/82 p-5 shadow-sm sm:p-6">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-medium uppercase tracking-[0.22em] text-[#8f5f33]">
+                <p className="text-sm font-medium tracking-[0.22em] text-[#8f5f33] uppercase">
                   Practice patterns
                 </p>
                 <h2 className="mt-2 text-2xl font-semibold text-slate-950">
@@ -300,7 +323,9 @@ export function HarmoniumNotesPage() {
                     }}
                     className="mt-5 bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
                   >
-                    {playingPatternId === pattern.id ? 'Playing...' : 'Play pattern'}
+                    {playingPatternId === pattern.id
+                      ? 'Playing...'
+                      : 'Play pattern'}
                   </Button>
                 </div>
               ))}
@@ -333,7 +358,9 @@ function NoteMapButton({
       onClick={onPress}
       type="button"
     >
-      <span className="block text-lg font-semibold text-[#8b2e2e]">{label}</span>
+      <span className="block text-lg font-semibold text-[#8b2e2e]">
+        {label}
+      </span>
       <span className="mt-1 block font-mono text-sm text-[#6b5d52]">
         {note.western}
       </span>

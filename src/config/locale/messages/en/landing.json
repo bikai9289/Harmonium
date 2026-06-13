@@ -14,14 +14,19 @@
     "nav": {
       "items": [
         {
-          "title": "Play",
-          "url": "/keyboard",
+          "title": "Online",
+          "url": "/online-harmonium",
           "icon": "Music"
         },
         {
           "title": "Notes",
-          "url": "/notes",
+          "url": "/harmonium-notes",
           "icon": "NotebookPen"
+        },
+        {
+          "title": "Laptop",
+          "url": "/laptop-harmonium",
+          "icon": "Keyboard"
         },
         {
           "title": "Tutorial",
@@ -80,11 +85,23 @@
           "children": [
             {
               "title": "Play Online",
+              "url": "/online-harmonium"
+            },
+            {
+              "title": "Virtual Harmonium",
+              "url": "/virtual-harmonium"
+            },
+            {
+              "title": "Keyboard",
               "url": "/keyboard"
             },
             {
-              "title": "Notes",
-              "url": "/notes"
+              "title": "Laptop Harmonium",
+              "url": "/laptop-harmonium"
+            },
+            {
+              "title": "Harmonium Notes",
+              "url": "/harmonium-notes"
             },
             {
               "title": "Tutorial",

@@ -314,6 +314,24 @@ export function HarmoniumKeyboardPage() {
             <span className="rounded-full bg-white px-3 py-1.5 shadow-sm">
               Full-width Web Harmonium keyboard first
             </span>
+            <Link
+              href="/laptop-harmonium"
+              className="rounded-full bg-white px-3 py-1.5 text-[#8b2e2e] shadow-sm hover:bg-[#fff3e7]"
+            >
+              Laptop key map
+            </Link>
+            <Link
+              href="/harmonium-notes"
+              className="rounded-full bg-white px-3 py-1.5 text-[#8b2e2e] shadow-sm hover:bg-[#fff3e7]"
+            >
+              Harmonium notes
+            </Link>
+            <Link
+              href="/virtual-harmonium"
+              className="rounded-full bg-white px-3 py-1.5 text-[#8b2e2e] shadow-sm hover:bg-[#fff3e7]"
+            >
+              Virtual harmonium guide
+            </Link>
           </div>
         </div>
       </section>

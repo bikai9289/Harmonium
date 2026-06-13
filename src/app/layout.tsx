@@ -1,6 +1,6 @@
 import '@/config/style/global.css';
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono, Merriweather } from 'next/font/google';
 import { getLocale, setRequestLocale } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
@@ -38,6 +38,12 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(envConfigs.app_url),
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#8b2e2e',
 };
 
 export default async function RootLayout({
@@ -120,9 +126,6 @@ export default async function RootLayout({
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel="alternate icon" href="/favicon.ico" />
         <link rel="preload" as="image" href="/preview.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#8b2e2e" />
-
         {/* inject locales */}
         {locales ? (
           <>

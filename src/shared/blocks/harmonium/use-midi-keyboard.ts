@@ -2,7 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-type MidiSupportState = 'checking' | 'supported' | 'unsupported' | 'error';
+type MidiSupportState =
+  | 'not-requested'
+  | 'checking'
+  | 'supported'
+  | 'unsupported'
+  | 'permission-denied'
+  | 'error';
 
 type MidiInputSummary = {
   id: string;
@@ -13,6 +19,14 @@ type MidiInputSummary = {
 type MidiMessageTarget = EventTarget & {
   id?: string;
 };
+
+function getRequestMidiAccess() {
+  if (typeof navigator === 'undefined' || !('requestMIDIAccess' in navigator)) {
+    return undefined;
+  }
+
+  return navigator.requestMIDIAccess.bind(navigator);
+}
 
 export function useMidiKeyboard({
   onNoteOn,
@@ -25,7 +39,13 @@ export function useMidiKeyboard({
   onSustainChange?: (enabled: boolean) => void;
   onVolumeChange?: (volume: number) => void;
 }) {
-  const [supportState, setSupportState] = useState<MidiSupportState>('checking');
+  const [supportState, setSupportState] = useState<MidiSupportState>(() => {
+    if (typeof navigator === 'undefined') {
+      return 'not-requested';
+    }
+
+    return getRequestMidiAccess() ? 'not-requested' : 'unsupported';
+  });
   const [midiInputs, setMidiInputs] = useState<MidiInputSummary[]>([]);
   const [selectedInputId, setSelectedInputId] = useState('');
 
@@ -123,9 +143,8 @@ export function useMidiKeyboard({
     };
   }, [handleMidiMessage, midiInputs]);
 
-  const refreshMidi = useCallback(async () => {
-    const requestMidi =
-      typeof navigator !== 'undefined' ? navigator.requestMIDIAccess : undefined;
+  const requestMidiAccess = useCallback(async () => {
+    const requestMidi = getRequestMidiAccess();
 
     if (!requestMidi) {
       setSupportState('unsupported');
@@ -134,8 +153,10 @@ export function useMidiKeyboard({
       return;
     }
 
+    setSupportState('checking');
+
     try {
-      const access = await requestMidi.call(navigator);
+      const access = await requestMidi();
       midiAccessRef.current = access;
       access.onstatechange = () => {
         syncInputs();
@@ -143,16 +164,18 @@ export function useMidiKeyboard({
       setSupportState('supported');
       syncInputs();
     } catch (error) {
-      console.error('Failed to access MIDI devices', error);
-      setSupportState('error');
+      const errorName =
+        error instanceof DOMException ? error.name : String(error);
+      if (errorName === 'NotAllowedError' || errorName === 'SecurityError') {
+        setSupportState('permission-denied');
+      } else {
+        console.warn('MIDI device access failed', error);
+        setSupportState('error');
+      }
       setMidiInputs([]);
       setSelectedInputId('');
     }
   }, [syncInputs]);
-
-  useEffect(() => {
-    void refreshMidi();
-  }, [refreshMidi]);
 
   useEffect(() => {
     return () => {
@@ -162,7 +185,8 @@ export function useMidiKeyboard({
 
   return {
     midiInputs,
-    refreshMidi,
+    refreshMidi: requestMidiAccess,
+    requestMidiAccess,
     selectedInputId,
     setSelectedInputId,
     supportState,
