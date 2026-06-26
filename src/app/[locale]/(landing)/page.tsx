@@ -14,20 +14,20 @@ export const revalidate = 3600;
 
 export const generateMetadata = getMetadata({
   title:
-    'Free Web Harmonium - Online & Virtual Harmonium Keyboard | Play Harmonium',
+    'Play Harmonium - Indian Music Practice Web Harmonium',
   description:
-    'Play a free web harmonium online with no download and no sign-up. Use laptop keyboard shortcuts, Sargam labels, optional MIDI input, touch controls, and beginner practice guides.',
+    'Use a free web harmonium for Indian music practice in your browser. Find Sa, practice Sargam and alankar, explore raga ideas, and play with no download or sign-up.',
   keywords:
-    'web harmonium, free web harmonium, online harmonium, play harmonium online, virtual harmonium, laptop harmonium, harmonium notes, Sa Re Ga Ma, sargam notes, no download harmonium',
+    'web harmonium, Indian music practice, online harmonium, play harmonium online, virtual harmonium, laptop harmonium, harmonium notes, Sa Re Ga Ma, sargam notes, alankar practice, riyaz, find Sa, no download harmonium',
   canonicalUrl: '/',
 });
 
 const copy = {
   en: {
     badge: 'Free browser instrument',
-    title: 'Free Web Harmonium Online',
+    title: 'Indian Music Practice Web Harmonium',
     description:
-      'Play a free online harmonium and virtual harmonium in your browser with no download, no sign-up, Sargam labels, laptop keyboard shortcuts, MIDI support, transpose, and touch-friendly keys.',
+      'Play a free online harmonium and virtual harmonium for Indian music practice. Find Sa, warm up for riyaz, practice Sargam and alankar, explore raga phrases, and rehearse bhajan or kirtan lines with no download and no sign-up.',
     heroNote:
       'Use your laptop keyboard, touch screen, or MIDI keyboard to play a clear harmonium layout with Sa Re Ga Ma and western note labels.',
     primaryCta: 'Start Playing',
@@ -41,11 +41,13 @@ const copy = {
       'Sargam and western labels',
     ],
     useCases: [
+      'Find Sa',
+      'Daily Riyaz',
+      'Alankar Drills',
       'Indian Classical',
       'Vocal Warm-Ups',
       'Raga Exploration',
       'Bhajan & Kirtan',
-      'Ear Training',
     ],
     quickStartOpen: 'Open',
     quickStarts: [
@@ -74,9 +76,9 @@ const copy = {
     playbackSample: 'Reference sample',
     playbackSynth: 'Fallback synth',
     featureTitle: 'Real practice features',
-    featureHeading: 'Controls that match daily harmonium practice',
+    featureHeading: 'Controls that match Indian music practice',
     featureDescription:
-      'Play naturally in the browser with the controls singers, students, and harmonium players reach for during practice.',
+      'Play naturally in the browser with the controls singers, students, and harmonium players reach for during riyaz, Sargam, raga, and devotional practice.',
     features: [
       {
         title: 'MIDI Support',
@@ -86,7 +88,7 @@ const copy = {
       {
         title: 'Sargam + Western Labels',
         description:
-          'Switch between Sa Re Ga Ma and western note names when learning raga phrases or simple melodies.',
+          'Switch between Sa Re Ga Ma and western note names when learning raga phrases, alankar drills, or simple melodies.',
       },
       {
         title: 'Reed + Reverb Layers',
@@ -107,6 +109,47 @@ const copy = {
         title: 'Local Sessions',
         description:
           'Keep your label mode, octave, transpose, volume, reed, reverb, and MIDI input ready for the next visit.',
+      },
+    ],
+    practiceMapHeading: 'Practice map for riyaz, raga, and devotional music',
+    practiceMapDescription:
+      'Choose a focused path, then move into the playable workbench, notes, or tutorial without losing the instant browser harmonium.',
+    practiceMap: [
+      {
+        title: 'Find Sa',
+        href: '/keyboard?practice=find-sa',
+        description:
+          'Use octave, transpose, and sustained Sargam labels to settle the tonic before singing.',
+      },
+      {
+        title: 'Start riyaz',
+        href: '/keyboard?practice=riyaz',
+        description:
+          'Start a short daily riyaz loop with held notes, slow movement, and pitch checks.',
+      },
+      {
+        title: 'Try a raga phrase',
+        href: '/keyboard?practice=raga',
+        description:
+          'Practice aroha, avaroha, and small raga phrases while keeping Sa stable.',
+      },
+      {
+        title: 'Practice alankar',
+        href: '/keyboard?practice=alankar',
+        description:
+          'Rehearse ascending, descending, and compact alankar patterns before moving to songs.',
+      },
+      {
+        title: 'Rehearse bhajan or kirtan',
+        href: '/keyboard?practice=bhajan',
+        description:
+          'Use the harmonium as a pitch and melody reference for devotional rehearsal.',
+      },
+      {
+        title: 'Open Practice Workbench',
+        href: '/keyboard',
+        description:
+          'Move into the focused keyboard with recording takes, notation, presets, and sessions.',
       },
     ],
     intentTitle: 'Practice uses',
@@ -144,7 +187,7 @@ const copy = {
         title: 'Harmonium notes and key mapping',
         href: '/harmonium-notes',
         description:
-          'Review Sa Re Ga Ma, western note names, the 23-key layout, and shortcut map.',
+          'Review Sa Re Ga Ma, western note names, alankar patterns, the 23-key layout, and shortcut map.',
       },
       {
         title: 'Laptop harmonium keyboard map',
@@ -182,7 +225,12 @@ const copy = {
       {
         question: 'How do I find Sa for my voice?',
         answer:
-          'Start in the middle octave, hold a comfortable note, then use transpose until the pitch matches your singing range.',
+          'Start in the middle octave, hold a comfortable note, then use transpose until the pitch matches your singing range. The find Sa guide gives a slower step-by-step path.',
+      },
+      {
+        question: 'Can I use this for riyaz and alankar practice?',
+        answer:
+          'Yes. Use Sargam labels, octave, transpose, and short patterns to rehearse daily riyaz, alankar drills, and pitch stability before moving into longer raga phrases.',
       },
       {
         question: 'Can I use my MIDI keyboard?',
@@ -278,6 +326,41 @@ const copy = {
         title: '本地练习设置',
         description:
           '标签、八度、移调、音量、簧片、混响和 MIDI 输入会保留到下次访问。',
+      },
+    ],
+    practiceMapHeading: 'Riyaz、Raga 与 devotional music 练习路径',
+    practiceMapDescription:
+      '选择一个具体练习方向，再进入可弹奏键盘、音名页面或教程模式。',
+    practiceMap: [
+      {
+        title: 'Find Sa',
+        href: '/keyboard?practice=find-sa',
+        description: '用八度、移调和持续音找到适合自己声区的主音。',
+      },
+      {
+        title: 'Start riyaz',
+        href: '/keyboard?practice=riyaz',
+        description: '用长音、慢速移动和音准检查开始日常短练习。',
+      },
+      {
+        title: 'Try a raga phrase',
+        href: '/keyboard?practice=raga',
+        description: '围绕 Sa、aroha、avaroha 和短乐句做入门练习。',
+      },
+      {
+        title: 'Practice alankar',
+        href: '/keyboard?practice=alankar',
+        description: '先练上行、下行和短模式，再进入歌曲或 raga。',
+      },
+      {
+        title: 'Rehearse bhajan or kirtan',
+        href: '/keyboard?practice=bhajan',
+        description: '排练 devotional melody 时使用网页 harmonium 做音高参考。',
+      },
+      {
+        title: '打开 Practice Workbench',
+        href: '/keyboard',
+        description: '进入完整键盘，使用 recording takes、notation、presets 和 sessions。',
       },
     ],
     intentTitle: '练习场景',
@@ -403,6 +486,9 @@ export default async function LandingPage({
       'Touch controls',
       'Transpose',
       'Reed and reverb settings',
+      'Riyaz practice paths',
+      'Alankar and Sargam drills',
+      'Sa finding guidance',
     ],
     potentialAction: {
       '@type': 'PlayAction',

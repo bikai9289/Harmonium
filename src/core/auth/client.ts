@@ -79,9 +79,29 @@ function createGetSessionThrottledFetch({
 const AUTH_GET_SESSION_MIN_INTERVAL_MS =
   Number(process.env.NEXT_PUBLIC_AUTH_GET_SESSION_MIN_INTERVAL_MS) || 2000;
 
+function getBrowserAuthBaseUrl() {
+  if (typeof window === 'undefined') {
+    return envConfigs.auth_url;
+  }
+
+  const configuredAuthUrl = envConfigs.auth_url;
+  const configuredAppUrl = envConfigs.app_url;
+  const currentOrigin = window.location.origin;
+
+  if (
+    configuredAuthUrl === configuredAppUrl ||
+    configuredAuthUrl === 'https://playharmonium.com' ||
+    configuredAuthUrl === 'https://www.playharmonium.com'
+  ) {
+    return currentOrigin;
+  }
+
+  return configuredAuthUrl;
+}
+
 // create default auth client, without plugins
 export const authClient = createAuthClient({
-  baseURL: envConfigs.auth_url,
+  baseURL: getBrowserAuthBaseUrl(),
   fetchOptions: {
     // Avoid amplifying request storms (e.g. during env/db switching in dev).
     // IMPORTANT: auth mutations (sign-in/sign-up) must be non-retriable,
@@ -99,7 +119,7 @@ export const { useSession, signIn, signUp, signOut } = authClient;
 // get auth client with plugins
 export function getAuthClient(configs: Record<string, string>) {
   const authClient = createAuthClient({
-    baseURL: envConfigs.auth_url,
+    baseURL: getBrowserAuthBaseUrl(),
     plugins: getAuthPlugins(configs),
     fetchOptions: {
       // Avoid amplifying request storms (e.g. during env/db switching in dev).

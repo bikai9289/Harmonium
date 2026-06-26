@@ -6,11 +6,11 @@ import { getMetadata } from '@/shared/lib/seo';
 export const revalidate = 3600;
 
 export const generateMetadata = getMetadata({
-  title: 'Web Harmonium Notes | Learn Sargam and Keyboard Mapping',
+  title: 'Web Harmonium Notes | Sargam, Alankar & Keyboard Mapping',
   description:
-    'Learn Web Harmonium notes with an interactive keyboard map, Sargam and western note labels, MIDI note references, and short beginner practice patterns.',
+    'Learn Web Harmonium notes with an interactive keyboard map, Sargam and western note labels, MIDI note references, alankar drills, and short beginner practice patterns.',
   keywords:
-    'web harmonium notes, harmonium notes, sargam notes, harmonium keyboard notes, learn web harmonium',
+    'web harmonium notes, harmonium notes, sargam notes, alankar, harmonium keyboard notes, learn web harmonium',
   canonicalUrl: '/notes',
 });
 

@@ -6,11 +6,11 @@ import { getMetadata } from '@/shared/lib/seo';
 export const revalidate = 3600;
 
 export const generateMetadata = getMetadata({
-  title: 'Web Harmonium Keyboard | Practice Mode',
+  title: 'Web Harmonium Practice Workbench | Recording, Presets & Notes',
   description:
-    'Play Web Harmonium online on a focused keyboard page with touch controls, keyboard shortcuts, Sargam labels, octave switching, and transpose.',
+    'Use the Web Harmonium practice workbench with touch controls, laptop shortcuts, Sargam labels, transpose, recording takes, notation, presets, and saved sessions.',
   keywords:
-    'web harmonium keyboard, play web harmonium online, harmonium keyboard, virtual harmonium keyboard',
+    'web harmonium practice workbench, web harmonium keyboard, play web harmonium online, harmonium keyboard, virtual harmonium keyboard, recording takes, notation, presets, sessions, Sa finding, alankar',
   canonicalUrl: '/keyboard',
 });
 

@@ -7,6 +7,7 @@ import {
   Keyboard,
   Layers3,
   Music2,
+  NotebookPen,
   RotateCcw,
   Save,
   SlidersHorizontal,
@@ -40,6 +41,9 @@ type HomeCopy = {
   featureHeading: string;
   featureDescription: string;
   features: Array<{ title: string; description: string }>;
+  practiceMapHeading: string;
+  practiceMapDescription: string;
+  practiceMap: Array<{ title: string; href: string; description: string }>;
   guideHeading: string;
   guideDescription: string;
   guides: Array<{ title: string; href: string; description: string }>;
@@ -219,15 +223,15 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
         id="play"
         className="border-b border-[#2a1f1a]/10 px-4 pt-20 pb-6 sm:pt-24 lg:min-h-[calc(100svh-56px)]"
       >
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-3">
-          <div className="mx-auto max-w-5xl space-y-4 text-center">
-            <h1 className="font-serif text-5xl leading-[1.02] font-bold text-balance text-[#2a1f1a] sm:text-6xl lg:text-[56px]">
+        <div className="mx-auto flex max-w-[1440px] min-w-0 flex-col gap-3">
+          <div className="mx-auto min-w-0 max-w-5xl space-y-4 text-center">
+            <h1 className="font-serif text-4xl leading-[1.05] font-bold text-balance text-[#2a1f1a] sm:text-6xl lg:text-[56px]">
               {copy.title}
             </h1>
             <p className="mx-auto max-w-4xl text-lg leading-7 text-pretty text-[#5d4a40]">
               {copy.description}
             </p>
-            <div className="mx-auto flex max-w-4xl flex-nowrap justify-center gap-2 overflow-x-auto pb-0">
+            <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2 overflow-x-visible pb-0 sm:flex-nowrap sm:overflow-x-auto">
               {copy.useCases.map((item) => (
                 <span
                   key={item}
@@ -403,15 +407,34 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
               ) : null}
             </div>
 
-            <div className="order-1 overflow-x-auto pb-2">
+            <div className="order-1 max-w-full overflow-x-auto pb-2">
               <div
-                className="rounded-[1.6rem] border border-[#2a1f1a]/12 bg-[#8b4a2e] p-2 shadow-inner"
-                style={{ minWidth: `${KEYBOARD_MIN_WIDTH}px` }}
+                className="w-full rounded-[1.6rem] border border-[#2a1f1a]/12 bg-[#8b4a2e] p-2 shadow-inner sm:w-auto"
+                style={{ minWidth: `min(${KEYBOARD_MIN_WIDTH}px, 100%)` }}
               >
                 <div className="relative h-[clamp(300px,44svh,420px)] overflow-hidden rounded-[1.2rem] border border-[#1f1b17]/40 bg-[#1f1b17] px-3 pt-3 pb-4">
                   <div className="absolute inset-x-0 top-0 h-8 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent)]" />
 
                   <div className="relative h-full">
+                    <div className="flex h-full flex-col items-center justify-center gap-4 text-center sm:hidden">
+                      <Keyboard className="size-10 text-[#f9efe4]" />
+                      <div>
+                        <p className="text-lg font-semibold text-[#f9efe4]">
+                          Full mobile keyboard lives in the Practice Workbench
+                        </p>
+                        <p className="mt-2 px-6 text-sm leading-6 text-[#f9efe4]/72">
+                          Set Sa, start shruti, choose an exercise, and play
+                          the scrollable harmonium surface there.
+                        </p>
+                      </div>
+                      <Link
+                        href="/keyboard?practice=riyaz"
+                        className="rounded-full bg-[#f9efe4] px-4 py-2 text-sm font-semibold text-[#8b2e2e]"
+                      >
+                        Start riyaz
+                      </Link>
+                    </div>
+
                     {whiteKeys.map((note) => {
                       const width = 100 / whiteKeys.length;
                       const active = activeNoteIds.includes(note.id);
@@ -419,8 +442,9 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
                       return (
                         <button
                           key={note.id}
+                          aria-label={`Preview ${note.sargam} ${note.western}`}
                           className={cn(
-                            'absolute top-0 bottom-0 flex flex-col justify-end rounded-b-[0.9rem] border-r border-[#2a1f1a]/35 px-2 pb-4 text-center shadow-[inset_0_-18px_28px_rgba(92,52,24,0.16),0_8px_0_rgba(42,31,26,0.18)] transition duration-75',
+                            'absolute top-0 bottom-0 hidden flex-col justify-end rounded-b-[0.9rem] border-r border-[#2a1f1a]/35 px-2 pb-4 text-center shadow-[inset_0_-18px_28px_rgba(92,52,24,0.16),0_8px_0_rgba(42,31,26,0.18)] transition duration-75 sm:flex',
                             active
                               ? 'translate-y-1 bg-[#f0c28f] shadow-[inset_0_-8px_18px_rgba(92,52,24,0.14),0_3px_0_rgba(42,31,26,0.18)]'
                               : 'bg-[linear-gradient(180deg,#fffef9_0%,#f3e7d8_100%)] hover:bg-[#fff7ed]'
@@ -467,8 +491,9 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
                       return (
                         <button
                           key={note.id}
+                          aria-label={`Preview ${note.sargam} ${note.western}`}
                           className={cn(
-                            'absolute top-0 z-10 flex h-[58%] flex-col justify-end rounded-b-[0.75rem] border border-white/10 px-2 pb-3 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_24px_rgba(31,27,23,0.38)] transition duration-75',
+                            'absolute top-0 z-10 hidden h-[58%] flex-col justify-end rounded-b-[0.75rem] border border-white/10 px-2 pb-3 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_24px_rgba(31,27,23,0.38)] transition duration-75 sm:flex',
                             active
                               ? 'translate-y-1 bg-[linear-gradient(180deg,#5a2620_0%,#1f1b17_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_5px_12px_rgba(31,27,23,0.28)]'
                               : 'bg-[linear-gradient(180deg,#302922_0%,#15120f_100%)]'
@@ -508,8 +533,8 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
 
             <div className="order-3 mt-3 px-1 text-center text-sm text-[#6d5549]">
               <p>
-                Tip: press A S D F G H J or the shown keys on your keyboard to
-                play.
+                Tip: press A S D F G H J on desktop, or open the Practice
+                Workbench for the full mobile playing surface.
               </p>
             </div>
           </div>
@@ -564,6 +589,32 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
                   {step.description}
                 </p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#2a1f1a]/10 py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionIntro
+            description={copy.practiceMapDescription}
+            title={copy.practiceMapHeading}
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {copy.practiceMap.map((item) => (
+              <Link
+                key={item.title}
+                className="group rounded-lg border border-[#2a1f1a]/10 bg-[#fffdf8] p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-[#c8633a]/40 hover:shadow-md"
+                href={item.href}
+              >
+                <NotebookPen className="size-7 stroke-[1.5] text-[#8b2e2e]" />
+                <h3 className="mt-5 text-xl font-semibold text-[#2a1f1a]">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-[#6d5549]">
+                  {item.description}
+                </p>
+              </Link>
             ))}
           </div>
         </div>

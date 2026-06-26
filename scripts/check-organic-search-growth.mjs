@@ -16,21 +16,35 @@ const landingPages = [
   {
     path: 'src/app/[locale]/(landing)/online-harmonium/page.tsx',
     route: '/online-harmonium',
-    terms: ['online harmonium', 'play harmonium online', 'no download'],
+    practiceAction: '/keyboard?practice=riyaz',
+    terms: [
+      'online harmonium',
+      'play harmonium online',
+      'no download',
+      'instant browser play',
+    ],
   },
   {
     path: 'src/app/[locale]/(landing)/virtual-harmonium/page.tsx',
     route: '/virtual-harmonium',
-    terms: ['virtual harmonium', 'browser', 'no sign-up'],
+    practiceAction: '/keyboard?practice=find-sa',
+    terms: [
+      'virtual harmonium',
+      'browser',
+      'no sign-up',
+      'real harmonium',
+    ],
   },
   {
     path: 'src/app/[locale]/(landing)/harmonium-notes/page.tsx',
     route: '/harmonium-notes',
-    terms: ['harmonium notes', 'Sargam', 'western note'],
+    practiceAction: '/keyboard?practice=alankar',
+    terms: ['harmonium notes', 'Sargam', 'western note', 'alankar'],
   },
   {
     path: 'src/app/[locale]/(landing)/laptop-harmonium/page.tsx',
     route: '/laptop-harmonium',
+    practiceAction: '/keyboard?practice=sargam',
     terms: ['laptop harmonium', 'laptop keyboard', 'no emulator'],
   },
 ];
@@ -54,6 +68,10 @@ for (const page of landingPages) {
         `${page.route} is missing term: ${term}`
       );
     }
+    expect(
+      source.includes(page.practiceAction) || landingContent.includes(page.practiceAction),
+      `${page.route} is missing practice action link: ${page.practiceAction}`
+    );
   }
 }
 
@@ -61,15 +79,98 @@ const home = read('src/app/[locale]/(landing)/page.tsx');
 for (const term of [
   'online harmonium',
   'virtual harmonium',
+  'Indian music practice',
+  'riyaz',
+  'alankar',
+  'Find Sa',
   'no download',
   'no sign-up',
   'laptop keyboard',
 ]) {
   expect(
-    home.toLowerCase().includes(term),
+    home.toLowerCase().includes(term.toLowerCase()),
     `Homepage copy is missing: ${term}`
   );
 }
+
+const homeBlock = read('src/shared/blocks/harmonium/home.tsx');
+const homeSource = `${home}\n${homeBlock}`;
+for (const term of [
+  'practice map',
+  'Open Practice Workbench',
+  'Find Sa',
+  'Start riyaz',
+  'Practice alankar',
+  'Try a raga phrase',
+  'Rehearse bhajan or kirtan',
+  '/keyboard?practice=',
+]) {
+  expect(
+    homeSource.toLowerCase().includes(term.toLowerCase()),
+    `Homepage block is missing practice positioning term: ${term}`
+  );
+}
+
+const keyboardPage = read('src/app/[locale]/(landing)/keyboard/page.tsx');
+const keyboardBlock = read('src/shared/blocks/harmonium/keyboard-page.tsx');
+for (const term of [
+  'practice workbench',
+  'Guided riyaz loop',
+  'Set Sa',
+  'Start shruti',
+  'Mark complete',
+  'recording takes',
+  'notation',
+  'presets',
+  'sessions',
+  'Sa finding',
+  'alankar',
+]) {
+  const source = `${keyboardPage}\n${keyboardBlock}`;
+  expect(
+    source.toLowerCase().includes(term.toLowerCase()),
+    `Keyboard workbench is missing term: ${term}`
+  );
+}
+
+const practiceActions = [
+  '/keyboard?practice=find-sa',
+  '/keyboard?practice=riyaz',
+  '/keyboard?practice=alankar',
+  '/keyboard?practice=raga',
+  '/keyboard?practice=bhajan',
+];
+const routeClusterSource = `${home}\n${homeBlock}\n${landingContent}\n${keyboardBlock}`;
+for (const action of practiceActions) {
+  expect(
+    routeClusterSource.includes(action),
+    `Route cluster missing practice action: ${action}`
+  );
+}
+
+const routeTitles = [
+  ...landingContent.matchAll(/title:\s*'([^']+)'/g),
+].map((match) => match[1]);
+const duplicateRouteIntent = routeTitles.find(
+  (title, index) => routeTitles.indexOf(title) !== index
+);
+expect(
+  !duplicateRouteIntent,
+  `Found duplicate route intent title: ${duplicateRouteIntent}`
+);
+
+for (const overclaim of ['real-time vocal scoring', 'full tanpura', 'AI feedback']) {
+  expect(
+    !routeClusterSource.toLowerCase().includes(overclaim.toLowerCase()),
+    `Potential feature overclaim found: ${overclaim}`
+  );
+}
+
+const riyazContract = read('scripts/check-riyaz-practice-loop.mjs');
+expect(
+  riyazContract.includes('Riyaz practice loop contract'),
+  'Missing check-riyaz-practice-loop contract coverage'
+);
 
 const sitemap = read('src/app/sitemap.ts');
 for (const route of landingPages.map((page) => page.route)) {

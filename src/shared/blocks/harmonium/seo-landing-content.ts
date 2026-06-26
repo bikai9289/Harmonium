@@ -6,6 +6,7 @@ export type HarmoniumSeoLandingContent = {
   keywords: string;
   primaryHref?: string;
   primaryLabel?: string;
+  quickPath?: string[];
   sections: Array<{
     title: string;
     description: string;
@@ -18,19 +19,29 @@ export const harmoniumSeoLandingContent = {
   online: {
     canonicalUrl: '/online-harmonium',
     description:
-      'Play online harmonium in your browser with no download and no sign-up. Use laptop keyboard shortcuts, touch controls, Sa Re Ga Ma labels, and optional MIDI input.',
+      'Play online harmonium with instant browser play, no download, and no sign-up. Use laptop shortcuts, touch controls, Sa Re Ga Ma labels, and optional MIDI input.',
     eyebrow: 'Online harmonium',
     keywords:
       'online harmonium, play harmonium online, web harmonium, harmonium online, no download harmonium, Sa Re Ga Ma keyboard',
-    primaryHref: '/keyboard',
-    primaryLabel: 'Play Online Harmonium',
-    title: 'Online Harmonium - Play in Your Browser',
+    primaryHref: '/keyboard?practice=riyaz',
+    primaryLabel: 'Start riyaz',
+    quickPath: [
+      'Instant browser play with no download and no sign-up.',
+      'Use laptop shortcuts, touch controls, or explicit MIDI input when you need a controller.',
+      'Move from quick play into Set Sa, Sargam labels, and a short guided riyaz loop.',
+    ],
+    title: 'Online Harmonium - Instant Browser Play',
     sections: [
       {
         title: 'Start without installing anything',
         description:
-          'The online harmonium opens directly in the browser, so practice can start without an app, emulator, or account.',
-        points: ['No download', 'No sign-up', 'Works with browser audio'],
+          'The online harmonium opens directly in the browser, so instant browser play can start without an app, emulator, or account.',
+        points: [
+          'Instant browser play',
+          'No download',
+          'No sign-up',
+          'Works with browser audio',
+        ],
       },
       {
         title: 'Use laptop keyboard or touch',
@@ -45,11 +56,12 @@ export const harmoniumSeoLandingContent = {
       {
         title: 'Learn with Sa Re Ga Ma labels',
         description:
-          'Switch between Sargam and western note labels while connecting visible keys to harmonium notes.',
+          'Switch between Sargam and western note labels while connecting visible keys to harmonium notes, short riyaz loops, and alankar patterns.',
         points: [
           'Sa Re Ga Ma labels',
           'Western note names',
           'Beginner practice patterns',
+          'Alankar-friendly note movement',
         ],
       },
       {
@@ -62,7 +74,7 @@ export const harmoniumSeoLandingContent = {
       {
         question: 'Can I play harmonium online without downloading an app?',
         answer:
-          'Yes. Play Harmonium runs in the browser, so you can open the page and play without installing an app or emulator.',
+          'Yes. Play Harmonium runs in the browser, so you can open the page for instant browser play without installing an app or emulator.',
       },
       {
         question: 'Do I need to sign up?',
@@ -78,23 +90,28 @@ export const harmoniumSeoLandingContent = {
   virtual: {
     canonicalUrl: '/virtual-harmonium',
     description:
-      'Use a virtual harmonium in your browser for quick pitch reference, Sargam learning, laptop keyboard practice, touch input, and optional MIDI control.',
+      'Use a virtual harmonium in your browser for quick pitch reference, Sargam learning, laptop keyboard practice, touch input, optional MIDI control, and clear real harmonium limitations.',
     eyebrow: 'Virtual harmonium',
     keywords:
       'virtual harmonium, browser harmonium, web harmonium, online harmonium keyboard, virtual harmonium keyboard',
-    primaryHref: '/keyboard',
-    primaryLabel: 'Open Virtual Harmonium',
+    primaryHref: '/keyboard?practice=find-sa',
+    primaryLabel: 'Find Sa',
+    quickPath: [
+      'Use the virtual harmonium for pitch reference, Sargam learning, and short riyaz sessions.',
+      'A real harmonium still gives bellows, reed response, and touch; this browser tool is for fast practice access.',
+      'Continue into Set Sa, shruti reference, notes, tutorial, or the practice workbench when you want structure.',
+    ],
     title: 'Virtual Harmonium Keyboard for Browser Practice',
     sections: [
       {
         title: 'A browser-based practice instrument',
         description:
-          'The virtual harmonium gives singers and learners a fast pitch reference with Sargam labels and a familiar keyboard layout.',
+          'The virtual harmonium gives singers and learners a fast pitch reference with Sargam labels and a familiar keyboard layout while staying honest about what a real harmonium does better.',
       },
       {
-        title: 'Built for short daily sessions',
+        title: 'Built for short daily riyaz sessions',
         description:
-          'Use it for vocal warm-ups, bhajan or kirtan lines, raga exploration, ear training, and quick melody checks.',
+          'Use it for vocal warm-ups, bhajan or kirtan lines, raga exploration, alankar drills, ear training, and quick melody checks.',
       },
       {
         title: 'No sign-up needed for core play',
@@ -117,7 +134,7 @@ export const harmoniumSeoLandingContent = {
       {
         question: 'Is it the same as a real harmonium?',
         answer:
-          'No. A real harmonium has bellows and physical reeds. A virtual harmonium is useful for quick practice, note learning, and browser-based repetition.',
+          'No. A real harmonium has bellows, physical reeds, touch response, and acoustic depth. A virtual harmonium is useful for quick practice, note learning, Sa reference, and browser-based repetition.',
       },
       {
         question: 'Can I practice Sa Re Ga Ma on it?',
@@ -129,13 +146,18 @@ export const harmoniumSeoLandingContent = {
   notes: {
     canonicalUrl: '/harmonium-notes',
     description:
-      'Learn harmonium notes with Sa Re Ga Ma, western note names, white and black key mapping, MIDI references, and beginner practice patterns.',
+      'Learn harmonium notes with Sa Re Ga Ma, western note names, white and black key mapping, MIDI references, alankar drills, and beginner practice patterns.',
     eyebrow: 'Harmonium notes',
     keywords:
-      'harmonium notes, Sargam notes, Sa Re Ga Ma, harmonium keyboard notes, web harmonium notes',
-    primaryHref: '/notes',
-    primaryLabel: 'Open Playable Notes',
-    title: 'Harmonium Notes - Sa Re Ga Ma and Keyboard Mapping',
+      'harmonium notes, Sargam notes, Sa Re Ga Ma, harmonium keyboard notes, web harmonium notes, alankar',
+    primaryHref: '/keyboard?practice=alankar',
+    primaryLabel: 'Practice alankar',
+    quickPath: [
+      'Review Sa Re Ga Ma, western note names, and Komal or Tivra variants.',
+      'Play each note, then rehearse ascending, descending, and alankar patterns.',
+      'Open the keyboard workbench when you are ready to use the notes in a guided alankar exercise.',
+    ],
+    title: 'Harmonium Notes - Sa Re Ga Ma, Alankar, and Keyboard Mapping',
     sections: [
       {
         title: 'The core Sa Re Ga Ma notes',
@@ -159,7 +181,7 @@ export const harmoniumSeoLandingContent = {
       {
         title: 'Practice in small patterns',
         description:
-          'Short ascending and descending patterns help beginners memorize the keyboard without needing a full song first.',
+          'Short ascending, descending, and alankar patterns help beginners memorize the keyboard without needing a full song first.',
       },
       {
         title: 'Move from reference to playing',
@@ -183,6 +205,11 @@ export const harmoniumSeoLandingContent = {
         answer:
           'Yes. Open the playable notes page to click individual notes and hear their pitch.',
       },
+      {
+        question: 'Can I practice alankar with these notes?',
+        answer:
+          'Yes. Start with short ascending and descending Sargam movements, then repeat compact alankar patterns on the playable keyboard.',
+      },
     ],
   },
   laptop: {
@@ -192,14 +219,19 @@ export const harmoniumSeoLandingContent = {
     eyebrow: 'Laptop harmonium',
     keywords:
       'laptop harmonium, play harmonium on laptop, laptop keyboard harmonium, harmonium keyboard online, no emulator harmonium',
-    primaryHref: '/keyboard',
-    primaryLabel: 'Open Laptop Harmonium',
+    primaryHref: '/keyboard?practice=sargam',
+    primaryLabel: 'Practice alankar',
+    quickPath: [
+      'Use printed keycaps to turn your laptop keyboard into a practice controller.',
+      'Start with Sa Re Ga Ma, then add black keys and alankar movement gradually.',
+      'No emulator or app install is required before practice.',
+    ],
     title: 'Laptop Harmonium - Play with Your Keyboard',
     sections: [
       {
         title: '30-second quick start',
         description:
-          'Open the keyboard page, focus the browser tab, start with the middle row, and play Sa Re Ga Ma with the printed keycaps.',
+          'Open the practice workbench, focus the browser tab, start with the middle row, and play Sa Re Ga Ma with the printed keycaps.',
         points: [
           'Open the player',
           'Focus the browser tab',

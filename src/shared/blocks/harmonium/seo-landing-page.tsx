@@ -15,6 +15,7 @@ type SeoLandingPageProps = {
   description: string;
   primaryHref?: string;
   primaryLabel?: string;
+  quickPath?: string[];
   sections: Array<{
     title: string;
     description: string;
@@ -34,6 +35,11 @@ export function HarmoniumSeoLandingPage({
   faqs,
   primaryHref = '/keyboard',
   primaryLabel = 'Open Web Harmonium Keyboard',
+  quickPath = [
+    'No download. No sign-up. Open the browser harmonium and play.',
+    'Use laptop keyboard shortcuts, touch controls, or explicit MIDI connection when you need a controller.',
+    'Switch between Sa Re Ga Ma and western note names while practicing.',
+  ],
   sections,
   title,
 }: SeoLandingPageProps) {
@@ -76,17 +82,9 @@ export function HarmoniumSeoLandingPage({
               Quick practice path
             </p>
             <div className="mt-4 space-y-3 text-sm leading-7 text-[#6d5549]">
-              <p>
-                No download. No sign-up. Open the browser harmonium and play.
-              </p>
-              <p>
-                Use laptop keyboard shortcuts, touch controls, or explicit MIDI
-                connection when you need a controller.
-              </p>
-              <p>
-                Switch between Sa Re Ga Ma and western note names while
-                practicing.
-              </p>
+              {quickPath.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
             </div>
           </div>
         </div>

@@ -39,13 +39,8 @@ export function useMidiKeyboard({
   onSustainChange?: (enabled: boolean) => void;
   onVolumeChange?: (volume: number) => void;
 }) {
-  const [supportState, setSupportState] = useState<MidiSupportState>(() => {
-    if (typeof navigator === 'undefined') {
-      return 'not-requested';
-    }
-
-    return getRequestMidiAccess() ? 'not-requested' : 'unsupported';
-  });
+  const [supportState, setSupportState] =
+    useState<MidiSupportState>('not-requested');
   const [midiInputs, setMidiInputs] = useState<MidiInputSummary[]>([]);
   const [selectedInputId, setSelectedInputId] = useState('');
 

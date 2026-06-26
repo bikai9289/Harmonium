@@ -6,8 +6,11 @@ import {
   ChevronDown,
   Keyboard,
   Layers3,
+  Music2,
+  Play,
   SlidersHorizontal,
   Sparkles,
+  Square,
   Volume2,
 } from 'lucide-react';
 
@@ -29,6 +32,16 @@ import {
 import { MidiPanel } from './midi-panel';
 import { PracticeStudio } from './practice-studio';
 import { PracticeSettingsSnapshot } from './practice-workspace';
+import {
+  getDefaultRiyazPracticeState,
+  getExerciseIdFromPracticeParam,
+  getKeyboardNoteForSa,
+  getRiyazPracticeExercise,
+  getSaTonicOption,
+  RIYAZ_PRACTICE_EXERCISES,
+  SA_TONIC_OPTIONS,
+} from './practice-loop';
+import { useHarmoniumDrone } from './use-harmonium-drone';
 import { useHarmoniumPlayer } from './use-harmonium-player';
 import { useHarmoniumPractice } from './use-harmonium-practice';
 import { useMidiKeyboard } from './use-midi-keyboard';
@@ -42,6 +55,16 @@ export function HarmoniumKeyboardPage() {
   const [reedMode, setReedMode] = useState<'single' | 'double'>('single');
   const [midiInputId, setMidiInputId] = useState('');
   const [showShortcutHelp, setShowShortcutHelp] = useState(true);
+  const [selectedSa, setSelectedSa] = useState(
+    getDefaultRiyazPracticeState().selectedSaId
+  );
+  const [selectedExerciseId, setSelectedExerciseId] = useState(
+    getDefaultRiyazPracticeState().selectedExerciseId
+  );
+  const [completedExerciseIds, setCompletedExerciseIds] = useState<string[]>(
+    []
+  );
+  const [practiceMessage, setPracticeMessage] = useState('');
 
   const {
     activeNoteIds,
@@ -59,6 +82,13 @@ export function HarmoniumKeyboardPage() {
     reverbEnabled,
     reedMode,
   });
+  const {
+    errorCode: droneErrorCode,
+    isDroneActive,
+    startDrone,
+    status: droneStatus,
+    stopDrone,
+  } = useHarmoniumDrone();
 
   const currentPracticeSettings: PracticeSettingsSnapshot = {
     labelMode,
@@ -182,6 +212,9 @@ export function HarmoniumKeyboardPage() {
         reverbEnabled?: boolean;
         reedMode?: 'single' | 'double';
         midiInputId?: string;
+        selectedSa?: string;
+        selectedExerciseId?: string;
+        completedExerciseIds?: string[];
       };
 
       if (parsed.labelMode) setLabelMode(parsed.labelMode);
@@ -195,8 +228,33 @@ export function HarmoniumKeyboardPage() {
       }
       if (parsed.reedMode) setReedMode(parsed.reedMode);
       if (parsed.midiInputId) setMidiInputId(parsed.midiInputId);
+      if (parsed.selectedSa && getSaTonicOption(parsed.selectedSa)) {
+        setSelectedSa(parsed.selectedSa);
+      }
+      if (
+        parsed.selectedExerciseId &&
+        getRiyazPracticeExercise(parsed.selectedExerciseId)
+      ) {
+        setSelectedExerciseId(parsed.selectedExerciseId);
+      }
+      if (Array.isArray(parsed.completedExerciseIds)) {
+        setCompletedExerciseIds(
+          parsed.completedExerciseIds.filter((id) =>
+            Boolean(getRiyazPracticeExercise(id))
+          )
+        );
+      }
     } catch (error) {
       console.error('Failed to read harmonium settings', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const exerciseId = getExerciseIdFromPracticeParam(params.get('practice'));
+    if (getRiyazPracticeExercise(exerciseId)) {
+      setSelectedExerciseId(exerciseId);
+      setPracticeMessage('Guided riyaz loop opened from your practice path.');
     }
   }, []);
 
@@ -217,9 +275,13 @@ export function HarmoniumKeyboardPage() {
         reverbEnabled,
         reedMode,
         midiInputId: selectedInputId,
+        selectedSa,
+        selectedExerciseId,
+        completedExerciseIds,
       })
     );
   }, [
+    completedExerciseIds,
     labelMode,
     octave,
     transpose,
@@ -227,6 +289,8 @@ export function HarmoniumKeyboardPage() {
     reverbEnabled,
     reedMode,
     selectedInputId,
+    selectedExerciseId,
+    selectedSa,
   ]);
 
   useEffect(() => {
@@ -272,6 +336,114 @@ export function HarmoniumKeyboardPage() {
   const whiteKeys = NOTE_KEYS.filter((note) => note.kind === 'white');
   const blackKeys = NOTE_KEYS.filter((note) => note.kind === 'black');
   const octaveOption = getOctaveOption(octave);
+  const selectedSaOption =
+    getSaTonicOption(selectedSa) ?? SA_TONIC_OPTIONS[0];
+  const selectedExercise =
+    getRiyazPracticeExercise(selectedExerciseId) ??
+    RIYAZ_PRACTICE_EXERCISES[0];
+  const selectedSaKeyboardNote = getKeyboardNoteForSa(selectedSa);
+  const selectedSaMidi =
+    selectedSaOption.midi + (octave - 4) * 12 + transpose;
+  const hasCompletedSelectedExercise = completedExerciseIds.includes(
+    selectedExercise.id
+  );
+  const droneStatusMessage =
+    droneStatus === 'error' && droneErrorCode === 'audio-blocked'
+      ? 'Shruti audio could not start. Tap Start shruti again after interacting with the page, or continue without drone.'
+      : isDroneActive
+        ? `Shruti is holding ${selectedSaOption.western} as Sa.`
+        : 'Shruti is optional and starts only after you press Start shruti.';
+
+  const handleSelectedSaChange = useCallback(
+    (nextSa: string) => {
+      if (!getSaTonicOption(nextSa)) {
+        setPracticeMessage('Invalid Sa value ignored; previous Sa is kept.');
+        return;
+      }
+
+      setSelectedSa(nextSa);
+      setPracticeMessage(`Set Sa to ${nextSa}. Exercise guidance updated.`);
+      if (isDroneActive) {
+        const option = getSaTonicOption(nextSa);
+        if (option) {
+          void startDrone({
+            midi: option.midi + (octave - 4) * 12 + transpose,
+          });
+        }
+      }
+    },
+    [isDroneActive, octave, startDrone, transpose]
+  );
+
+  const handleExerciseChange = useCallback((exerciseId: string) => {
+    const nextExercise = getRiyazPracticeExercise(exerciseId);
+    if (!nextExercise) {
+      setPracticeMessage('That exercise is unavailable. Previous exercise kept.');
+      return;
+    }
+
+    setSelectedExerciseId(nextExercise.id);
+    setPracticeMessage(`${nextExercise.title} selected. Set Sa, then practice.`);
+  }, []);
+
+  const handleDroneToggle = useCallback(() => {
+    if (isDroneActive) {
+      stopDrone();
+      setPracticeMessage('Shruti stopped. Free play and recording still work.');
+      return;
+    }
+
+    void startDrone({ midi: selectedSaMidi }).then((started) => {
+      setPracticeMessage(
+        started
+          ? `Start shruti: ${selectedSaOption.western} is now your Sa reference.`
+          : 'Shruti could not start. Continue playing or try again after a tap.'
+      );
+    });
+  }, [isDroneActive, selectedSaMidi, selectedSaOption.western, startDrone, stopDrone]);
+
+  const handleMarkComplete = useCallback(() => {
+    setCompletedExerciseIds((current) => {
+      if (current.includes(selectedExercise.id)) {
+        setPracticeMessage('This exercise is already complete. Repeat it or choose another.');
+        return current;
+      }
+
+      setPracticeMessage(
+        `${selectedExercise.title} complete. Repeat exercise, record a take, or choose the next path.`
+      );
+      return [...current, selectedExercise.id];
+    });
+  }, [selectedExercise.id, selectedExercise.title]);
+
+  const handleRepeatExercise = useCallback(() => {
+    setCompletedExerciseIds((current) =>
+      current.filter((id) => id !== selectedExercise.id)
+    );
+    setPracticeMessage(`Repeat exercise: ${selectedExercise.pattern}`);
+  }, [selectedExercise.id, selectedExercise.pattern]);
+  const practiceLinks = [
+    {
+      title: 'Sa finding',
+      href: '/blog/find-your-tonic-sa-on-web-harmonium',
+    },
+    {
+      title: 'Riyaz warm-up',
+      href: '/blog/vocal-warm-up-exercises-with-web-harmonium',
+    },
+    {
+      title: 'Raga practice',
+      href: '/blog/beginner-raga-practice-with-web-harmonium',
+    },
+    {
+      title: 'Alankar drills',
+      href: '/harmonium-notes',
+    },
+    {
+      title: 'Bhajan and kirtan',
+      href: '/blog/play-bhajan-kirtan-on-web-harmonium',
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,#faf7f2_0%,#f8f4ec_40%,#fbfaf7_100%)] font-sans text-[#2a1f1a]">
@@ -280,11 +452,12 @@ export function HarmoniumKeyboardPage() {
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-3xl">
               <h1 className="font-serif text-4xl font-bold sm:text-5xl">
-                Web Harmonium Keyboard
+                Web Harmonium Practice Workbench
               </h1>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-[#6b5d52] sm:text-base">
                 Use your laptop keyboard, touch screen, or MIDI controller to
-                play web harmonium online.
+                practice web harmonium online with Sargam labels, recording
+                takes, notation, presets, and saved sessions.
               </p>
             </div>
 
@@ -312,7 +485,7 @@ export function HarmoniumKeyboardPage() {
 
           <div className="flex flex-wrap gap-3 text-sm text-[#6b5d52]">
             <span className="rounded-full bg-white px-3 py-1.5 shadow-sm">
-              Full-width Web Harmonium keyboard first
+              Practice workbench with full-width keyboard first
             </span>
             <Link
               href="/laptop-harmonium"
@@ -332,20 +505,166 @@ export function HarmoniumKeyboardPage() {
             >
               Virtual harmonium guide
             </Link>
+            {practiceLinks.map((link) => (
+              <Link
+                key={link.title}
+                href={link.href}
+                className="rounded-full bg-white px-3 py-1.5 text-[#8b2e2e] shadow-sm hover:bg-[#fff3e7]"
+              >
+                {link.title}
+              </Link>
+            ))}
+          </div>
+
+          <div
+            className="rounded-[1.75rem] border border-[#8b2e2e]/12 bg-[#fffdf8] p-5 shadow-sm"
+            data-practice-action="guided-riyaz-loop"
+          >
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="max-w-3xl">
+                <p className="text-sm font-semibold tracking-[0.22em] text-[#8b2e2e] uppercase">
+                  Guided riyaz loop
+                </p>
+                <h2 className="mt-3 text-2xl font-semibold text-[#2a1f1a] sm:text-3xl">
+                  Set Sa, start shruti, choose an exercise, then finish a take.
+                </h2>
+                <p className="mt-3 text-sm leading-7 text-[#6b5d52]">
+                  {selectedExercise.summary} {selectedExercise.saRelationship}
+                </p>
+              </div>
+              <div className="rounded-full border border-[#8b2e2e]/15 bg-[#8b2e2e]/8 px-3 py-2 text-sm font-medium text-[#8b2e2e]">
+                {hasCompletedSelectedExercise ? 'Completed once' : 'Ready'}
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-4 lg:grid-cols-[0.9fr_1.1fr_0.9fr]">
+              <div className="rounded-[1.2rem] border border-black/7 bg-white p-4">
+                <label
+                  className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase"
+                  htmlFor="set-sa"
+                >
+                  Set Sa
+                </label>
+                <select
+                  id="set-sa"
+                  value={selectedSa}
+                  onChange={(event) => handleSelectedSaChange(event.target.value)}
+                  className="mt-3 w-full rounded-xl border border-[#b77c4a]/25 bg-[#fcfaf6] px-3 py-2 text-sm text-[#2a1f1a] outline-none focus:border-[#8b2e2e]"
+                >
+                  {SA_TONIC_OPTIONS.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.western} as Sa
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  Current Sa: {selectedSaOption.western}.{' '}
+                  {selectedSaKeyboardNote
+                    ? `Nearest visible key: ${selectedSaKeyboardNote.keycap}.`
+                    : 'Use transpose if your Sa is outside this visible range.'}
+                </p>
+              </div>
+
+              <div className="rounded-[1.2rem] border border-black/7 bg-white p-4">
+                <label
+                  className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase"
+                  htmlFor="practice-exercise"
+                >
+                  Exercise
+                </label>
+                <select
+                  id="practice-exercise"
+                  value={selectedExercise.id}
+                  onChange={(event) => handleExerciseChange(event.target.value)}
+                  className="mt-3 w-full rounded-xl border border-[#b77c4a]/25 bg-[#fcfaf6] px-3 py-2 text-sm text-[#2a1f1a] outline-none focus:border-[#8b2e2e]"
+                >
+                  {RIYAZ_PRACTICE_EXERCISES.map((exercise) => (
+                    <option key={exercise.id} value={exercise.id}>
+                      {exercise.cta}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-3 text-sm font-medium text-[#2a1f1a]">
+                  {selectedExercise.pattern}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  {selectedExercise.nextAction}
+                </p>
+              </div>
+
+              <div className="rounded-[1.2rem] border border-black/7 bg-white p-4">
+                <p className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+                  Shruti reference
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button
+                    type="button"
+                    onClick={handleDroneToggle}
+                    className={cn(
+                      isDroneActive
+                        ? 'bg-[#5f3820] text-white hover:bg-[#4e2d18]'
+                        : 'bg-[#8b2e2e] text-white hover:bg-[#6f2424]'
+                    )}
+                  >
+                    {isDroneActive ? (
+                      <Square className="size-4" />
+                    ) : (
+                      <Play className="size-4" />
+                    )}
+                    {isDroneActive ? 'Stop shruti' : 'Start shruti'}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleMarkComplete}
+                    className="border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
+                  >
+                    Mark complete
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={handleRepeatExercise}
+                    className="text-[#8b2e2e]"
+                  >
+                    Repeat exercise
+                  </Button>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {droneStatusMessage}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-[#6b5d52]">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#8b2e2e]/8 px-3 py-1.5 text-[#8b2e2e]">
+                <Music2 className="size-4" />
+                {selectedExercise.title}
+              </span>
+              <span className="rounded-full bg-white px-3 py-1.5 shadow-sm">
+                Record this loop in Practice studio when ready.
+              </span>
+              {practiceMessage ? (
+                <span className="rounded-full bg-[#f5e7d7] px-3 py-1.5 text-[#7f4e2a]">
+                  {practiceMessage}
+                </span>
+              ) : null}
+            </div>
           </div>
         </div>
       </section>
 
       <section className="py-8 sm:py-12">
-        <div className="container grid max-w-[1500px] gap-6">
-          <aside className="order-2 grid gap-4 lg:grid-cols-[0.92fr_1.08fr] xl:grid-cols-[0.95fr_1.05fr]">
+        <div className="container grid min-w-0 max-w-[1500px] gap-6">
+          <aside className="order-2 grid min-w-0 gap-4 lg:grid-cols-[0.92fr_1.08fr] xl:grid-cols-[0.95fr_1.05fr]">
             <div className="rounded-lg border border-[#2a1f1a]/10 bg-white/85 p-5 shadow-sm">
               <h2 className="text-2xl font-semibold">
-                Always visible controls
+                Always visible practice controls
               </h2>
               <p className="mt-3 text-sm leading-7 text-[#6b5d52]">
                 Keep pitch, label, reed, reverb, and volume settings close to
-                the keyboard without hiding the play surface.
+                the keyboard while you work on Sa finding, riyaz, raga
+                exploration, alankar, and bhajan or kirtan practice.
               </p>
             </div>
 
@@ -560,15 +879,16 @@ export function HarmoniumKeyboardPage() {
             </ControlCard>
           </aside>
 
-          <div className="order-1 rounded-[2rem] border border-[#2a1f1a]/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.94),rgba(248,239,226,0.94))] p-5 shadow-[0_24px_80px_rgba(79,48,16,0.12)] backdrop-blur sm:p-6">
+          <div className="order-1 min-w-0 rounded-[2rem] border border-[#2a1f1a]/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.94),rgba(248,239,226,0.94))] p-5 shadow-[0_24px_80px_rgba(79,48,16,0.12)] backdrop-blur sm:p-6">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-sm font-medium tracking-[0.24em] text-[#8f5f33] uppercase">
-                  Web Harmonium play surface
+                  Web Harmonium practice workbench
                 </p>
                 <p className="mt-1 text-sm text-slate-600">
                   Keep the keyboard fully readable on desktop, then scroll only
-                  on smaller screens when needed.
+                  on smaller screens when needed. Recording takes, notation,
+                  presets, and sessions stay below the play surface.
                 </p>
               </div>
               <div className="rounded-full border border-[#8b2e2e]/15 bg-[#8b2e2e]/8 px-3 py-2 text-sm text-[#8b2e2e]">
@@ -742,7 +1062,7 @@ export function HarmoniumKeyboardPage() {
             </div>
           </div>
 
-          <div className="order-3">
+          <div className="order-3 min-w-0">
             <PracticeStudio
               isAuthenticated={isAuthenticated}
               isRecording={isRecording}
