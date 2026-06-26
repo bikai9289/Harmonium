@@ -148,6 +148,88 @@ for (const action of practiceActions) {
   );
 }
 
+const funnelPages = [
+  {
+    route: '/notes',
+    path: 'src/app/[locale]/(landing)/notes/page.tsx',
+    blockPath: 'src/shared/blocks/harmonium/notes-page.tsx',
+    practiceAction: '/keyboard?practice=alankar',
+    terms: ['compact note map', 'Practice alankar', 'play aid'],
+  },
+  {
+    route: '/tutorial',
+    path: 'src/app/[locale]/(landing)/tutorial/page.tsx',
+    blockPath: 'src/shared/blocks/harmonium/tutorial-page.tsx',
+    practiceAction: '/keyboard?practice=find-sa',
+    secondaryAction: '/keyboard?practice=riyaz',
+    terms: ['Set Sa', 'Start first riyaz', 'step-by-step beginner'],
+  },
+  {
+    route: '/blog',
+    path: 'src/app/[locale]/(landing)/blog/page.tsx',
+    practiceAction: '/keyboard?practice=riyaz',
+    terms: [
+      'Practice from the guide',
+      '/keyboard?practice=find-sa',
+      '/keyboard?practice=alankar',
+      '/keyboard?practice=raga',
+      '/keyboard?practice=bhajan',
+    ],
+  },
+];
+
+for (const page of funnelPages) {
+  const exists = existsSync(join(root, page.path));
+  expect(exists, `Missing funnel page: ${page.route}`);
+  if (!exists) continue;
+
+  const source = `${read(page.path)}\n${
+    page.blockPath ? read(page.blockPath) : ''
+  }`;
+  expect(
+    source.includes('generateMetadata') && source.includes('canonicalUrl'),
+    `${page.route} is missing explicit metadata/canonical setup`
+  );
+  expect(
+    source.includes(page.practiceAction),
+    `${page.route} is missing primary practice action: ${page.practiceAction}`
+  );
+  if (page.secondaryAction) {
+    expect(
+      source.includes(page.secondaryAction),
+      `${page.route} is missing secondary practice action: ${page.secondaryAction}`
+    );
+  }
+  for (const term of page.terms) {
+    expect(
+      source.toLowerCase().includes(term.toLowerCase()),
+      `${page.route} is missing funnel term: ${term}`
+    );
+  }
+}
+
+const notesRouteSource = `${read('src/app/[locale]/(landing)/notes/page.tsx')}\n${read(
+  'src/shared/blocks/harmonium/notes-page.tsx'
+)}`;
+const harmoniumNotesSource = `${read(
+  'src/app/[locale]/(landing)/harmonium-notes/page.tsx'
+)}\n${landingContent}`;
+expect(
+  notesRouteSource.includes('Web Harmonium Notes') &&
+    harmoniumNotesSource.includes('Harmonium Notes'),
+  '/notes and /harmonium-notes need distinct page titles'
+);
+expect(
+  notesRouteSource.includes('/keyboard?practice=alankar') &&
+    harmoniumNotesSource.includes('/keyboard?practice=alankar'),
+  '/notes and /harmonium-notes should both preserve alankar practice paths'
+);
+expect(
+  notesRouteSource.includes('compact note map') &&
+    harmoniumNotesSource.includes('Sa Re Ga Ma'),
+  '/notes and /harmonium-notes route roles are not distinct enough'
+);
+
 const routeTitles = [
   ...landingContent.matchAll(/title:\s*'([^']+)'/g),
 ].map((match) => match[1]);

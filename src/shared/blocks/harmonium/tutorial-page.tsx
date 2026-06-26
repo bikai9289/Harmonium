@@ -531,25 +531,25 @@ export function HarmoniumTutorialPage() {
             <div className="space-y-5">
               <p className="max-w-2xl text-base leading-8 text-slate-600">
                 Practice harmonium song keys online with a moving score, Sargam
-                labels, browser keyboard input, and step-by-step beginner
-                lessons.
+                labels, browser keyboard input, Set Sa preparation, and
+                step-by-step beginner lessons.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button
                   asChild
-                  className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
+                  className="min-h-11 bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
                 >
-                  <Link href="/keyboard">
-                    Open Keyboard
+                  <Link href="/keyboard?practice=find-sa">
+                    Set Sa first
                     <ArrowRight className="size-4" />
                   </Link>
                 </Button>
                 <Button
                   asChild
                   variant="outline"
-                  className="border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
+                  className="min-h-11 border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
                 >
-                  <Link href="/harmonium-notes">Open Harmonium Notes</Link>
+                  <Link href="/keyboard?practice=riyaz">Start first riyaz</Link>
                 </Button>
               </div>
             </div>
@@ -825,7 +825,7 @@ export function HarmoniumTutorialPage() {
                             'Tempo updated. Listen again or continue practicing at the new speed.'
                           );
                         }}
-                        className="h-2 flex-1 cursor-pointer appearance-none rounded-full bg-[#2f3440]"
+                        className="min-h-10 flex-1 cursor-pointer appearance-none rounded-full bg-[#2f3440] accent-[#8b2e2e]"
                       />
                       <span className="w-16 text-right text-sm font-semibold text-slate-900">
                         {tempoBpm}
@@ -849,7 +849,7 @@ export function HarmoniumTutorialPage() {
                         type="button"
                         onClick={() => resetCurrentSong('step')}
                         className={cn(
-                          'rounded-full border px-3 py-1 text-xs font-medium tracking-[0.16em] uppercase transition',
+                          'min-h-10 rounded-full border px-4 py-2 text-xs font-medium tracking-[0.16em] uppercase transition',
                           mode === 'step'
                             ? 'border-[#8b2e2e] bg-[#fff0e5] text-[#8b2e2e]'
                             : 'border-[#d8dde8] bg-white text-slate-600 hover:border-[#8b2e2e]/35'

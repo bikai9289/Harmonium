@@ -301,7 +301,7 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
                       <button
                         key={value}
                         className={cn(
-                          'rounded-full px-3 py-1 text-xs font-semibold capitalize transition',
+                          'min-h-10 rounded-full px-4 py-2 text-xs font-semibold capitalize transition',
                           reedMode === value
                             ? 'bg-[#8b2e2e] text-white shadow-sm'
                             : 'text-[#6d5549] hover:bg-[#f7eee5]'
@@ -323,7 +323,7 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
                 >
                   <button
                     className={cn(
-                      'rounded-full px-3 py-1.5 text-sm font-semibold transition',
+                      'min-h-10 rounded-full px-4 py-2 text-sm font-semibold transition',
                       reverbEnabled
                         ? 'bg-[#c8633a] text-white'
                         : 'border border-[#8b2e2e]/18 bg-white text-[#6d5549]'
@@ -341,7 +341,7 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
                 >
                   <button
                     className={cn(
-                      'rounded-full px-3 py-1.5 text-sm font-semibold transition',
+                      'min-h-10 rounded-full px-4 py-2 text-sm font-semibold transition',
                       labelMode === 'sargam'
                         ? 'bg-[#8b2e2e] text-white'
                         : 'border border-[#8b2e2e]/18 bg-white text-[#6d5549]'
@@ -359,7 +359,7 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
               </div>
 
               <button
-                className="mt-3 inline-flex w-fit items-center gap-2 rounded-full border border-[#8b2e2e]/18 bg-white px-3 py-1.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
+                className="mt-3 inline-flex min-h-10 w-fit items-center gap-2 rounded-full border border-[#8b2e2e]/18 bg-white px-4 py-2 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
                 onClick={() => setShowMoreControls((current) => !current)}
                 type="button"
               >
@@ -718,7 +718,7 @@ function Stepper({
     <div className="flex items-center gap-2 rounded-full border border-[#8b2e2e]/18 bg-white px-2 py-1">
       <button
         aria-label="Decrease"
-        className="rounded-full px-2 text-[#8b2e2e] hover:bg-[#f7eee5]"
+        className="min-h-10 min-w-10 rounded-full px-3 py-2 text-[#8b2e2e] hover:bg-[#f7eee5]"
         onClick={onDown}
         type="button"
       >
@@ -729,7 +729,7 @@ function Stepper({
       </span>
       <button
         aria-label="Increase"
-        className="rounded-full px-2 text-[#8b2e2e] hover:bg-[#f7eee5]"
+        className="min-h-10 min-w-10 rounded-full px-3 py-2 text-[#8b2e2e] hover:bg-[#f7eee5]"
         onClick={onUp}
         type="button"
       >

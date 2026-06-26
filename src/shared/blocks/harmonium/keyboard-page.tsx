@@ -422,7 +422,19 @@ export function HarmoniumKeyboardPage() {
     );
     setPracticeMessage(`Repeat exercise: ${selectedExercise.pattern}`);
   }, [selectedExercise.id, selectedExercise.pattern]);
-  const practiceLinks = [
+  const learningLinks = [
+    {
+      title: 'Laptop key map',
+      href: '/laptop-harmonium',
+    },
+    {
+      title: 'Harmonium notes',
+      href: '/harmonium-notes',
+    },
+    {
+      title: 'Virtual harmonium guide',
+      href: '/virtual-harmonium',
+    },
     {
       title: 'Sa finding',
       href: '/blog/find-your-tonic-sa-on-web-harmonium',
@@ -481,39 +493,6 @@ export function HarmoniumKeyboardPage() {
                 </Link>
               </Button>
             </div>
-          </div>
-
-          <div className="flex flex-wrap gap-3 text-sm text-[#6b5d52]">
-            <span className="rounded-full bg-white px-3 py-1.5 shadow-sm">
-              Practice workbench with full-width keyboard first
-            </span>
-            <Link
-              href="/laptop-harmonium"
-              className="rounded-full bg-white px-3 py-1.5 text-[#8b2e2e] shadow-sm hover:bg-[#fff3e7]"
-            >
-              Laptop key map
-            </Link>
-            <Link
-              href="/harmonium-notes"
-              className="rounded-full bg-white px-3 py-1.5 text-[#8b2e2e] shadow-sm hover:bg-[#fff3e7]"
-            >
-              Harmonium notes
-            </Link>
-            <Link
-              href="/virtual-harmonium"
-              className="rounded-full bg-white px-3 py-1.5 text-[#8b2e2e] shadow-sm hover:bg-[#fff3e7]"
-            >
-              Virtual harmonium guide
-            </Link>
-            {practiceLinks.map((link) => (
-              <Link
-                key={link.title}
-                href={link.href}
-                className="rounded-full bg-white px-3 py-1.5 text-[#8b2e2e] shadow-sm hover:bg-[#fff3e7]"
-              >
-                {link.title}
-              </Link>
-            ))}
           </div>
 
           <div
@@ -601,6 +580,7 @@ export function HarmoniumKeyboardPage() {
                     type="button"
                     onClick={handleDroneToggle}
                     className={cn(
+                      'min-h-11',
                       isDroneActive
                         ? 'bg-[#5f3820] text-white hover:bg-[#4e2d18]'
                         : 'bg-[#8b2e2e] text-white hover:bg-[#6f2424]'
@@ -617,7 +597,7 @@ export function HarmoniumKeyboardPage() {
                     type="button"
                     variant="outline"
                     onClick={handleMarkComplete}
-                    className="border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
+                    className="min-h-11 border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
                   >
                     Mark complete
                   </Button>
@@ -625,7 +605,7 @@ export function HarmoniumKeyboardPage() {
                     type="button"
                     variant="ghost"
                     onClick={handleRepeatExercise}
-                    className="text-[#8b2e2e]"
+                    className="min-h-11 text-[#8b2e2e]"
                   >
                     Repeat exercise
                   </Button>
@@ -649,6 +629,24 @@ export function HarmoniumKeyboardPage() {
                   {practiceMessage}
                 </span>
               ) : null}
+            </div>
+          </div>
+
+          <div className="rounded-[1.2rem] border border-[#2a1f1a]/10 bg-white/75 p-4 text-sm text-[#6b5d52]">
+            <p className="font-semibold text-[#2a1f1a]">Learning paths</p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <span className="rounded-full bg-[#f7eee5] px-3 py-2 shadow-sm">
+                Practice workbench with full-width keyboard first
+              </span>
+              {learningLinks.map((link) => (
+                <Link
+                  key={link.title}
+                  href={link.href}
+                  className="rounded-full bg-white px-3 py-2 text-[#8b2e2e] shadow-sm hover:bg-[#fff3e7]"
+                >
+                  {link.title}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
@@ -787,7 +785,7 @@ export function HarmoniumKeyboardPage() {
                     type="button"
                     onClick={() => setReverbEnabled(option.value)}
                     className={cn(
-                      'rounded-full px-3 py-1 text-sm transition',
+                      'min-h-10 rounded-full px-4 py-2 text-sm transition',
                       reverbEnabled === option.value
                         ? 'bg-[#8f5f33] text-white'
                         : 'bg-white text-slate-700 hover:bg-[#f0e0cf]'
@@ -814,7 +812,7 @@ export function HarmoniumKeyboardPage() {
                     type="button"
                     onClick={() => setReedMode(option.value)}
                     className={cn(
-                      'rounded-full px-3 py-1 text-sm transition',
+                      'min-h-10 rounded-full px-4 py-2 text-sm transition',
                       reedMode === option.value
                         ? 'bg-[#8b2e2e] text-white'
                         : 'bg-white text-slate-700 hover:bg-[#f0e0cf]'
@@ -838,7 +836,7 @@ export function HarmoniumKeyboardPage() {
                     type="button"
                     onClick={() => setOctave(option.value)}
                     className={cn(
-                      'rounded-full px-3 py-1 text-sm transition',
+                      'min-h-10 min-w-10 rounded-full px-4 py-2 text-sm transition',
                       octave === option.value
                         ? 'bg-[#8b2e2e] text-white'
                         : 'bg-white text-slate-700 hover:bg-[#f0e0cf]'
@@ -866,7 +864,7 @@ export function HarmoniumKeyboardPage() {
                     type="button"
                     onClick={() => setLabelMode(value)}
                     className={cn(
-                      'rounded-full px-3 py-1 text-sm transition',
+                      'min-h-10 rounded-full px-4 py-2 text-sm transition',
                       labelMode === value
                         ? 'bg-[#b77c4a] text-white'
                         : 'bg-white text-slate-700 hover:bg-[#f0e0cf]'
@@ -915,7 +913,7 @@ export function HarmoniumKeyboardPage() {
                     onClick={() =>
                       setTranspose((current) => Math.max(-6, current - 1))
                     }
-                    className="rounded-full px-2 py-1 hover:bg-[#f0e0cf]"
+                    className="min-h-10 min-w-10 rounded-full px-3 py-2 hover:bg-[#f0e0cf]"
                   >
                     -
                   </button>
@@ -928,7 +926,7 @@ export function HarmoniumKeyboardPage() {
                     onClick={() =>
                       setTranspose((current) => Math.min(6, current + 1))
                     }
-                    className="rounded-full px-2 py-1 hover:bg-[#f0e0cf]"
+                    className="min-h-10 min-w-10 rounded-full px-3 py-2 hover:bg-[#f0e0cf]"
                   >
                     +
                   </button>

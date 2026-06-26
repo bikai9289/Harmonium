@@ -146,32 +146,32 @@ export function HarmoniumNotesPage() {
               Web Harmonium Notes
             </h1>
             <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-[#6b5d52]">
-              Learn web harmonium notes with Sargam labels, western notes,
-              keyboard mapping, and playable examples for every note.
+              Use this compact note map as a quick play aid for Sargam labels,
+              western notes, keyboard mapping, and short alankar practice.
             </p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-3">
             <Button
               asChild
-              className="bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
+              className="min-h-11 bg-[#8b2e2e] text-white hover:bg-[#6f2424]"
             >
-              <Link href="/keyboard">
-                Open Keyboard
+              <Link href="/keyboard?practice=alankar">
+                Practice alankar
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
             <Button
               asChild
               variant="outline"
-              className="border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
+              className="min-h-11 border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
             >
-              <Link href="/harmonium-notes">Read Harmonium Notes Guide</Link>
+              <Link href="/harmonium-notes">Read the deeper notes guide</Link>
             </Button>
             <Button
               asChild
               variant="outline"
-              className="border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
+              className="min-h-11 border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
             >
               <Link href="/tutorial">Start Tutorial</Link>
             </Button>

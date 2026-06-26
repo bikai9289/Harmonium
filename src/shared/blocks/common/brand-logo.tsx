@@ -12,7 +12,7 @@ export function BrandLogo({ brand }: { brand: BrandType }) {
     <Link
       href={brand.url || ''}
       target={brand.target || '_self'}
-      className={`flex items-center space-x-3 ${brand.className}`}
+      className={`flex min-h-10 items-center space-x-3 py-1 ${brand.className}`}
     >
       {brand.logo && (
         <Image

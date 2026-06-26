@@ -125,7 +125,6 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel="alternate icon" href="/favicon.ico" />
-        <link rel="preload" as="image" href="/preview.png" />
         {/* inject locales */}
         {locales ? (
           <>
