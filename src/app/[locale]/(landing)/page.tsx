@@ -1,6 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
+import { routing } from '@/core/i18n/config';
 import { HarmoniumHome } from '@/shared/blocks/harmonium/home';
 import {
   absoluteUrl,
@@ -11,6 +12,11 @@ import {
 import { getMetadata } from '@/shared/lib/seo';
 
 export const revalidate = 3600;
+export const dynamic = 'error';
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export const generateMetadata = getMetadata({
   title:

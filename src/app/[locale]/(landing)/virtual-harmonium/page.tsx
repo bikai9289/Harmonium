@@ -1,5 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 
+import { routing } from '@/core/i18n/config';
 import { envConfigs } from '@/config';
 import { harmoniumSeoLandingContent } from '@/shared/blocks/harmonium/seo-landing-content';
 import { HarmoniumSeoLandingPage } from '@/shared/blocks/harmonium/seo-landing-page';
@@ -14,6 +15,10 @@ import { getMetadata } from '@/shared/lib/seo';
 const content = harmoniumSeoLandingContent.virtual;
 
 export const revalidate = 3600;
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export const generateMetadata = getMetadata({
   title: `${content.title} | Play Harmonium`,

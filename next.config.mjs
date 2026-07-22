@@ -36,7 +36,45 @@ const nextConfig = {
     ],
   },
   async redirects() {
-    return [];
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.playharmonium.com',
+          },
+        ],
+        destination: 'https://playharmonium.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: '/', destination: '/en' },
+        { source: '/keyboard', destination: '/en/keyboard' },
+        { source: '/blog', destination: '/en/blog' },
+        { source: '/blog/:path*', destination: '/en/blog/:path*' },
+        { source: '/about', destination: '/en/about' },
+        { source: '/privacy-policy', destination: '/en/privacy-policy' },
+        {
+          source: '/terms-of-service',
+          destination: '/en/terms-of-service',
+        },
+        { source: '/online-harmonium', destination: '/en/online-harmonium' },
+        { source: '/virtual-harmonium', destination: '/en/virtual-harmonium' },
+        { source: '/harmonium-notes', destination: '/en/harmonium-notes' },
+        { source: '/notes', destination: '/en/notes' },
+        { source: '/laptop-harmonium', destination: '/en/laptop-harmonium' },
+        { source: '/tutorial', destination: '/en/tutorial' },
+        { source: '/sign-in', destination: '/en/sign-in' },
+        { source: '/sign-up', destination: '/en/sign-up' },
+        { source: '/verify-email', destination: '/en/verify-email' },
+        { source: '/no-permission', destination: '/en/no-permission' },
+      ],
+    };
   },
   async headers() {
     return [

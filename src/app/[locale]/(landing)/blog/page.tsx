@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+import { routing } from '@/core/i18n/config';
 import { Link } from '@/core/i18n/navigation';
 import { getThemePage } from '@/core/theme';
 import { getMetadata } from '@/shared/lib/seo';
@@ -11,6 +12,10 @@ import {
 import { DynamicPage } from '@/shared/types/blocks/landing';
 
 export const revalidate = 3600;
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export const generateMetadata = getMetadata({
   metadataKey: 'pages.blog.metadata',
@@ -47,10 +52,8 @@ const practiceTopics = [
 
 export default async function BlogPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ page?: number; pageSize?: number }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -70,15 +73,11 @@ export default async function BlogPage({
   };
 
   try {
-    const { page: pageNum, pageSize } = await searchParams;
-    const page = pageNum || 1;
-    const limit = pageSize || 30;
-
     const { posts: allPosts, categories: allCategories } =
       await getPostsAndCategories({
         locale,
-        page,
-        limit,
+        page: 1,
+        limit: 30,
       });
 
     posts = allPosts;

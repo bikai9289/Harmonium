@@ -2,7 +2,6 @@ import '@/config/style/global.css';
 
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono, Merriweather } from 'next/font/google';
-import { getLocale, setRequestLocale } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
 
 import { envConfigs } from '@/config';
@@ -51,8 +50,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = await getLocale();
-  setRequestLocale(locale);
+  const locale = envConfigs.locale || 'en';
 
   const isProduction = process.env.NODE_ENV === 'production';
   const isDebug = process.env.NEXT_PUBLIC_DEBUG === 'true';

@@ -1,30 +1,33 @@
 import { ReactNode } from 'react';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import { getThemeLayout } from '@/core/theme';
-import { LocaleDetector, TopBanner } from '@/shared/blocks/common';
+import { LocaleDetector } from '@/shared/blocks/common/locale-detector';
+import { TopBanner } from '@/shared/blocks/common/top-banner';
 import {
   Footer as FooterType,
   Header as HeaderType,
 } from '@/shared/types/blocks/landing';
+import ThemeLandingLayout from '@/themes/default/layouts/landing';
 
 export default async function LandingLayout({
   children,
+  params,
 }: {
   children: ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   // load page data
   const t = await getTranslations('landing');
-
-  // load layout component
-  const Layout = await getThemeLayout('landing');
 
   // header and footer to display
   const header: HeaderType = t.raw('header');
   const footer: FooterType = t.raw('footer');
 
   return (
-    <Layout header={header} footer={footer}>
+    <ThemeLandingLayout header={header} footer={footer}>
       <LocaleDetector />
       {header.topbanner && header.topbanner.text && (
         <TopBanner
@@ -39,6 +42,6 @@ export default async function LandingLayout({
         />
       )}
       {children}
-    </Layout>
+    </ThemeLandingLayout>
   );
 }

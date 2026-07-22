@@ -2,7 +2,9 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { getThemePage } from '@/core/theme';
+import { postsSource } from '@/core/docs/source';
 import { envConfigs } from '@/config';
+import { routing } from '@/core/i18n/config';
 import {
   absoluteUrl,
   createBreadcrumbJsonLd,
@@ -12,6 +14,15 @@ import { getPost } from '@/shared/models/post';
 import { DynamicPage } from '@/shared/types/blocks/landing';
 
 export const revalidate = 3600;
+
+export function generateStaticParams() {
+  return routing.locales.flatMap((locale) =>
+    postsSource.getPages(locale).map((post) => ({
+      locale,
+      slug: post.slugs.join('/'),
+    }))
+  );
+}
 
 export async function generateMetadata({
   params,

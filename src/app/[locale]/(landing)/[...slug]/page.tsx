@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+import { pagesSource } from '@/core/docs/source';
+import { routing } from '@/core/i18n/config';
 import { getThemePage } from '@/core/theme';
 import { envConfigs } from '@/config';
 import { getLocalPage } from '@/shared/models/post';
@@ -22,6 +24,18 @@ function normalizeSlug(slug: string | string[]) {
 
 function isBlockedPublicSlug(slug: string | string[]) {
   return BLOCKED_PUBLIC_SLUGS.has(normalizeSlug(slug));
+}
+
+export function generateStaticParams() {
+  return routing.locales.flatMap((locale) =>
+    pagesSource
+      .getPages(locale)
+      .filter((page) => !isBlockedPublicSlug(page.slugs))
+      .map((page) => ({
+        locale,
+        slug: page.slugs,
+      }))
+  );
 }
 
 // dynamic page metadata
