@@ -24,6 +24,11 @@
           "icon": "Radio"
         },
         {
+          "title": "Online Flute",
+          "url": "/online-flute",
+          "icon": "Wind"
+        },
+        {
           "title": "Notes & PDF",
           "url": "/harmonium-notes",
           "icon": "NotebookPen"
@@ -111,6 +116,10 @@
             {
               "title": "Shruti Box & Tanpura",
               "url": "/shruti-box"
+            },
+            {
+              "title": "Online Flute (Bansuri)",
+              "url": "/online-flute"
             },
             {
               "title": "Harmonium Notes & PDF",

@@ -72,6 +72,7 @@ const nextConfig = {
         { source: '/songs', destination: '/en/songs' },
         { source: '/songs/:path*', destination: '/en/songs/:path*' },
         { source: '/shruti-box', destination: '/en/shruti-box' },
+        { source: '/online-flute', destination: '/en/online-flute' },
         { source: '/sign-in', destination: '/en/sign-in' },
         { source: '/sign-up', destination: '/en/sign-up' },
         { source: '/verify-email', destination: '/en/verify-email' },

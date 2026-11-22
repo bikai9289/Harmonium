@@ -19,6 +19,7 @@ const staticRoutes: Array<{
   { path: '/', changeFrequency: 'daily', priority: 1 },
   { path: '/songs', changeFrequency: 'weekly', priority: 0.92 },
   { path: '/shruti-box', changeFrequency: 'weekly', priority: 0.9 },
+  { path: '/online-flute', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/online-harmonium', changeFrequency: 'daily', priority: 0.9 },
   { path: '/virtual-harmonium', changeFrequency: 'daily', priority: 0.88 },
   { path: '/keyboard', changeFrequency: 'daily', priority: 0.9 },

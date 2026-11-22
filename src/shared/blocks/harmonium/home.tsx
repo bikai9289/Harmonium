@@ -429,7 +429,7 @@ export function HarmoniumHome({
                     className="inline-flex items-center gap-1.5 rounded-full border border-[#e3b57d]/35 bg-[#e3b57d]/15 px-3 py-1.5 text-xs font-semibold text-[#f9efe4] transition hover:bg-[#e3b57d]/25"
                   >
                     <Music2 className="size-3.5 text-[#f3cfa0]" />
-                    12 Song Notes
+                    27 Song Notes
                   </Link>
                   <button
                     className="inline-flex items-center gap-1 rounded-full border border-[#e3b57d]/20 bg-[#3a1c11] px-3 py-1.5 text-xs font-semibold text-[#e8d5c4] hover:bg-white/10"
@@ -685,8 +685,14 @@ export function HarmoniumHome({
               className="inline-flex items-center gap-2 rounded-full bg-[#8b2e2e] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#6f2424]"
               href="/songs"
             >
-              Browse All 12 Song Notes
+              Browse All 27 Song Notes
               <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
+              href="/online-flute"
+            >
+              Online Flute (Bansuri)
             </Link>
             <Link
               className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"

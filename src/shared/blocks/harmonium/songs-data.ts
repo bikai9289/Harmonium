@@ -790,6 +790,849 @@ export const HARMONIUM_SONGS: HarmoniumSong[] = [
       },
     ],
   },
+  {
+    slug: 'vande-mataram',
+    title: 'Vande Mataram',
+    artist: 'National Song of India (Bankim Chandra Chatterjee)',
+    category: 'Patriotic',
+    difficulty: 'Beginner',
+    scale: 'C Major (Raag Desh / Bilawal)',
+    ragaOrThaat: 'Raag Desh',
+    tempoBpm: 92,
+    transpose: 0,
+    summary:
+      'Learn Vande Mataram harmonium notes in Sa Re Ga Ma Sargam with smooth Raag Desh phrasing and interactive playback.',
+    description:
+      'Play Vande Mataram harmonium notes online with Sa Re Ga Ma Sargam labels, western notes, laptop QWERTY keys, and slow demo playback.',
+    keywords:
+      'vande mataram harmonium notes, vande mataram sargam notes, patriotic song harmonium notes',
+    tips: [
+      'Hold the opening Re–Ma–Pa phrase cleanly to capture the stately Raag Desh lift.',
+    ],
+    lines: [
+      {
+        label: 'Line 1',
+        lyricHint: 'Vande Mataram, Vande Mataram',
+        steps: [
+          { noteId: 'c4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'f4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 560 },
+          { noteId: 'f4', durationMs: 420 },
+          { noteId: 'g4', durationMs: 680 },
+        ],
+      },
+      {
+        label: 'Line 2',
+        lyricHint: 'Sujalam suphalam malayaja shitalam',
+        steps: [
+          { noteId: 'f4', durationMs: 400 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'b4', durationMs: 460 },
+          { noteId: 'c5', durationMs: 520 },
+          { noteId: 'b4', durationMs: 400 },
+          { noteId: 'a4', durationMs: 420 },
+          { noteId: 'g4', durationMs: 640 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Which raga is Vande Mataram traditionally sung in?',
+        answer:
+          'Vande Mataram is classically associated with Raag Desh, using Shuddha Ni in ascent and Komal Ni in descent.',
+      },
+    ],
+  },
+  {
+    slug: 'hanuman-chalisa',
+    title: 'Hanuman Chalisa',
+    artist: 'Traditional Devotional Chant (Tulsidas)',
+    category: 'Bhajan & Aarti',
+    difficulty: 'Beginner',
+    scale: 'C Major (Bilawal Thaat)',
+    ragaOrThaat: 'Bilawal / Bhupali Feel',
+    tempoBpm: 96,
+    transpose: 0,
+    summary:
+      'Play the beloved Hanuman Chalisa tune on web harmonium with easy beginner Sargam notes and steady devotional rhythm.',
+    description:
+      'Practice Hanuman Chalisa harmonium notes online with Sa Re Ga Ma Sargam labels, western notation, and built-in Tanpura drone.',
+    keywords:
+      'hanuman chalisa harmonium notes, hanuman chalisa sargam notes, devotional harmonium notes',
+    tips: [
+      'Most verses repeat the same 2-line melody—once you learn Doha & Chaupai 1, you can play the entire Chalisa.',
+    ],
+    lines: [
+      {
+        label: 'Doha',
+        lyricHint: 'Shri Guru charan saroj raj',
+        steps: [
+          { noteId: 'c4', durationMs: 380 },
+          { noteId: 'd4', durationMs: 380 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'e4', durationMs: 380 },
+          { noteId: 'd4', durationMs: 380 },
+          { noteId: 'c4', durationMs: 620 },
+        ],
+      },
+      {
+        label: 'Chaupai',
+        lyricHint: 'Jai Hanuman gyan gun sagar',
+        steps: [
+          { noteId: 'e4', durationMs: 380 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'a4', durationMs: 440 },
+          { noteId: 'g4', durationMs: 380 },
+          { noteId: 'f4', durationMs: 380 },
+          { noteId: 'e4', durationMs: 380 },
+          { noteId: 'd4', durationMs: 380 },
+          { noteId: 'c4', durationMs: 640 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is Hanuman Chalisa easy to learn on online harmonium?',
+        answer:
+          'Yes. Its repeating Chaupai melody stays on natural white keys from Sa to Dha, making it ideal for daily devotional practice.',
+      },
+    ],
+  },
+  {
+    slug: 'gayatri-mantra',
+    title: 'Gayatri Mantra',
+    artist: 'Vedic Chant (Om Bhur Bhuva Svah)',
+    category: 'Bhajan & Aarti',
+    difficulty: 'Beginner',
+    scale: 'C Major (Bhupali / Bilawal)',
+    ragaOrThaat: 'Raag Bhupali',
+    tempoBpm: 80,
+    transpose: 0,
+    summary:
+      'Play the serene Gayatri Mantra melody on web harmonium with calm pentatonic Sargam notes and Tanpura drone.',
+    description:
+      'Learn Gayatri Mantra harmonium notes (Om Bhur Bhuva Svah) with interactive Sa Re Ga Ma keyboard playback and Tanpura accompaniment.',
+    keywords:
+      'gayatri mantra harmonium notes, om bhur bhuva svah harmonium notes, mantra sargam notes',
+    tips: [
+      'Enable the Sa–Pa Tanpura drone and hold each phrase gently at 0.8x speed for a meditative sound.',
+    ],
+    lines: [
+      {
+        label: 'Line 1',
+        lyricHint: 'Om bhur bhuvah svah, tat savitur varenyam',
+        steps: [
+          { noteId: 'c4', durationMs: 560 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 520 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'c4', durationMs: 680 },
+        ],
+      },
+      {
+        label: 'Line 2',
+        lyricHint: 'Bhargo devasya dhimahi, dhiyo yo nah prachodayat',
+        steps: [
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'a4', durationMs: 500 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'c4', durationMs: 700 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Which scale works best for singing Gayatri Mantra?',
+        answer:
+          'Start on C (Safed 1) or G (Safed 5) and adjust Transpose until your voice feels calm and relaxed.',
+      },
+    ],
+  },
+  {
+    slug: 'shiv-tandav-stotram',
+    title: 'Shiv Tandav Stotram',
+    artist: 'Traditional Shiva Stotram',
+    category: 'Bhajan & Aarti',
+    difficulty: 'Intermediate',
+    scale: 'C Minor / Bhairav Feel',
+    ragaOrThaat: 'Bhairav / Asavari Feel',
+    tempoBpm: 108,
+    transpose: 0,
+    summary:
+      'Practice the energetic opening chant of Shiv Tandav Stotram on web harmonium with crisp rhythmic Sargam notes.',
+    description:
+      'Play Shiv Tandav Stotram harmonium notes online with Sa Re Ga Ma Sargam labels, western keys, and adjustable practice speed.',
+    keywords:
+      'shiv tandav stotram harmonium notes, shiv tandav sargam notes, shiva bhajan harmonium',
+    tips: [
+      'Start at 0.6x speed to lock in the crisp repeated syllables before increasing to 1x.',
+    ],
+    lines: [
+      {
+        label: 'Opening Stanza',
+        lyricHint: 'Jatatavigalajjala pravahapavitasthale',
+        steps: [
+          { noteId: 'c4', durationMs: 320 },
+          { noteId: 'dsharp4', durationMs: 320 },
+          { noteId: 'f4', durationMs: 320 },
+          { noteId: 'g4', durationMs: 380 },
+          { noteId: 'g4', durationMs: 320 },
+          { noteId: 'f4', durationMs: 320 },
+          { noteId: 'dsharp4', durationMs: 320 },
+          { noteId: 'd4', durationMs: 480 },
+        ],
+      },
+      {
+        label: 'Refrain',
+        lyricHint: 'Damaddamaddamaddama ninadavadamarvayam',
+        steps: [
+          { noteId: 'g4', durationMs: 320 },
+          { noteId: 'gsharp4', durationMs: 320 },
+          { noteId: 'g4', durationMs: 320 },
+          { noteId: 'f4', durationMs: 320 },
+          { noteId: 'dsharp4', durationMs: 320 },
+          { noteId: 'd4', durationMs: 320 },
+          { noteId: 'c4', durationMs: 560 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can I slow down Shiv Tandav Stotram to learn the notes?',
+        answer:
+          'Yes. Switch the demo player to 0.6x speed and practice one line at a time using Play Line.',
+      },
+    ],
+  },
+  {
+    slug: 'hey-ram-hey-ram',
+    title: 'Hey Ram Hey Ram',
+    artist: 'Jagjit Singh (Devotional Bhajan)',
+    category: 'Bhajan & Aarti',
+    difficulty: 'Beginner',
+    scale: 'C Major (Bilawal / Yaman Feel)',
+    ragaOrThaat: 'Bilawal Thaat',
+    tempoBpm: 82,
+    transpose: 0,
+    summary:
+      'Play the peaceful Jagjit Singh bhajan Hey Ram Hey Ram on web harmonium with soothing beginner Sargam notes.',
+    description:
+      'Learn Hey Ram Hey Ram harmonium notes in Sa Re Ga Ma Sargam and western notation with free online harmonium playback.',
+    keywords:
+      'hey ram hey ram harmonium notes, jagjit singh bhajan harmonium notes, easy ram bhajan sargam',
+    tips: [
+      'Hold the sustained Ga and Pa notes smoothly with Room Reverb enabled.',
+    ],
+    lines: [
+      {
+        label: 'Chorus',
+        lyricHint: 'Hey Ram, Hey Ram',
+        steps: [
+          { noteId: 'e4', durationMs: 520 },
+          { noteId: 'g4', durationMs: 620 },
+          { noteId: 'f4', durationMs: 440 },
+          { noteId: 'e4', durationMs: 440 },
+          { noteId: 'd4', durationMs: 620 },
+        ],
+      },
+      {
+        label: 'Line 2',
+        lyricHint: 'Tu hi mata tu hi pita hai',
+        steps: [
+          { noteId: 'c4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 460 },
+          { noteId: 'f4', durationMs: 440 },
+          { noteId: 'e4', durationMs: 440 },
+          { noteId: 'd4', durationMs: 440 },
+          { noteId: 'c4', durationMs: 680 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is Hey Ram Hey Ram suitable for complete harmonium beginners?',
+        answer:
+          'Yes. Its slow tempo and five-note range make it one of the easiest devotional songs to play and sing together.',
+      },
+    ],
+  },
+  {
+    slug: 'pehla-nasha',
+    title: 'Pehla Nasha',
+    artist: 'Udit Narayan & Sadhana Sargam (Jo Jeeta Wohi Sikandar)',
+    category: 'Bollywood',
+    difficulty: 'Easy',
+    scale: 'C Major (Bilawal Thaat)',
+    ragaOrThaat: 'Bilawal Thaat',
+    tempoBpm: 86,
+    transpose: 0,
+    summary:
+      'Play the evergreen 90s Bollywood classic Pehla Nasha on web harmonium with clean white-key Sargam notation.',
+    description:
+      'Practice Pehla Nasha harmonium notes online with interactive Sa Re Ga Ma highlighting, western notes, and slow demo playback.',
+    keywords:
+      'pehla nasha harmonium notes, pehla nasha sargam notes, 90s bollywood harmonium notes',
+    tips: [
+      'Keep the opening phrase light and legato—avoid slamming the keys on the rising Ga–Pa jump.',
+    ],
+    lines: [
+      {
+        label: 'Chorus 1',
+        lyricHint: 'Pehla nasha, pehla khumaar',
+        steps: [
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'a4', durationMs: 520 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'c4', durationMs: 640 },
+        ],
+      },
+      {
+        label: 'Chorus 2',
+        lyricHint: 'Naya pyaar hai, naya intezaar',
+        steps: [
+          { noteId: 'd4', durationMs: 400 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'f4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'c4', durationMs: 680 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can I play Pehla Nasha with laptop keyboard shortcuts?',
+        answer:
+          'Yes. Follow the QWERTY letters printed under each Sargam note chip and play right on your laptop keyboard.',
+      },
+    ],
+  },
+  {
+    slug: 'tera-ban-jaunga',
+    title: 'Tera Ban Jaunga',
+    artist: 'Akhil Sachdeva & Tulsi Kumar (Kabir Singh)',
+    category: 'Bollywood',
+    difficulty: 'Easy',
+    scale: 'C Major (Bilawal Thaat)',
+    ragaOrThaat: 'Bilawal Thaat',
+    tempoBpm: 92,
+    transpose: 0,
+    summary:
+      'Learn the romantic Tera Ban Jaunga chorus on web harmonium with step-by-step Sargam highlights.',
+    description:
+      'Play Tera Ban Jaunga harmonium notes online in Sargam (Sa Re Ga Ma) and western notation with free browser harmonium playback.',
+    keywords:
+      'tera ban jaunga harmonium notes, kabir singh harmonium notes, tera ban jaunga sargam notes',
+    tips: [
+      'Use double-reed mode for a fuller romantic ballad accompaniment sound.',
+    ],
+    lines: [
+      {
+        label: 'Chorus 1',
+        lyricHint: 'Main tera ban jaunga',
+        steps: [
+          { noteId: 'e4', durationMs: 400 },
+          { noteId: 'g4', durationMs: 440 },
+          { noteId: 'a4', durationMs: 480 },
+          { noteId: 'g4', durationMs: 400 },
+          { noteId: 'f4', durationMs: 400 },
+          { noteId: 'e4', durationMs: 620 },
+        ],
+      },
+      {
+        label: 'Chorus 2',
+        lyricHint: 'Sonh teri main kasam yehi khaunga',
+        steps: [
+          { noteId: 'd4', durationMs: 400 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'f4', durationMs: 440 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'c4', durationMs: 680 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Does Tera Ban Jaunga use all white keys in this arrangement?',
+        answer:
+          'Yes. This C-scale arrangement stays on natural white keys so beginners can focus on smooth melody flow.',
+      },
+    ],
+  },
+  {
+    slug: 'kabira',
+    title: 'Kabira',
+    artist: 'Rekha Bhardwaj & Tochi Raina (YJHD)',
+    category: 'Bollywood',
+    difficulty: 'Easy',
+    scale: 'C Major (Bilawal / Pahadi Feel)',
+    ragaOrThaat: 'Raag Pahadi / Bilawal',
+    tempoBpm: 88,
+    transpose: 0,
+    summary:
+      'Play the soulful Kabira chorus on web harmonium with lyrical folk-classical Sargam phrasing.',
+    description:
+      'Learn Kabira harmonium notes online with Sa Re Ga Ma Sargam labels, western notes, and interactive demo playback.',
+    keywords:
+      'kabira harmonium notes, kabira sargam notes, yjhd harmonium notes',
+    tips: [
+      'Pair Kabira with a soft Sa–Pa Tanpura drone to bring out its Sufi-folk warmth.',
+    ],
+    lines: [
+      {
+        label: 'Chorus 1',
+        lyricHint: 'Re Kabira maan jaa, re Fakeera yun na jaa',
+        steps: [
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'a4', durationMs: 440 },
+          { noteId: 'c5', durationMs: 520 },
+          { noteId: 'a4', durationMs: 420 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 440 },
+          { noteId: 'd4', durationMs: 620 },
+        ],
+      },
+      {
+        label: 'Chorus 2',
+        lyricHint: 'Aaja tujhko pukaare teri parchhaiyan',
+        steps: [
+          { noteId: 'e4', durationMs: 400 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'a4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'c4', durationMs: 680 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Which scale should I use for Kabira on harmonium?',
+        answer:
+          'Practice in C Major first, then use Transpose +2 (D Major) to match the original movie recording.',
+      },
+    ],
+  },
+  {
+    slug: 'ae-mere-watan-ke-logo',
+    title: 'Ae Mere Watan Ke Logo',
+    artist: 'Lata Mangeshkar (C. Ramchandra)',
+    category: 'Patriotic',
+    difficulty: 'Easy',
+    scale: 'C Major (Bilawal Thaat)',
+    ragaOrThaat: 'Bilawal Thaat',
+    tempoBpm: 80,
+    transpose: 0,
+    summary:
+      'Practice the iconic patriotic tribute Ae Mere Watan Ke Logo on web harmonium with expressive Sargam notes.',
+    description:
+      'Play Ae Mere Watan Ke Logo harmonium notes online with Sa Re Ga Ma Sargam labels, western notes, and slow demo playback.',
+    keywords:
+      'ae mere watan ke logo harmonium notes, patriotic harmonium sargam notes, lata mangeshkar harmonium',
+    tips: [
+      'Give extra breathing space at the end of each line so the emotional melody resonates.',
+    ],
+    lines: [
+      {
+        label: 'Line 1',
+        lyricHint: 'Ae mere watan ke logo, zara aankh mein bhar lo paani',
+        steps: [
+          { noteId: 'c4', durationMs: 440 },
+          { noteId: 'e4', durationMs: 440 },
+          { noteId: 'g4', durationMs: 480 },
+          { noteId: 'a4', durationMs: 520 },
+          { noteId: 'g4', durationMs: 440 },
+          { noteId: 'f4', durationMs: 440 },
+          { noteId: 'e4', durationMs: 440 },
+          { noteId: 'd4', durationMs: 660 },
+        ],
+      },
+      {
+        label: 'Line 2',
+        lyricHint: 'Jo shaheed hue hain unki, zara yaad karo qurbaani',
+        steps: [
+          { noteId: 'd4', durationMs: 440 },
+          { noteId: 'e4', durationMs: 440 },
+          { noteId: 'f4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 480 },
+          { noteId: 'f4', durationMs: 440 },
+          { noteId: 'e4', durationMs: 440 },
+          { noteId: 'd4', durationMs: 440 },
+          { noteId: 'c4', durationMs: 700 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is Ae Mere Watan Ke Logo beginner-friendly on harmonium?',
+        answer:
+          'Yes. Its slow, clear phrasing on natural white keys makes it great for school and Independence Day performances.',
+      },
+    ],
+  },
+  {
+    slug: 'raabta',
+    title: 'Raabta',
+    artist: 'Arijit Singh (Pritam)',
+    category: 'Bollywood',
+    difficulty: 'Easy',
+    scale: 'C Major (Bilawal Thaat)',
+    ragaOrThaat: 'Bilawal Thaat',
+    tempoBpm: 90,
+    transpose: 0,
+    summary:
+      'Learn the melodic Raabta chorus on web harmonium with clean Sargam notes and live demo highlighting.',
+    description:
+      'Practice Raabta harmonium notes online with Sa Re Ga Ma Sargam labels, western notation, and laptop keyboard shortcuts.',
+    keywords:
+      'raabta harmonium notes, raabta sargam notes, arijit singh harmonium notes',
+    tips: [
+      'Focus on smooth finger crossover between middle Ga, Ma, Pa, and Dha.',
+    ],
+    lines: [
+      {
+        label: 'Chorus 1',
+        lyricHint: 'Kehte hain khuda ne is jahan mein sabhi ke liye',
+        steps: [
+          { noteId: 'e4', durationMs: 400 },
+          { noteId: 'f4', durationMs: 400 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'a4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 400 },
+          { noteId: 'f4', durationMs: 400 },
+          { noteId: 'e4', durationMs: 620 },
+        ],
+      },
+      {
+        label: 'Chorus 2',
+        lyricHint: 'Kuch to hai tujhse raabta',
+        steps: [
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'a4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'f4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'c4', durationMs: 680 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can I play Raabta on mobile touch screen?',
+        answer:
+          'Yes. Swipe the embedded harmonium keyboard to center on middle Sa–Dha and tap along with the highlighted note chips.',
+      },
+    ],
+  },
+  {
+    slug: 'pal-pal-dil-ke-paas',
+    title: 'Pal Pal Dil Ke Paas',
+    artist: 'Kishore Kumar (Kalyanji–Anandji)',
+    category: 'Bollywood',
+    difficulty: 'Beginner',
+    scale: 'C Major (Bilawal Thaat)',
+    ragaOrThaat: 'Bilawal Thaat',
+    tempoBpm: 94,
+    transpose: 0,
+    summary:
+      'Play the beloved Kishore Kumar classic Pal Pal Dil Ke Paas on web harmonium with easy beginner Sargam notes.',
+    description:
+      'Learn Pal Pal Dil Ke Paas harmonium notes online with Sa Re Ga Ma Sargam labels, western keys, and interactive audio demo.',
+    keywords:
+      'pal pal dil ke paas harmonium notes, kishore kumar harmonium notes, old bollywood harmonium notes',
+    tips: [
+      'A joyful, rhythmic old Bollywood classic—keep your tempo bouncy and even.',
+    ],
+    lines: [
+      {
+        label: 'Line 1',
+        lyricHint: 'Pal pal dil ke paas, tum rehti ho',
+        steps: [
+          { noteId: 'e4', durationMs: 380 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'a4', durationMs: 440 },
+          { noteId: 'g4', durationMs: 380 },
+          { noteId: 'e4', durationMs: 400 },
+          { noteId: 'd4', durationMs: 400 },
+          { noteId: 'c4', durationMs: 640 },
+        ],
+      },
+      {
+        label: 'Line 2',
+        lyricHint: 'Jeevan meethi pyaas, yeh kehti ho',
+        steps: [
+          { noteId: 'd4', durationMs: 380 },
+          { noteId: 'e4', durationMs: 400 },
+          { noteId: 'f4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 400 },
+          { noteId: 'd4', durationMs: 400 },
+          { noteId: 'c4', durationMs: 680 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is Pal Pal Dil Ke Paas a good first retro Bollywood song?',
+        answer:
+          'Yes. Its catchy, compact white-key melody is one of the easiest Kishore Kumar songs for harmonium beginners.',
+      },
+    ],
+  },
+  {
+    slug: 'raag-bhupali',
+    title: 'Raag Bhupali Aroha, Avaroha & Pakad',
+    artist: 'Hindustani Classical Practice (Kalyan Thaat)',
+    category: 'Classical',
+    difficulty: 'Beginner',
+    scale: 'Pentatonic (Sa Re Ga Pa Dha)',
+    ragaOrThaat: 'Raag Bhupali (Kalyan Thaat)',
+    tempoBpm: 84,
+    transpose: 0,
+    summary:
+      'Master Raag Bhupali on web harmonium—a pure 5-note pentatonic raga omitting Ma and Ni, ideal for beginners.',
+    description:
+      'Practice Raag Bhupali harmonium notes (Aroha, Avaroha, Pakad) online with Sa Re Ga Pa Dha Sargam highlights and Tanpura drone.',
+    keywords:
+      'raag bhupali harmonium notes, bhupali aroha avaroha sargam, pentatonic raga harmonium',
+    tips: [
+      'Raag Bhupali completely omits Ma and Ni—focus on clean, resonant jumps between Ga, Pa, and Dha.',
+    ],
+    lines: [
+      {
+        label: 'Aroha (Ascending)',
+        lyricHint: 'Sa Re Ga Pa Dha Sa′',
+        steps: [
+          { noteId: 'c4', durationMs: 480 },
+          { noteId: 'd4', durationMs: 480 },
+          { noteId: 'e4', durationMs: 480 },
+          { noteId: 'g4', durationMs: 480 },
+          { noteId: 'a4', durationMs: 480 },
+          { noteId: 'c5', durationMs: 700 },
+        ],
+      },
+      {
+        label: 'Avaroha (Descending)',
+        lyricHint: 'Sa′ Dha Pa Ga Re Sa',
+        steps: [
+          { noteId: 'c5', durationMs: 480 },
+          { noteId: 'a4', durationMs: 480 },
+          { noteId: 'g4', durationMs: 480 },
+          { noteId: 'e4', durationMs: 480 },
+          { noteId: 'd4', durationMs: 480 },
+          { noteId: 'c4', durationMs: 720 },
+        ],
+      },
+      {
+        label: 'Pakad',
+        lyricHint: 'Ga Re Sa Dha. Sa Re Ga, Pa Ga Dha Pa Ga Re Sa',
+        steps: [
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'c4', durationMs: 460 },
+          { noteId: 'a3', durationMs: 420 },
+          { noteId: 'c4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 560 },
+          { noteId: 'g4', durationMs: 420 },
+          { noteId: 'e4', durationMs: 420 },
+          { noteId: 'd4', durationMs: 420 },
+          { noteId: 'c4', durationMs: 700 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Why is Raag Bhupali recommended for harmonium beginners?',
+        answer:
+          'Because it uses only five Shuddha white keys (Sa, Re, Ga, Pa, Dha), making pitch accuracy and improvisation much easier to learn.',
+      },
+    ],
+  },
+  {
+    slug: 'raag-bhairav',
+    title: 'Raag Bhairav Morning Raga Practice',
+    artist: 'Hindustani Classical Practice (Bhairav Thaat)',
+    category: 'Classical',
+    difficulty: 'Intermediate',
+    scale: 'Komal Re (C#) & Komal Dha (G#)',
+    ragaOrThaat: 'Raag Bhairav',
+    tempoBpm: 78,
+    transpose: 0,
+    summary:
+      'Practice the majestic dawn raga Raag Bhairav on web harmonium using Komal Re and Komal Dha with Tanpura drone.',
+    description:
+      'Learn Raag Bhairav harmonium notes (Aroha, Avaroha, Pakad) online with Komal Re and Komal Dha highlights and Tanpura drone.',
+    keywords:
+      'raag bhairav harmonium notes, bhairav thaat sargam, morning raga harmonium practice',
+    tips: [
+      'Give gentle emphasis to Komal Re (C# / key 4) and Komal Dha (G# / key 8) for the devotional dawn mood.',
+    ],
+    lines: [
+      {
+        label: 'Aroha (Ascending)',
+        lyricHint: 'Sa Re♭ Ga Ma Pa Dha♭ Ni Sa′',
+        steps: [
+          { noteId: 'c4', durationMs: 500 },
+          { noteId: 'csharp4', durationMs: 500 },
+          { noteId: 'e4', durationMs: 500 },
+          { noteId: 'f4', durationMs: 500 },
+          { noteId: 'g4', durationMs: 500 },
+          { noteId: 'gsharp4', durationMs: 500 },
+          { noteId: 'b4', durationMs: 500 },
+          { noteId: 'c5', durationMs: 720 },
+        ],
+      },
+      {
+        label: 'Avaroha (Descending)',
+        lyricHint: 'Sa′ Ni Dha♭ Pa Ma Ga Re♭ Sa',
+        steps: [
+          { noteId: 'c5', durationMs: 500 },
+          { noteId: 'b4', durationMs: 500 },
+          { noteId: 'gsharp4', durationMs: 500 },
+          { noteId: 'g4', durationMs: 500 },
+          { noteId: 'f4', durationMs: 500 },
+          { noteId: 'e4', durationMs: 500 },
+          { noteId: 'csharp4', durationMs: 500 },
+          { noteId: 'c4', durationMs: 720 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Which keys are flat (Komal) in Raag Bhairav?',
+        answer:
+          'Raag Bhairav uses Komal Re (C#) and Komal Dha (G#), while Ga, Ma, Pa, and Ni remain Shuddha (natural).',
+      },
+    ],
+  },
+  {
+    slug: 'raag-desh',
+    title: 'Raag Desh Monsoon Raga Practice',
+    artist: 'Hindustani Classical Practice (Khamaj Thaat)',
+    category: 'Classical',
+    difficulty: 'Intermediate',
+    scale: 'Shuddha Ni in Ascent, Komal Ni in Descent',
+    ragaOrThaat: 'Raag Desh (Khamaj Thaat)',
+    tempoBpm: 86,
+    transpose: 0,
+    summary:
+      'Explore the joyful monsoon raga Raag Desh on web harmonium with authentic Khamaj Thaat Aroha and Avaroha.',
+    description:
+      'Practice Raag Desh harmonium notes online with Sa Re Ma Pa Ni Aroha, Komal Ni Avaroha, and Tanpura drone support.',
+    keywords:
+      'raag desh harmonium notes, raag desh sargam, khamaj thaat harmonium practice',
+    tips: [
+      'Notice the signature contrast: Shuddha Ni (B) going up, and Komal Ni (A# / key 9) coming down.',
+    ],
+    lines: [
+      {
+        label: 'Aroha (Ascending)',
+        lyricHint: 'Sa Re Ma Pa Ni Sa′',
+        steps: [
+          { noteId: 'c4', durationMs: 460 },
+          { noteId: 'd4', durationMs: 460 },
+          { noteId: 'f4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'b4', durationMs: 460 },
+          { noteId: 'c5', durationMs: 700 },
+        ],
+      },
+      {
+        label: 'Avaroha (Descending)',
+        lyricHint: 'Sa′ Ni♭ Dha Pa Ma Ga Re Sa',
+        steps: [
+          { noteId: 'c5', durationMs: 460 },
+          { noteId: 'asharp4', durationMs: 460 },
+          { noteId: 'a4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'f4', durationMs: 460 },
+          { noteId: 'e4', durationMs: 460 },
+          { noteId: 'd4', durationMs: 460 },
+          { noteId: 'c4', durationMs: 700 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Which famous songs use Raag Desh?',
+        answer:
+          'Vande Mataram and several classic monsoon and patriotic compositions draw directly from Raag Desh.',
+      },
+    ],
+  },
+  {
+    slug: 'raag-kafi',
+    title: 'Raag Kafi Aroha, Avaroha & Alankar',
+    artist: 'Hindustani Classical Practice (Kafi Thaat)',
+    category: 'Classical',
+    difficulty: 'Easy',
+    scale: 'Komal Ga (D#) & Komal Ni (A#)',
+    ragaOrThaat: 'Raag Kafi (Kafi Thaat)',
+    tempoBpm: 88,
+    transpose: 0,
+    summary:
+      'Practice the expressive folk-classical Raag Kafi on web harmonium with Komal Ga and Komal Ni Sargam highlights.',
+    description:
+      'Learn Raag Kafi harmonium notes (Aroha, Avaroha, Pakad) online with Komal Ga and Komal Ni notation and Tanpura drone.',
+    keywords:
+      'raag kafi harmonium notes, kafi thaat sargam, harmonium raga practice',
+    tips: [
+      'Raag Kafi uses Komal Ga (D# / key 5) and Komal Ni (A# / key 9)—great preparation for thumri and bhajans.',
+    ],
+    lines: [
+      {
+        label: 'Aroha (Ascending)',
+        lyricHint: 'Sa Re Ga♭ Ma Pa Dha Ni♭ Sa′',
+        steps: [
+          { noteId: 'c4', durationMs: 460 },
+          { noteId: 'd4', durationMs: 460 },
+          { noteId: 'dsharp4', durationMs: 460 },
+          { noteId: 'f4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'a4', durationMs: 460 },
+          { noteId: 'asharp4', durationMs: 460 },
+          { noteId: 'c5', durationMs: 700 },
+        ],
+      },
+      {
+        label: 'Avaroha (Descending)',
+        lyricHint: 'Sa′ Ni♭ Dha Pa Ma Ga♭ Re Sa',
+        steps: [
+          { noteId: 'c5', durationMs: 460 },
+          { noteId: 'asharp4', durationMs: 460 },
+          { noteId: 'a4', durationMs: 460 },
+          { noteId: 'g4', durationMs: 460 },
+          { noteId: 'f4', durationMs: 460 },
+          { noteId: 'dsharp4', durationMs: 460 },
+          { noteId: 'd4', durationMs: 460 },
+          { noteId: 'c4', durationMs: 700 },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Which Western scale matches Raag Kafi?',
+        answer:
+          'Raag Kafi corresponds closely to the Western Dorian mode (natural notes with flat 3rd and flat 7th).',
+      },
+    ],
+  },
 ];
 
 export function getHarmoniumSongBySlug(slug: string) {
