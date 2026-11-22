@@ -14,9 +14,19 @@
     "nav": {
       "items": [
         {
-          "title": "弹奏",
-          "url": "/keyboard",
+          "title": "曲谱弹奏",
+          "url": "/songs",
           "icon": "Music"
+        },
+        {
+          "title": "Shruti 伴奏",
+          "url": "/shruti-box",
+          "icon": "Radio"
+        },
+        {
+          "title": "弹奏工作台",
+          "url": "/keyboard",
+          "icon": "Keyboard"
         },
         {
           "title": "功能",

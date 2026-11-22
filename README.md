@@ -21,8 +21,11 @@ Most people searching for an online harmonium want to start playing right away, 
 
 ## Product Pages
 
-- Website: [https://playharmonium.com/](https://playharmonium.com/)
-- Keyboard page: [https://playharmonium.com/keyboard](https://playharmonium.com/keyboard)
+- Web Harmonium (Home): [https://playharmonium.com/](https://playharmonium.com/)
+- Interactive Song Notes (Sargam): [https://playharmonium.com/songs](https://playharmonium.com/songs)
+- Online Shruti Box & Tanpura Drone: [https://playharmonium.com/shruti-box](https://playharmonium.com/shruti-box)
+- Harmonium Notes & Free Sargam PDF: [https://playharmonium.com/harmonium-notes](https://playharmonium.com/harmonium-notes)
+- Keyboard Workbench: [https://playharmonium.com/keyboard](https://playharmonium.com/keyboard)
 - Beginner guide: [https://playharmonium.com/blog/harmonium-keyboard-notes-for-beginners](https://playharmonium.com/blog/harmonium-keyboard-notes-for-beginners)
 - Blog: [https://playharmonium.com/blog](https://playharmonium.com/blog)
 

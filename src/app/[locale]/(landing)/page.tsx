@@ -19,21 +19,20 @@ export function generateStaticParams() {
 }
 
 export const generateMetadata = getMetadata({
-  title:
-    'Play Harmonium - Indian Music Practice Web Harmonium',
+  title: 'Web Harmonium - Play Free Online Harmonium Keyboard',
   description:
-    'Use a free web harmonium for Indian music practice in your browser. Find Sa, practice Sargam and alankar, explore raga ideas, and play with no download or sign-up.',
+    'Play a free web harmonium online in your browser. Use laptop keyboard, touch, or MIDI with Sargam (Sa Re Ga Ma) notes, Tanpura drone, and transpose.',
   keywords:
-    'web harmonium, Indian music practice, online harmonium, play harmonium online, virtual harmonium, laptop harmonium, harmonium notes, Sa Re Ga Ma, sargam notes, alankar practice, riyaz, find Sa, no download harmonium',
+    'web harmonium, online harmonium, harmonium keyboard online, play harmonium online, virtual harmonium, harmonium on laptop, harmonium notes, web harmonium song notes, Sa Re Ga Ma, sargam notes pdf, shruti box online, tanpura drone',
   canonicalUrl: '/',
 });
 
 const copy = {
   en: {
-    badge: 'Free browser instrument',
-    title: 'Indian Music Practice Web Harmonium',
+    badge: 'Free online harmonium keyboard',
+    title: 'Web Harmonium – Play Online Harmonium Free',
     description:
-      'Play a free online harmonium and virtual harmonium for Indian music practice. Find Sa, warm up for riyaz, practice Sargam and alankar, explore raga phrases, and rehearse bhajan or kirtan lines with no download and no sign-up.',
+      'Play a realistic web harmonium online directly in your browser with no download and no sign-up. Practice Sa Re Ga Ma Sargam notes, turn on the built-in Tanpura drone, play popular song notes, or connect a laptop keyboard, mobile touch screen, or MIDI controller.',
     heroNote:
       'Use your laptop keyboard, touch screen, or MIDI keyboard to play a clear harmonium layout with Sa Re Ga Ma and western note labels.',
     primaryCta: 'Start Playing',
@@ -81,10 +80,10 @@ const copy = {
       'Play with your laptop keyboard, touch screen, or MIDI controller while the full 23-key range stays close at hand.',
     playbackSample: 'Reference sample',
     playbackSynth: 'Fallback synth',
-    featureTitle: 'Real practice features',
-    featureHeading: 'Controls that match Indian music practice',
+    featureTitle: 'Web harmonium controls',
+    featureHeading: 'Online harmonium keyboard features for daily practice',
     featureDescription:
-      'Play naturally in the browser with the controls singers, students, and harmonium players reach for during riyaz, Sargam, raga, and devotional practice.',
+      'Play naturally in the browser with the web harmonium controls singers, students, and musicians use for vocal riyaz, Sargam notes, Bollywood songs, raga practice, and devotional bhajans.',
     features: [
       {
         title: 'MIDI Support',
@@ -117,9 +116,10 @@ const copy = {
           'Keep your label mode, octave, transpose, volume, reed, reverb, and MIDI input ready for the next visit.',
       },
     ],
-    practiceMapHeading: 'Practice map for riyaz, raga, and devotional music',
+    practiceMapHeading:
+      'Web harmonium practice paths for riyaz, raga, and devotional music',
     practiceMapDescription:
-      'Choose a focused path, then move into the playable workbench, notes, or tutorial without losing the instant browser harmonium.',
+      'Choose a focused online harmonium path, pair your session with the Shruti Box drone, or explore interactive song notes without leaving the browser.',
     practiceMap: [
       {
         title: 'Find Sa',
@@ -185,31 +185,31 @@ const copy = {
       },
     ],
     guideTitle: 'Learning paths',
-    guideHeading: 'Move from first notes to steadier practice',
+    guideHeading: 'Harmonium notes, laptop keyboard map, and Shruti Box',
     guideDescription:
-      'Start with the keyboard, learn the note layout, then use guided exercises when you want more structure.',
+      'Start with the web harmonium keyboard above, download the free Sargam notes PDF chart, or open the online Shruti Box for vocal riyaz.',
     guides: [
       {
-        title: 'Harmonium notes and key mapping',
-        href: '/harmonium-notes',
+        title: 'Harmonium notes & free Sargam PDF',
+        href: '/harmonium-notes#sargam-pdf',
         description:
-          'Review Sa Re Ga Ma, western note names, alankar patterns, the 23-key layout, and shortcut map.',
+          'Review Sa Re Ga Ma, western note names, Alankar patterns, the 23-key layout, and print or download the free Sargam PDF cheat sheet.',
       },
       {
-        title: 'Laptop harmonium keyboard map',
+        title: 'Play harmonium on laptop keyboard',
         href: '/laptop-harmonium',
         description:
-          'Learn the QWERTY key map for playing harmonium directly on a laptop keyboard.',
+          'Learn the QWERTY key map (E R T Y U I O P) for playing web harmonium smoothly on any laptop keyboard.',
       },
       {
-        title: 'Virtual harmonium browser practice',
-        href: '/virtual-harmonium',
+        title: 'Shruti Box online & Tanpura drone',
+        href: '/shruti-box',
         description:
-          'Understand how the browser instrument works for quick pitch reference and daily practice.',
+          'Practice vocal riyaz and Indian classical ragas with a continuous Sa–Pa or Sa–Ma Shruti Box drone across all 12 scales.',
       },
     ],
     faqTitle: 'Web Harmonium FAQ',
-    faqHeading: 'Questions before you start playing',
+    faqHeading: 'Web harmonium & online harmonium questions',
     faqDescription:
       'A few quick answers for singers, learners, and keyboard players using Play Harmonium in the browser.',
     faqs: [
@@ -462,10 +462,6 @@ export default async function LandingPage({
     envConfigs.app_url,
     locale === envConfigs.locale ? '/' : `/${locale}`
   );
-  const keyboardUrl = absoluteUrl(
-    envConfigs.app_url,
-    locale === envConfigs.locale ? '/keyboard' : `/${locale}/keyboard`
-  );
 
   const webApplicationJsonLd = {
     '@context': 'https://schema.org',
@@ -498,9 +494,30 @@ export default async function LandingPage({
     ],
     potentialAction: {
       '@type': 'PlayAction',
-      target: keyboardUrl,
+      target: homepageUrl,
     },
   };
+
+  const serverHero = (
+    <div className="mx-auto min-w-0 max-w-5xl space-y-4 text-center">
+      <h1 className="font-serif text-4xl leading-[1.05] font-bold text-balance text-[#2a1f1a] sm:text-6xl lg:text-[56px]">
+        {pageCopy.title}
+      </h1>
+      <p className="mx-auto max-w-4xl text-lg leading-7 text-pretty text-[#5d4a40]">
+        {pageCopy.description}
+      </p>
+      <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2 overflow-x-visible pb-0 sm:flex-nowrap sm:overflow-x-auto">
+        {pageCopy.useCases.map((item) => (
+          <span
+            key={item}
+            className="rounded-full border border-[#c8633a]/20 bg-[#fffdf8] px-3 py-1.5 text-sm font-medium text-[#8b2e2e] transition hover:border-[#c8633a]/45 hover:bg-[#fff4e8]"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -511,7 +528,7 @@ export default async function LandingPage({
           { name: 'Play Harmonium', url: homepageUrl },
         ])}
       />
-      <HarmoniumHome copy={pageCopy} />
+      <HarmoniumHome copy={pageCopy} serverHero={serverHero} />
     </>
   );
 }

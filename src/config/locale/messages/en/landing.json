@@ -14,12 +14,17 @@
     "nav": {
       "items": [
         {
-          "title": "Online",
-          "url": "/online-harmonium",
+          "title": "Song Notes",
+          "url": "/songs",
           "icon": "Music"
         },
         {
-          "title": "Notes",
+          "title": "Shruti Box",
+          "url": "/shruti-box",
+          "icon": "Radio"
+        },
+        {
+          "title": "Notes & PDF",
           "url": "/harmonium-notes",
           "icon": "NotebookPen"
         },
@@ -100,7 +105,15 @@
               "url": "/laptop-harmonium"
             },
             {
-              "title": "Harmonium Notes",
+              "title": "Harmonium Song Notes",
+              "url": "/songs"
+            },
+            {
+              "title": "Shruti Box & Tanpura",
+              "url": "/shruti-box"
+            },
+            {
+              "title": "Harmonium Notes & PDF",
               "url": "/harmonium-notes"
             },
             {

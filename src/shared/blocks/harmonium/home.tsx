@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import {
+  ArrowRight,
   BookOpen,
   ChevronDown,
+  FileText,
   Keyboard,
   Layers3,
   Music2,
   NotebookPen,
+  Radio,
   RotateCcw,
   Save,
   SlidersHorizontal,
@@ -28,8 +31,10 @@ import {
   STORAGE_KEY,
 } from './constants';
 import { MidiPanel } from './midi-panel';
+import { HARMONIUM_SONGS } from './songs-data';
 import { useHarmoniumPlayer } from './use-harmonium-player';
 import { useMidiKeyboard } from './use-midi-keyboard';
+import { DroneMode, useTanpuraDrone } from './use-tanpura-drone';
 
 type HomeCopy = {
   title: string;
@@ -72,16 +77,28 @@ const practiceSteps = [
   },
 ];
 
-export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
+export function HarmoniumHome({
+  copy,
+  serverHero,
+}: {
+  copy: HomeCopy;
+  serverHero?: React.ReactNode;
+}) {
   const [labelMode, setLabelMode] = useState<'western' | 'sargam'>('sargam');
   const [octave, setOctave] = useState(4);
   const [transpose, setTranspose] = useState(0);
   const [volume, setVolume] = useState(0.3);
   const [reverbEnabled, setReverbEnabled] = useState(false);
   const [reedMode, setReedMode] = useState<'single' | 'double'>('single');
+  const [droneMode, setDroneMode] = useState<DroneMode>('off');
   const [midiInputId, setMidiInputId] = useState('');
-  const [openFaq, setOpenFaq] = useState(0);
   const [showMoreControls, setShowMoreControls] = useState(false);
+
+  useTanpuraDrone({
+    mode: droneMode,
+    rootMidi: (octave + 1) * 12 + transpose,
+    volume: Math.min(0.28, volume * 0.65),
+  });
 
   const {
     activeNoteIds,
@@ -224,24 +241,26 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
         className="border-b border-[#2a1f1a]/10 px-4 pt-20 pb-6 sm:pt-24 lg:min-h-[calc(100svh-56px)]"
       >
         <div className="mx-auto flex max-w-[1440px] min-w-0 flex-col gap-3">
-          <div className="mx-auto min-w-0 max-w-5xl space-y-4 text-center">
-            <h1 className="font-serif text-4xl leading-[1.05] font-bold text-balance text-[#2a1f1a] sm:text-6xl lg:text-[56px]">
-              {copy.title}
-            </h1>
-            <p className="mx-auto max-w-4xl text-lg leading-7 text-pretty text-[#5d4a40]">
-              {copy.description}
-            </p>
-            <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2 overflow-x-visible pb-0 sm:flex-nowrap sm:overflow-x-auto">
-              {copy.useCases.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-[#c8633a]/20 bg-[#fffdf8] px-3 py-1.5 text-sm font-medium text-[#8b2e2e] transition hover:border-[#c8633a]/45 hover:bg-[#fff4e8]"
-                >
-                  {item}
-                </span>
-              ))}
+          {serverHero ?? (
+            <div className="mx-auto min-w-0 max-w-5xl space-y-4 text-center">
+              <h1 className="font-serif text-4xl leading-[1.05] font-bold text-balance text-[#2a1f1a] sm:text-6xl lg:text-[56px]">
+                {copy.title}
+              </h1>
+              <p className="mx-auto max-w-4xl text-lg leading-7 text-pretty text-[#5d4a40]">
+                {copy.description}
+              </p>
+              <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2 overflow-x-visible pb-0 sm:flex-nowrap sm:overflow-x-auto">
+                {copy.useCases.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-[#c8633a]/20 bg-[#fffdf8] px-3 py-1.5 text-sm font-medium text-[#8b2e2e] transition hover:border-[#c8633a]/45 hover:bg-[#fff4e8]"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="flex flex-col rounded-3xl border border-[#8b2e2e]/18 bg-[#fffdf8]/92 p-3 shadow-[0_20px_70px_rgba(83,45,24,0.14)] backdrop-blur sm:p-4">
             <div className="order-2 mt-3 rounded-2xl border border-[#2a1f1a]/10 bg-[#f3e8dc] p-3">
@@ -316,7 +335,37 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
                 </ControlGroup>
               </div>
 
-              <div className="mt-3 grid gap-3 md:grid-cols-[1fr_1fr]">
+              <div className="mt-3 grid gap-3 md:grid-cols-3">
+                <ControlGroup
+                  icon={<Radio className="size-4" />}
+                  label="Tanpura"
+                >
+                  <button
+                    className={cn(
+                      'min-h-10 rounded-full px-4 py-2 text-sm font-semibold transition',
+                      droneMode !== 'off'
+                        ? 'bg-[#c8633a] text-white'
+                        : 'border border-[#8b2e2e]/18 bg-white text-[#6d5549]'
+                    )}
+                    onClick={() =>
+                      setDroneMode((current) =>
+                        current === 'off'
+                          ? 'sa-pa'
+                          : current === 'sa-pa'
+                            ? 'sa-ma'
+                            : 'off'
+                      )
+                    }
+                    type="button"
+                  >
+                    {droneMode === 'off'
+                      ? 'Off'
+                      : droneMode === 'sa-pa'
+                        ? 'Sa–Pa'
+                        : 'Sa–Ma'}
+                  </button>
+                </ControlGroup>
+
                 <ControlGroup
                   icon={<Waves className="size-4" />}
                   label="Reverb"
@@ -409,32 +458,13 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
 
             <div className="order-1 max-w-full overflow-x-auto pb-2">
               <div
-                className="w-full rounded-[1.6rem] border border-[#2a1f1a]/12 bg-[#8b4a2e] p-2 shadow-inner sm:w-auto"
-                style={{ minWidth: `min(${KEYBOARD_MIN_WIDTH}px, 100%)` }}
+                className="rounded-[1.6rem] border border-[#2a1f1a]/12 bg-[#8b4a2e] p-2 shadow-inner"
+                style={{ minWidth: `${KEYBOARD_MIN_WIDTH}px` }}
               >
-                <div className="relative h-[clamp(300px,44svh,420px)] overflow-hidden rounded-[1.2rem] border border-[#1f1b17]/40 bg-[#1f1b17] px-3 pt-3 pb-4">
+                <div className="relative h-[clamp(280px,42svh,420px)] overflow-hidden rounded-[1.2rem] border border-[#1f1b17]/40 bg-[#1f1b17] px-3 pt-3 pb-4">
                   <div className="absolute inset-x-0 top-0 h-8 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent)]" />
 
                   <div className="relative h-full">
-                    <div className="flex h-full flex-col items-center justify-center gap-4 text-center sm:hidden">
-                      <Keyboard className="size-10 text-[#f9efe4]" />
-                      <div>
-                        <p className="text-lg font-semibold text-[#f9efe4]">
-                          Full mobile keyboard lives in the Practice Workbench
-                        </p>
-                        <p className="mt-2 px-6 text-sm leading-6 text-[#f9efe4]/72">
-                          Set Sa, start shruti, choose an exercise, and play
-                          the scrollable harmonium surface there.
-                        </p>
-                      </div>
-                      <Link
-                        href="/keyboard?practice=riyaz"
-                        className="rounded-full bg-[#f9efe4] px-4 py-2 text-sm font-semibold text-[#8b2e2e]"
-                      >
-                        Start riyaz
-                      </Link>
-                    </div>
-
                     {whiteKeys.map((note) => {
                       const width = 100 / whiteKeys.length;
                       const active = activeNoteIds.includes(note.id);
@@ -442,9 +472,9 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
                       return (
                         <button
                           key={note.id}
-                          aria-label={`Preview ${note.sargam} ${note.western}`}
+                          aria-label={`Play ${note.sargam} ${note.western}`}
                           className={cn(
-                            'absolute top-0 bottom-0 hidden flex-col justify-end rounded-b-[0.9rem] border-r border-[#2a1f1a]/35 px-2 pb-4 text-center shadow-[inset_0_-18px_28px_rgba(92,52,24,0.16),0_8px_0_rgba(42,31,26,0.18)] transition duration-75 sm:flex',
+                            'absolute top-0 bottom-0 flex flex-col justify-end rounded-b-[0.9rem] border-r border-[#2a1f1a]/35 px-2 pb-4 text-center shadow-[inset_0_-18px_28px_rgba(92,52,24,0.16),0_8px_0_rgba(42,31,26,0.18)] transition duration-75',
                             active
                               ? 'translate-y-1 bg-[#f0c28f] shadow-[inset_0_-8px_18px_rgba(92,52,24,0.14),0_3px_0_rgba(42,31,26,0.18)]'
                               : 'bg-[linear-gradient(180deg,#fffef9_0%,#f3e7d8_100%)] hover:bg-[#fff7ed]'
@@ -491,9 +521,9 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
                       return (
                         <button
                           key={note.id}
-                          aria-label={`Preview ${note.sargam} ${note.western}`}
+                          aria-label={`Play ${note.sargam} ${note.western}`}
                           className={cn(
-                            'absolute top-0 z-10 hidden h-[58%] flex-col justify-end rounded-b-[0.75rem] border border-white/10 px-2 pb-3 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_24px_rgba(31,27,23,0.38)] transition duration-75 sm:flex',
+                            'absolute top-0 z-10 flex h-[58%] flex-col justify-end rounded-b-[0.75rem] border border-white/10 px-2 pb-3 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_24px_rgba(31,27,23,0.38)] transition duration-75',
                             active
                               ? 'translate-y-1 bg-[linear-gradient(180deg,#5a2620_0%,#1f1b17_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_5px_12px_rgba(31,27,23,0.28)]'
                               : 'bg-[linear-gradient(180deg,#302922_0%,#15120f_100%)]'
@@ -533,8 +563,12 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
 
             <div className="order-3 mt-3 px-1 text-center text-sm text-[#6d5549]">
               <p>
-                Tip: press A S D F G H J on desktop, or open the Practice
-                Workbench for the full mobile playing surface.
+                Tip: press{' '}
+                <span className="font-mono font-semibold text-[#8b2e2e]">
+                  E R T Y U I O P
+                </span>{' '}
+                on a laptop keyboard for middle-octave Sa–Sa′, or swipe
+                horizontally to play all 23 keys on mobile.
               </p>
             </div>
           </div>
@@ -575,7 +609,63 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
 
       <section className="border-b border-[#2a1f1a]/10 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4">
-          <SectionIntro title="How to play in 3 steps" />
+          <SectionIntro
+            description="Practice popular Bollywood melodies, devotional bhajans, aartis, and classical ragas directly on the web harmonium with interactive Sargam notes and slow demo playback."
+            title="Popular Web Harmonium Song Notes"
+          />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {HARMONIUM_SONGS.slice(0, 6).map((song) => (
+              <Link
+                key={song.slug}
+                className="group flex flex-col justify-between rounded-xl border border-[#2a1f1a]/10 bg-[#fffdf8] p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#c8633a]/40 hover:shadow-md"
+                href={`/songs/${song.slug}`}
+              >
+                <div>
+                  <span className="text-xs font-semibold text-[#8b2e2e]">
+                    {song.category} · {song.difficulty}
+                  </span>
+                  <h3 className="mt-2 text-lg font-semibold text-[#2a1f1a] group-hover:text-[#8b2e2e]">
+                    {song.title} — Harmonium Notes
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[#6d5549]">
+                    {song.summary}
+                  </p>
+                </div>
+                <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#8b2e2e]">
+                  Play interactive notes <ArrowRight className="size-3.5" />
+                </span>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              className="inline-flex items-center gap-2 rounded-full bg-[#8b2e2e] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#6f2424]"
+              href="/songs"
+            >
+              Browse All 12 Song Notes
+              <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
+              href="/harmonium-notes#sargam-pdf"
+            >
+              <FileText className="size-4" />
+              Free Sargam Notes PDF
+            </Link>
+            <Link
+              className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
+              href="/shruti-box"
+            >
+              <Radio className="size-4" />
+              Online Shruti Box &amp; Tanpura
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#2a1f1a]/10 py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionIntro title="How to play web harmonium in 3 steps" />
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {practiceSteps.map((step) => (
               <div
@@ -653,32 +743,22 @@ export function HarmoniumHome({ copy }: { copy: HomeCopy }) {
             title={copy.faqHeading}
           />
           <div className="mt-10 divide-y divide-[#2a1f1a]/10 rounded-lg border border-[#2a1f1a]/10 bg-[#fffdf8]">
-            {copy.faqs.slice(0, 6).map((item, index) => (
-              <div key={item.question}>
-                <button
-                  aria-expanded={openFaq === index}
-                  className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left"
-                  onClick={() =>
-                    setOpenFaq((current) => (current === index ? -1 : index))
-                  }
-                  type="button"
-                >
+            {copy.faqs.map((item, index) => (
+              <details
+                key={item.question}
+                className="group"
+                open={index < 3}
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 text-left">
                   <span className="text-base font-semibold text-[#2a1f1a]">
                     {item.question}
                   </span>
-                  <ChevronDown
-                    className={cn(
-                      'size-5 shrink-0 stroke-[1.5] text-[#8b2e2e] transition',
-                      openFaq === index ? 'rotate-180' : ''
-                    )}
-                  />
-                </button>
-                {openFaq === index ? (
-                  <p className="px-5 pb-5 text-sm leading-7 text-[#6d5549]">
-                    {item.answer}
-                  </p>
-                ) : null}
-              </div>
+                  <ChevronDown className="size-5 shrink-0 stroke-[1.5] text-[#8b2e2e] transition group-open:rotate-180" />
+                </summary>
+                <p className="px-5 pb-5 text-sm leading-7 text-[#6d5549]">
+                  {item.answer}
+                </p>
+              </details>
             ))}
           </div>
         </div>

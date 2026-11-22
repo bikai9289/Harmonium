@@ -4,6 +4,7 @@ import { routing } from '@/core/i18n/config';
 import { envConfigs } from '@/config';
 import { harmoniumSeoLandingContent } from '@/shared/blocks/harmonium/seo-landing-content';
 import { HarmoniumSeoLandingPage } from '@/shared/blocks/harmonium/seo-landing-page';
+import { SargamPdfSheet } from '@/shared/blocks/harmonium/sargam-pdf-sheet';
 import {
   absoluteUrl,
   createBreadcrumbJsonLd,
@@ -21,9 +22,11 @@ export function generateStaticParams() {
 }
 
 export const generateMetadata = getMetadata({
-  title: `${content.title} | Play Harmonium`,
-  description: content.description,
-  keywords: content.keywords,
+  title: 'Harmonium Notes: Sa Re Ga Ma Sargam Chart & Free PDF | Play Harmonium',
+  description:
+    'Learn harmonium notes with our complete Sa Re Ga Ma Sargam chart, western key equivalents, laptop shortcuts, Alankar drills, and free printable Sargam PDF.',
+  keywords:
+    `${content.keywords}, harmonium sargam notes pdf, sa re ga ma pa in harmonium, saregamapa harmonium notes`,
   canonicalUrl: content.canonicalUrl,
 });
 
@@ -66,6 +69,7 @@ export default async function HarmoniumNotesPage({
         }}
       />
       <HarmoniumSeoLandingPage {...content} />
+      <SargamPdfSheet />
     </>
   );
 }

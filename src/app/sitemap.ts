@@ -3,6 +3,7 @@ import { MetadataRoute } from 'next';
 import { pagesSource, postsSource } from '@/core/docs/source';
 import { envConfigs } from '@/config';
 import { defaultLocale } from '@/config/locale';
+import { HARMONIUM_SONGS } from '@/shared/blocks/harmonium/songs-data';
 import { getPosts, PostStatus, PostType } from '@/shared/models/post';
 import {
   getTaxonomies,
@@ -16,6 +17,8 @@ const staticRoutes: Array<{
   priority: number;
 }> = [
   { path: '/', changeFrequency: 'daily', priority: 1 },
+  { path: '/songs', changeFrequency: 'weekly', priority: 0.92 },
+  { path: '/shruti-box', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/online-harmonium', changeFrequency: 'daily', priority: 0.9 },
   { path: '/virtual-harmonium', changeFrequency: 'daily', priority: 0.88 },
   { path: '/keyboard', changeFrequency: 'daily', priority: 0.9 },
@@ -24,6 +27,11 @@ const staticRoutes: Array<{
   { path: '/laptop-harmonium', changeFrequency: 'weekly', priority: 0.86 },
   { path: '/tutorial', changeFrequency: 'weekly', priority: 0.85 },
   { path: '/blog', changeFrequency: 'weekly', priority: 0.8 },
+  ...HARMONIUM_SONGS.map((song) => ({
+    path: `/songs/${song.slug}`,
+    changeFrequency: 'weekly' as const,
+    priority: 0.84,
+  })),
 ];
 
 function buildAbsoluteUrl(path: string) {
