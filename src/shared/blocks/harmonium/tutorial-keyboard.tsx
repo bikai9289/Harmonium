@@ -22,10 +22,8 @@ export function TutorialKeyboard({
 
   return (
     <div className="overflow-x-auto">
-      <div className="min-w-[1100px] rounded-[2rem] border border-black/8 bg-[#08101d] p-4 shadow-[0_20px_60px_rgba(12,18,28,0.24)]">
-        <div className="relative h-[20rem] overflow-hidden rounded-[1.6rem] border border-white/6 bg-[linear-gradient(180deg,#101b2d_0%,#060b14_100%)] p-4">
-          <div className="absolute inset-x-6 top-1/2 h-px bg-white/10" />
-
+      <div className="min-w-[920px] rounded-[1.8rem] border border-[#c8925a]/35 bg-[linear-gradient(180deg,#5b2d1b_0%,#3a1b0f_100%)] p-3 shadow-[0_20px_60px_rgba(42,20,10,0.22)]">
+        <div className="relative h-[18.5rem] overflow-hidden rounded-[1.2rem] border border-black/40 bg-[#14100d] p-3">
           <div className="relative h-full">
             {whiteKeys.map((note) => {
               const width = 100 / whiteKeys.length;
@@ -44,31 +42,25 @@ export function TutorialKeyboard({
                   onPointerLeave={() => onNoteRelease(note.id)}
                   onPointerCancel={() => onNoteRelease(note.id)}
                   className={cn(
-                    'absolute top-0 bottom-0 flex flex-col justify-between rounded-b-[1.3rem] border px-2 pt-4 pb-3 text-left transition',
+                    'absolute top-0 bottom-0 flex flex-col items-center justify-end rounded-b-[0.9rem] border-r border-[#2a1f1a]/30 px-1.5 pb-3 text-center transition',
                     isActive
-                      ? 'border-[#c8633a] bg-[linear-gradient(180deg,#fff0e5_0%,#efc09a_100%)]'
-                      : 'border-white/15 bg-[linear-gradient(180deg,#ffffff_0%,#eef2f8_100%)]',
-                    isHighlighted ? 'ring-4 ring-[#c8633a]/35' : ''
+                      ? 'translate-y-0.5 bg-[linear-gradient(180deg,#f5d09b_0%,#e5a95c_100%)]'
+                      : 'bg-[linear-gradient(180deg,#fffef9_0%,#f3e7d8_100%)] hover:bg-[#fff7ed]',
+                    isHighlighted ? 'ring-3 ring-[#c8633a] ring-inset' : ''
                   )}
                   style={{
                     left: `${note.whiteIndex * width}%`,
                     width: `${width}%`,
                   }}
                 >
-                  <div>
-                    <span className="rounded-full bg-slate-950 px-2 py-1 text-xs font-semibold text-white">
-                      {note.keycap}
-                    </span>
-                    <p className="mt-4 text-2xl font-semibold text-[#2759d8]">
-                      {labelMode === 'sargam' ? note.sargam : note.western}
-                    </p>
-                    <p className="mt-1 text-sm text-slate-500">
-                      {labelMode === 'sargam' ? note.western : note.sargam}
-                    </p>
-                  </div>
-
-                  <span className="inline-flex w-fit rounded-md bg-[#d4f4db] px-3 py-1 text-xs font-medium text-[#1e9142]">
-                    {note.western}
+                  <span className="text-base font-bold text-[#8b2e2e]">
+                    {labelMode === 'sargam' ? note.sargam : note.western}
+                  </span>
+                  <span className="mt-0.5 text-[11px] font-medium text-[#7a6458]">
+                    {labelMode === 'sargam' ? note.western : note.sargam}
+                  </span>
+                  <span className="mt-2 rounded-full bg-[#2a1f1a]/10 px-2 py-0.5 font-mono text-[11px] font-semibold text-[#5d4a40]">
+                    {note.keycap}
                   </span>
                 </button>
               );
@@ -93,31 +85,22 @@ export function TutorialKeyboard({
                   onPointerLeave={() => onNoteRelease(note.id)}
                   onPointerCancel={() => onNoteRelease(note.id)}
                   className={cn(
-                    'absolute top-0 z-10 flex h-[60%] flex-col justify-between rounded-b-[1.1rem] border px-2 pt-3 pb-2 text-left transition',
+                    'absolute top-0 z-10 flex h-[56%] flex-col items-center justify-end rounded-b-[0.75rem] border border-white/10 px-1 pb-2.5 text-center transition',
                     isActive
-                      ? 'border-[#c8633a]/60 bg-[linear-gradient(180deg,#c8633a_0%,#7d3320_100%)]'
-                      : 'border-white/10 bg-[linear-gradient(180deg,#25354a_0%,#0a111d_100%)]',
-                    isHighlighted ? 'ring-4 ring-[#c8633a]/35' : ''
+                      ? 'translate-y-0.5 bg-[linear-gradient(180deg,#8b2e2e_0%,#2b1814_100%)]'
+                      : 'bg-[linear-gradient(180deg,#302922_0%,#15120f_100%)]',
+                    isHighlighted ? 'ring-2 ring-[#f3cfa0]' : ''
                   )}
                   style={{
                     left: `${left}%`,
                     width: `${blackWidth}%`,
                   }}
                 >
-                  <div>
-                    <span className="rounded-full bg-white/14 px-2 py-1 text-xs font-semibold text-white">
-                      {note.keycap}
-                    </span>
-                    <p className="mt-4 text-xl font-semibold text-white">
-                      {labelMode === 'sargam' ? note.sargam : note.western}
-                    </p>
-                    <p className="mt-1 text-xs text-white/70">
-                      {labelMode === 'sargam' ? note.western : note.sargam}
-                    </p>
-                  </div>
-
-                  <span className="inline-flex w-fit rounded-md bg-white/8 px-3 py-1 text-xs font-medium text-white/80">
-                    {note.western}
+                  <span className="text-xs font-bold text-[#f9efe4]">
+                    {labelMode === 'sargam' ? note.sargam : note.western}
+                  </span>
+                  <span className="mt-0.5 text-[10px] text-white/70">
+                    {note.keycap}
                   </span>
                 </button>
               );

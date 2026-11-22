@@ -233,7 +233,7 @@ export function PracticeStudio({
                   <p className="mt-2 text-sm leading-6 text-slate-600">
                     {isAuthenticated
                       ? 'Changes stay local immediately and then sync to your signed-in workspace.'
-                      : 'Changes save locally right away. Sign in from the header to sync across devices later.'}
+                      : 'Changes save locally in your browser right away so you can resume practice anytime.'}
                   </p>
                 </div>
               </div>
@@ -337,7 +337,7 @@ export function PracticeStudio({
                       type="text"
                       value={selectedSession.title}
                       onChange={(event) => onRenameSession(event.target.value)}
-                      className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#8b2e2e]/40"
+                      className="h-11 w-full rounded-xl border border-[#b77c4a]/25 !bg-white px-3 text-sm !text-[#2a1f1a] shadow-sm [color-scheme:light] outline-none transition focus:border-[#8b2e2e]/50"
                     />
                   </label>
 
@@ -349,7 +349,7 @@ export function PracticeStudio({
                       value={selectedSession.notationText}
                       onChange={(event) => onUpdateNotation(event.target.value)}
                       placeholder="Add Sargam phrases, western notes, or short practice reminders."
-                      className="min-h-[10rem] border-black/10 bg-white"
+                      className="min-h-[10rem] border-[#b77c4a]/25 !bg-white !text-[#2a1f1a] placeholder:!text-[#8b7365] [color-scheme:light]"
                     />
                   </label>
 
@@ -433,7 +433,7 @@ export function PracticeStudio({
                   value={presetName}
                   onChange={(event) => setPresetName(event.target.value)}
                   placeholder="Preset name"
-                  className="h-11 flex-1 rounded-xl border border-black/10 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#8b2e2e]/40"
+                  className="h-11 flex-1 rounded-xl border border-[#b77c4a]/25 !bg-white px-3 text-sm !text-[#2a1f1a] placeholder:!text-[#8b7365] shadow-sm [color-scheme:light] outline-none transition focus:border-[#8b2e2e]/50"
                 />
                 <Button
                   type="button"

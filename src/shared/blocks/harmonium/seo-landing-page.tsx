@@ -72,19 +72,26 @@ export function HarmoniumSeoLandingPage({
                 variant="outline"
                 className="border-[#b77c4a]/30 bg-white text-[#7f4e2a]"
               >
-                <Link href="/harmonium-notes">Learn Harmonium Notes</Link>
+                <Link href="/songs">Play Song Notes</Link>
               </Button>
             </div>
           </div>
 
-          <div className="rounded-[1.6rem] border border-[#8b2e2e]/15 bg-[#fffdf8] p-5 shadow-sm">
-            <p className="text-sm font-semibold text-[#8b2e2e]">
-              Quick practice path
-            </p>
-            <div className="mt-4 space-y-3 text-sm leading-7 text-[#6d5549]">
-              {quickPath.map((item) => (
-                <p key={item}>{item}</p>
-              ))}
+          <div className="overflow-hidden rounded-[1.6rem] border border-[#8b2e2e]/15 bg-[#fffdf8] shadow-sm">
+            <img
+              alt="Traditional Indian handcrafted rosewood harmonium with ivory keys and brass stops"
+              className="aspect-video w-full object-cover"
+              src="/imgs/harmonium/indian-harmonium-hero.jpg"
+            />
+            <div className="p-5">
+              <p className="text-sm font-semibold text-[#8b2e2e]">
+                Quick practice path
+              </p>
+              <div className="mt-3 space-y-2.5 text-sm leading-6 text-[#6d5549]">
+                {quickPath.map((item) => (
+                  <p key={item}>{item}</p>
+                ))}
+              </div>
             </div>
           </div>
         </div>

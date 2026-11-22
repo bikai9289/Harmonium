@@ -80,19 +80,28 @@ export default async function ShrutiBoxPage({
 
       <main className="min-h-screen bg-[#faf7f2] font-sans text-[#2a1f1a]">
         <section className="border-b border-[#2a1f1a]/10 bg-white/75 px-4 pt-24 pb-10 sm:pt-28">
-          <div className="mx-auto max-w-5xl text-center">
-            <p className="text-sm font-semibold tracking-[0.22em] text-[#8b2e2e] uppercase">
-              Free Vocal Riyaz Companion
-            </p>
-            <h1 className="mt-4 font-serif text-4xl leading-tight font-bold text-[#2a1f1a] sm:text-5xl">
-              Shruti Box Online &amp; Tanpura Drone
-            </h1>
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-[#5d4a40] sm:text-lg">
-              Play a continuous, warm Shruti Box and Tanpura drone right in your
-              browser. Choose any of the 12 Indian scales (Safed 1 to Kali 5),
-              switch between Sa–Pa, Sa–Ma, or Sa-only tuning, and practice daily
-              vocal riyaz with zero downloads.
-            </p>
+          <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <div>
+              <p className="text-sm font-semibold tracking-[0.22em] text-[#8b2e2e] uppercase">
+                Free Vocal Riyaz Companion
+              </p>
+              <h1 className="mt-4 font-serif text-4xl leading-tight font-bold text-[#2a1f1a] sm:text-5xl">
+                Shruti Box Online &amp; Tanpura Drone
+              </h1>
+              <p className="mt-4 max-w-3xl text-base leading-8 text-[#5d4a40] sm:text-lg">
+                Play a continuous, warm Shruti Box and Tanpura drone right in
+                your browser. Choose any of the 12 Indian scales (Safed 1 to
+                Kali 5), switch between Sa–Pa, Sa–Ma, or Sa-only tuning, and
+                practice daily vocal riyaz with zero downloads.
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-3xl border border-[#8b2e2e]/15 bg-[#fffdf8] shadow-[0_20px_50px_rgba(83,45,24,0.14)]">
+              <img
+                alt="Traditional Indian tanpura and rosewood harmonium in morning light for vocal riyaz"
+                className="aspect-video w-full object-cover"
+                src="/imgs/harmonium/vocal-riyaz-tanpura.jpg"
+              />
+            </div>
           </div>
         </section>
 

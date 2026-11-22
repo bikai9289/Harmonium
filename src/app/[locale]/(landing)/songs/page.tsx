@@ -71,39 +71,49 @@ export default async function SongsHubPage({
 
       <main className="min-h-screen bg-[#faf7f2] font-sans text-[#2a1f1a]">
         <section className="border-b border-[#2a1f1a]/10 bg-white/75 px-4 pt-24 pb-12 sm:pt-28">
-          <div className="mx-auto max-w-6xl">
-            <p className="text-sm font-semibold tracking-[0.22em] text-[#8b2e2e] uppercase">
-              Interactive Song Library
-            </p>
-            <h1 className="mt-4 font-serif text-4xl leading-tight font-bold text-[#2a1f1a] sm:text-5xl">
-              Web Harmonium Song Notes (Sargam &amp; Western)
-            </h1>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-[#5d4a40] sm:text-lg">
-              Learn popular Bollywood melodies, devotional bhajans, aartis, and
-              classical ragas directly on an interactive online harmonium
-              keyboard. Every song includes Sa Re Ga Ma notation, western note
-              names, laptop QWERTY shortcuts, and slow demo playback.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                className="inline-flex items-center gap-2 rounded-full bg-[#8b2e2e] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#6f2424]"
-                href="/"
-              >
-                Open Web Harmonium
-                <ArrowRight className="size-4" />
-              </Link>
-              <Link
-                className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
-                href="/harmonium-notes#sargam-pdf"
-              >
-                Free Sargam Notes PDF
-              </Link>
-              <Link
-                className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
-                href="/shruti-box"
-              >
-                Online Shruti Box &amp; Tanpura
-              </Link>
+          <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <div>
+              <p className="text-sm font-semibold tracking-[0.22em] text-[#8b2e2e] uppercase">
+                Interactive Song Library
+              </p>
+              <h1 className="mt-4 font-serif text-4xl leading-tight font-bold text-[#2a1f1a] sm:text-5xl">
+                Web Harmonium Song Notes (Sargam &amp; Western)
+              </h1>
+              <p className="mt-4 max-w-3xl text-base leading-8 text-[#5d4a40] sm:text-lg">
+                Learn popular Bollywood melodies, devotional bhajans, aartis, and
+                classical ragas directly on an interactive online harmonium
+                keyboard. Every song includes Sa Re Ga Ma notation, western note
+                names, laptop QWERTY shortcuts, and slow demo playback.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  className="inline-flex items-center gap-2 rounded-full bg-[#8b2e2e] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#6f2424]"
+                  href="/"
+                >
+                  Open Web Harmonium
+                  <ArrowRight className="size-4" />
+                </Link>
+                <Link
+                  className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
+                  href="/harmonium-notes#sargam-pdf"
+                >
+                  Free Sargam Notes PDF
+                </Link>
+                <Link
+                  className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
+                  href="/shruti-box"
+                >
+                  Online Shruti Box &amp; Tanpura
+                </Link>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-3xl border border-[#8b2e2e]/15 bg-[#fffdf8] shadow-[0_20px_50px_rgba(83,45,24,0.14)]">
+              <img
+                alt="Handcrafted Indian harmonium keyboard with brass kartal cymbals and practice journal"
+                className="aspect-video w-full object-cover"
+                src="/imgs/harmonium/sargam-song-notes.jpg"
+              />
             </div>
           </div>
         </section>

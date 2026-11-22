@@ -263,8 +263,8 @@ export function HarmoniumHome({
           )}
 
           <div className="flex flex-col rounded-[1.8rem] border border-[#c8925a]/35 bg-[linear-gradient(180deg,#5b2d1b_0%,#3a1b0f_100%)] p-3 shadow-[0_24px_70px_rgba(42,20,10,0.26)] sm:p-4">
-            <div className="mb-3 rounded-2xl border border-[#e3b57d]/20 bg-[#26120b]/85 px-3 py-2.5 text-[#f9efe4] shadow-inner">
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <div className="mb-3 rounded-2xl border border-[#e3b57d]/20 bg-[#26120b]/85 px-2.5 py-2 text-[#f9efe4] shadow-inner">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
                 <div className="flex items-center gap-1.5 rounded-full border border-[#e3b57d]/20 bg-[#3a1c11] px-2.5 py-1">
                   <SlidersHorizontal className="size-3.5 text-[#e3b57d]" />
                   <span className="text-[11px] font-semibold tracking-wider text-[#e3b57d] uppercase">
@@ -587,10 +587,27 @@ export function HarmoniumHome({
         className="border-b border-[#2a1f1a]/10 py-16 sm:py-24"
       >
         <div className="mx-auto max-w-6xl px-4">
-          <SectionIntro
-            description={copy.featureDescription}
-            title={copy.featureHeading}
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.22em] text-[#8b2e2e] uppercase">
+                Authentic Indian Harmonium Tone
+              </p>
+              <h2 className="mt-3 font-serif text-3xl font-bold text-[#2a1f1a] sm:text-5xl">
+                {copy.featureHeading}
+              </h2>
+              <p className="mt-4 text-base leading-8 text-[#6d5549]">
+                {copy.featureDescription}
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-3xl border border-[#8b2e2e]/15 bg-[#fffdf8] shadow-[0_20px_50px_rgba(83,45,24,0.14)]">
+              <img
+                alt="Handcrafted Indian rosewood harmonium with ivory keys, brass stops, and bellows"
+                className="aspect-video w-full object-cover"
+                loading="lazy"
+                src="/imgs/harmonium/indian-harmonium-hero.jpg"
+              />
+            </div>
+          </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {copy.features.slice(0, 6).map((feature, index) => {
               const Icon = featureIcons[index] ?? Keyboard;
@@ -616,10 +633,29 @@ export function HarmoniumHome({
 
       <section className="border-b border-[#2a1f1a]/10 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4">
-          <SectionIntro
-            description="Practice popular Bollywood melodies, devotional bhajans, aartis, and classical ragas directly on the web harmonium with interactive Sargam notes and slow demo playback."
-            title="Popular Web Harmonium Song Notes"
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="overflow-hidden rounded-3xl border border-[#8b2e2e]/15 bg-[#fffdf8] shadow-[0_20px_50px_rgba(83,45,24,0.14)]">
+              <img
+                alt="Harmonium keyboard with brass kartal cymbals and cream music notebook for Sargam song notes"
+                className="aspect-video w-full object-cover"
+                loading="lazy"
+                src="/imgs/harmonium/sargam-song-notes.jpg"
+              />
+            </div>
+            <div>
+              <p className="text-xs font-semibold tracking-[0.22em] text-[#8b2e2e] uppercase">
+                Interactive Song Library
+              </p>
+              <h2 className="mt-3 font-serif text-3xl font-bold text-[#2a1f1a] sm:text-5xl">
+                Popular Web Harmonium Song Notes
+              </h2>
+              <p className="mt-4 text-base leading-8 text-[#6d5549]">
+                Practice popular Bollywood melodies, devotional bhajans, aartis,
+                and classical ragas directly on the web harmonium with
+                interactive Sargam notes and slow demo playback.
+              </p>
+            </div>
+          </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {HARMONIUM_SONGS.slice(0, 6).map((song) => (
               <Link
@@ -672,31 +708,65 @@ export function HarmoniumHome({
 
       <section className="border-b border-[#2a1f1a]/10 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4">
-          <SectionIntro title="How to play web harmonium in 3 steps" />
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {practiceSteps.map((step) => (
-              <div
-                key={step.title}
-                className="border-t border-[#8b2e2e]/35 pt-5"
-              >
-                <h3 className="text-lg font-semibold text-[#8b2e2e]">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-[#6d5549]">
-                  {step.description}
-                </p>
+          <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.22em] text-[#8b2e2e] uppercase">
+                Laptop, Touch &amp; MIDI Ready
+              </p>
+              <h2 className="mt-3 font-serif text-3xl font-bold text-[#2a1f1a] sm:text-5xl">
+                How to play web harmonium in 3 steps
+              </h2>
+              <div className="mt-8 space-y-5">
+                {practiceSteps.map((step) => (
+                  <div
+                    key={step.title}
+                    className="border-l-2 border-[#8b2e2e]/45 pl-4"
+                  >
+                    <h3 className="text-lg font-semibold text-[#8b2e2e]">
+                      {step.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm leading-7 text-[#6d5549]">
+                      {step.description}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            <div className="overflow-hidden rounded-3xl border border-[#8b2e2e]/15 bg-[#fffdf8] shadow-[0_20px_50px_rgba(83,45,24,0.14)]">
+              <img
+                alt="Musician practicing web harmonium on a laptop and compact MIDI keyboard at a warm wooden desk"
+                className="aspect-video w-full object-cover"
+                loading="lazy"
+                src="/imgs/harmonium/laptop-midi-practice.jpg"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       <section className="border-b border-[#2a1f1a]/10 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4">
-          <SectionIntro
-            description={copy.practiceMapDescription}
-            title={copy.practiceMapHeading}
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="overflow-hidden rounded-3xl border border-[#8b2e2e]/15 bg-[#fffdf8] shadow-[0_20px_50px_rgba(83,45,24,0.14)]">
+              <img
+                alt="Indian classical vocal riyaz setting with tanpura, rosewood harmonium, and morning light"
+                className="aspect-video w-full object-cover"
+                loading="lazy"
+                src="/imgs/harmonium/vocal-riyaz-tanpura.jpg"
+              />
+            </div>
+            <div>
+              <p className="text-xs font-semibold tracking-[0.22em] text-[#8b2e2e] uppercase">
+                Riyaz, Raga &amp; Devotional Practice
+              </p>
+              <h2 className="mt-3 font-serif text-3xl font-bold text-[#2a1f1a] sm:text-5xl">
+                {copy.practiceMapHeading}
+              </h2>
+              <p className="mt-4 text-base leading-8 text-[#6d5549]">
+                {copy.practiceMapDescription}
+              </p>
+            </div>
+          </div>
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {copy.practiceMap.map((item) => (
               <Link
@@ -723,22 +793,48 @@ export function HarmoniumHome({
             description={copy.guideDescription}
             title={copy.guideHeading}
           />
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {copy.guides.slice(0, 3).map((guide) => (
-              <Link
-                key={guide.title}
-                className="group rounded-lg border border-[#2a1f1a]/10 bg-[#fffdf8] p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-[#c8633a]/40 hover:shadow-md"
-                href={guide.href}
-              >
-                <BookOpen className="size-7 stroke-[1.5] text-[#c8633a]" />
-                <h3 className="mt-5 text-xl font-semibold text-[#2a1f1a]">
-                  {guide.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-[#6d5549]">
-                  {guide.description}
-                </p>
-              </Link>
-            ))}
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {copy.guides.slice(0, 3).map((guide, index) => {
+              const guideImages = [
+                {
+                  src: '/imgs/harmonium/sargam-song-notes.jpg',
+                  alt: 'Harmonium Sargam notes chart and music journal',
+                },
+                {
+                  src: '/imgs/harmonium/laptop-midi-practice.jpg',
+                  alt: 'Playing harmonium on a laptop keyboard and MIDI controller',
+                },
+                {
+                  src: '/imgs/harmonium/vocal-riyaz-tanpura.jpg',
+                  alt: 'Shruti Box and Tanpura drone setup for vocal riyaz',
+                },
+              ];
+              const media = guideImages[index % guideImages.length];
+
+              return (
+                <Link
+                  key={guide.title}
+                  className="group overflow-hidden rounded-2xl border border-[#2a1f1a]/10 bg-[#fffdf8] shadow-sm transition hover:-translate-y-0.5 hover:border-[#c8633a]/40 hover:shadow-md"
+                  href={guide.href}
+                >
+                  <img
+                    alt={media.alt}
+                    className="aspect-video w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                    loading="lazy"
+                    src={media.src}
+                  />
+                  <div className="p-6">
+                    <BookOpen className="size-6 stroke-[1.5] text-[#c8633a]" />
+                    <h3 className="mt-3 text-xl font-semibold text-[#2a1f1a] group-hover:text-[#8b2e2e]">
+                      {guide.title}
+                    </h3>
+                    <p className="mt-2.5 text-sm leading-7 text-[#6d5549]">
+                      {guide.description}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

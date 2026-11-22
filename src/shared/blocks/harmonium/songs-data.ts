@@ -46,7 +46,7 @@ export const HARMONIUM_SONGS: HarmoniumSong[] = [
       'tum hi ho harmonium notes, tum hi ho sargam notes, tum hi ho web harmonium, aashiqui 2 harmonium notes',
     tips: [
       'Use Komal Ga (D# / key 5) and Komal Ni (A# / key 9) for the emotional minor feel.',
-      'Start at 0.75x speed and hold the final note of each phrase smoothly before moving on.',
+      'Start at 0.6x or 0.8x speed and hold the final note of each phrase smoothly before moving on.',
       'Turn on the Sa–Pa Tanpura drone to keep your pitch grounded while singing along.',
     ],
     lines: [
@@ -511,7 +511,7 @@ export const HARMONIUM_SONGS: HarmoniumSong[] = [
     keywords:
       'lag ja gale harmonium notes, lag ja gale sargam notes, lata mangeshkar harmonium notes',
     tips: [
-      'Play at 0.75x speed first to master the smooth glide across Pa, Dha, and upper Sa.',
+      'Play at 0.6x or 0.8x speed first to master the smooth glide across Pa, Dha, and upper Sa.',
     ],
     lines: [
       {

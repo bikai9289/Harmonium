@@ -201,7 +201,7 @@ export function Header({ header }: { header: HeaderType }) {
                   <Link
                     href={item.url || ''}
                     onClick={closeMenu}
-                    className="data-[state=open]:bg-muted flex items-center justify-between px-4 py-3 text-lg **:!font-normal"
+                    className="flex items-center justify-between rounded-lg px-4 py-3 text-lg font-medium text-[#2a1f1a] hover:bg-[#fff4e8] hover:text-[#8b2e2e]"
                   >
                     {item.title}
                   </Link>

@@ -528,7 +528,7 @@ export function HarmoniumKeyboardPage() {
                   id="set-sa"
                   value={selectedSa}
                   onChange={(event) => handleSelectedSaChange(event.target.value)}
-                  className="mt-3 w-full rounded-xl border border-[#b77c4a]/25 bg-[#fcfaf6] px-3 py-2 text-sm text-[#2a1f1a] [color-scheme:light] outline-none focus:border-[#8b2e2e]"
+                  className="mt-3 w-full rounded-xl border border-[#b77c4a]/25 !bg-[#fcfaf6] px-3 py-2 text-sm !text-[#2a1f1a] [color-scheme:light] outline-none focus:border-[#8b2e2e]"
                 >
                   {SA_TONIC_OPTIONS.map((option) => (
                     <option
@@ -559,7 +559,7 @@ export function HarmoniumKeyboardPage() {
                   id="practice-exercise"
                   value={selectedExercise.id}
                   onChange={(event) => handleExerciseChange(event.target.value)}
-                  className="mt-3 w-full rounded-xl border border-[#b77c4a]/25 bg-[#fcfaf6] px-3 py-2 text-sm text-[#2a1f1a] [color-scheme:light] outline-none focus:border-[#8b2e2e]"
+                  className="mt-3 w-full rounded-xl border border-[#b77c4a]/25 !bg-[#fcfaf6] px-3 py-2 text-sm !text-[#2a1f1a] [color-scheme:light] outline-none focus:border-[#8b2e2e]"
                 >
                   {RIYAZ_PRACTICE_EXERCISES.map((exercise) => (
                     <option

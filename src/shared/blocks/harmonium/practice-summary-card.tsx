@@ -17,8 +17,8 @@ function getSyncCopy({
 }) {
   if (!isAuthenticated) {
     return {
-      label: 'Local only',
-      description: 'Saved on this device. Sign in from the header to sync across devices.',
+      label: 'Saved locally',
+      description: 'Saved automatically in this browser for your next practice session.',
       icon: HardDriveDownload,
     };
   }
