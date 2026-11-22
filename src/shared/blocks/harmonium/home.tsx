@@ -238,22 +238,22 @@ export function HarmoniumHome({
     <main className="bg-[#faf7f2] font-sans text-[#2a1f1a]">
       <section
         id="play"
-        className="border-b border-[#2a1f1a]/10 px-4 pt-20 pb-6 sm:pt-24 lg:min-h-[calc(100svh-56px)]"
+        className="border-b border-[#2a1f1a]/10 px-4 pt-20 pb-8 sm:pt-22"
       >
-        <div className="mx-auto flex max-w-[1440px] min-w-0 flex-col gap-3">
+        <div className="mx-auto flex max-w-[1440px] min-w-0 flex-col gap-4">
           {serverHero ?? (
-            <div className="mx-auto min-w-0 max-w-5xl space-y-4 text-center">
-              <h1 className="font-serif text-4xl leading-[1.05] font-bold text-balance text-[#2a1f1a] sm:text-6xl lg:text-[56px]">
+            <div className="mx-auto min-w-0 max-w-5xl space-y-2.5 text-center">
+              <h1 className="font-serif text-3xl leading-[1.08] font-bold text-balance text-[#2a1f1a] sm:text-5xl lg:text-[46px]">
                 {copy.title}
               </h1>
-              <p className="mx-auto max-w-4xl text-lg leading-7 text-pretty text-[#5d4a40]">
+              <p className="mx-auto max-w-3xl text-sm leading-6 text-pretty text-[#5d4a40] sm:text-base">
                 {copy.description}
               </p>
-              <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2 overflow-x-visible pb-0 sm:flex-nowrap sm:overflow-x-auto">
+              <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-1.5">
                 {copy.useCases.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-[#c8633a]/20 bg-[#fffdf8] px-3 py-1.5 text-sm font-medium text-[#8b2e2e] transition hover:border-[#c8633a]/45 hover:bg-[#fff4e8]"
+                    className="rounded-full border border-[#c8633a]/20 bg-[#fffdf8] px-2.5 py-1 text-xs font-medium text-[#8b2e2e]"
                   >
                     {item}
                   </span>
@@ -262,29 +262,33 @@ export function HarmoniumHome({
             </div>
           )}
 
-          <div className="flex flex-col rounded-3xl border border-[#8b2e2e]/18 bg-[#fffdf8]/92 p-3 shadow-[0_20px_70px_rgba(83,45,24,0.14)] backdrop-blur sm:p-4">
-            <div className="order-2 mt-3 rounded-2xl border border-[#2a1f1a]/10 bg-[#f3e8dc] p-3">
-              <div className="grid gap-3 lg:grid-cols-[0.85fr_0.9fr_1fr_1.1fr]">
-                <ControlGroup
-                  icon={<Music2 className="size-4" />}
-                  label="Tonic"
-                >
-                  <button className="rounded-full border border-[#8b2e2e]/20 bg-white px-3 py-1.5 text-sm font-semibold text-[#2a1f1a]">
-                    C
-                  </button>
-                </ControlGroup>
-
-                <ControlGroup
-                  icon={<SlidersHorizontal className="size-4" />}
-                  label="Octave"
-                >
-                  <Stepper
-                    onDown={() =>
+          <div className="flex flex-col rounded-[1.8rem] border border-[#c8925a]/35 bg-[linear-gradient(180deg,#5b2d1b_0%,#3a1b0f_100%)] p-3 shadow-[0_24px_70px_rgba(42,20,10,0.26)] sm:p-4">
+            <div className="mb-3 rounded-2xl border border-[#e3b57d]/20 bg-[#26120b]/85 px-3 py-2.5 text-[#f9efe4] shadow-inner">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <div className="flex items-center gap-1.5 rounded-full border border-[#e3b57d]/20 bg-[#3a1c11] px-2.5 py-1">
+                  <SlidersHorizontal className="size-3.5 text-[#e3b57d]" />
+                  <span className="text-[11px] font-semibold tracking-wider text-[#e3b57d] uppercase">
+                    Oct
+                  </span>
+                  <button
+                    aria-label="Decrease octave"
+                    className="size-6 rounded-full text-xs font-bold text-[#f9efe4] hover:bg-white/10"
+                    onClick={() =>
                       setOctave((current) =>
                         Math.max(OCTAVE_OPTIONS[0].value, current - 1)
                       )
                     }
-                    onUp={() =>
+                    type="button"
+                  >
+                    -
+                  </button>
+                  <span className="min-w-4 text-center text-xs font-bold">
+                    {octave}
+                  </span>
+                  <button
+                    aria-label="Increase octave"
+                    className="size-6 rounded-full text-xs font-bold text-[#f9efe4] hover:bg-white/10"
+                    onClick={() =>
                       setOctave((current) =>
                         Math.min(
                           OCTAVE_OPTIONS[OCTAVE_OPTIONS.length - 1].value,
@@ -292,177 +296,180 @@ export function HarmoniumHome({
                         )
                       )
                     }
-                    value={String(octave)}
-                  />
-                </ControlGroup>
+                    type="button"
+                  >
+                    +
+                  </button>
+                </div>
 
-                <ControlGroup
-                  icon={<RotateCcw className="size-4" />}
-                  label="Transpose"
-                >
-                  <Stepper
-                    onDown={() =>
+                <div className="flex items-center gap-1.5 rounded-full border border-[#e3b57d]/20 bg-[#3a1c11] px-2.5 py-1">
+                  <RotateCcw className="size-3.5 text-[#e3b57d]" />
+                  <span className="text-[11px] font-semibold tracking-wider text-[#e3b57d] uppercase">
+                    Trans
+                  </span>
+                  <button
+                    aria-label="Decrease transpose"
+                    className="size-6 rounded-full text-xs font-bold text-[#f9efe4] hover:bg-white/10"
+                    onClick={() =>
                       setTranspose((current) => Math.max(-6, current - 1))
                     }
-                    onUp={() =>
+                    type="button"
+                  >
+                    -
+                  </button>
+                  <span className="min-w-5 text-center text-xs font-bold">
+                    {transpose > 0 ? `+${transpose}` : transpose}
+                  </span>
+                  <button
+                    aria-label="Increase transpose"
+                    className="size-6 rounded-full text-xs font-bold text-[#f9efe4] hover:bg-white/10"
+                    onClick={() =>
                       setTranspose((current) => Math.min(6, current + 1))
                     }
-                    value={`${transpose > 0 ? '+' : ''}${transpose}`}
-                  />
-                </ControlGroup>
-
-                <ControlGroup
-                  icon={<Layers3 className="size-4" />}
-                  label="Reed"
-                >
-                  <div className="flex rounded-full border border-[#8b2e2e]/18 bg-white p-1">
-                    {(['single', 'double'] as const).map((value) => (
-                      <button
-                        key={value}
-                        className={cn(
-                          'min-h-10 rounded-full px-4 py-2 text-xs font-semibold capitalize transition',
-                          reedMode === value
-                            ? 'bg-[#8b2e2e] text-white shadow-sm'
-                            : 'text-[#6d5549] hover:bg-[#f7eee5]'
-                        )}
-                        onClick={() => setReedMode(value)}
-                        type="button"
-                      >
-                        {value}
-                      </button>
-                    ))}
-                  </div>
-                </ControlGroup>
-              </div>
-
-              <div className="mt-3 grid gap-3 md:grid-cols-3">
-                <ControlGroup
-                  icon={<Radio className="size-4" />}
-                  label="Tanpura"
-                >
-                  <button
-                    className={cn(
-                      'min-h-10 rounded-full px-4 py-2 text-sm font-semibold transition',
-                      droneMode !== 'off'
-                        ? 'bg-[#c8633a] text-white'
-                        : 'border border-[#8b2e2e]/18 bg-white text-[#6d5549]'
-                    )}
-                    onClick={() =>
-                      setDroneMode((current) =>
-                        current === 'off'
-                          ? 'sa-pa'
-                          : current === 'sa-pa'
-                            ? 'sa-ma'
-                            : 'off'
-                      )
-                    }
                     type="button"
                   >
-                    {droneMode === 'off'
-                      ? 'Off'
-                      : droneMode === 'sa-pa'
-                        ? 'Sa–Pa'
-                        : 'Sa–Ma'}
+                    +
                   </button>
-                </ControlGroup>
+                </div>
 
-                <ControlGroup
-                  icon={<Waves className="size-4" />}
-                  label="Reverb"
-                >
-                  <button
-                    className={cn(
-                      'min-h-10 rounded-full px-4 py-2 text-sm font-semibold transition',
-                      reverbEnabled
-                        ? 'bg-[#c8633a] text-white'
-                        : 'border border-[#8b2e2e]/18 bg-white text-[#6d5549]'
-                    )}
-                    onClick={() => setReverbEnabled((current) => !current)}
-                    type="button"
-                  >
-                    {reverbEnabled ? 'Room' : 'Dry'}
-                  </button>
-                </ControlGroup>
+                <div className="flex items-center rounded-full border border-[#e3b57d]/20 bg-[#3a1c11] p-0.5">
+                  {(['single', 'double'] as const).map((value) => (
+                    <button
+                      key={value}
+                      className={cn(
+                        'rounded-full px-3 py-1 text-xs font-semibold capitalize transition',
+                        reedMode === value
+                          ? 'bg-[#c8633a] text-white shadow-sm'
+                          : 'text-[#e8d5c4] hover:bg-white/10'
+                      )}
+                      onClick={() => setReedMode(value)}
+                      type="button"
+                    >
+                      {value} reed
+                    </button>
+                  ))}
+                </div>
 
-                <ControlGroup
-                  icon={<Keyboard className="size-4" />}
-                  label="Labels"
-                >
-                  <button
-                    className={cn(
-                      'min-h-10 rounded-full px-4 py-2 text-sm font-semibold transition',
-                      labelMode === 'sargam'
-                        ? 'bg-[#8b2e2e] text-white'
-                        : 'border border-[#8b2e2e]/18 bg-white text-[#6d5549]'
-                    )}
-                    onClick={() =>
-                      setLabelMode((current) =>
-                        current === 'sargam' ? 'western' : 'sargam'
-                      )
-                    }
-                    type="button"
-                  >
-                    {labelMode === 'sargam' ? 'Sargam' : 'Western'}
-                  </button>
-                </ControlGroup>
-              </div>
-
-              <button
-                className="mt-3 inline-flex min-h-10 w-fit items-center gap-2 rounded-full border border-[#8b2e2e]/18 bg-white px-4 py-2 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
-                onClick={() => setShowMoreControls((current) => !current)}
-                type="button"
-              >
-                <ChevronDown
+                <button
                   className={cn(
-                    'size-4 transition-transform',
-                    showMoreControls ? 'rotate-180' : ''
+                    'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition',
+                    droneMode !== 'off'
+                      ? 'border-[#e3b57d] bg-[#c8633a] text-white'
+                      : 'border-[#e3b57d]/20 bg-[#3a1c11] text-[#f9efe4] hover:bg-white/10'
                   )}
-                />
-                More controls (Volume, MIDI input)
-              </button>
+                  onClick={() =>
+                    setDroneMode((current) =>
+                      current === 'off'
+                        ? 'sa-pa'
+                        : current === 'sa-pa'
+                          ? 'sa-ma'
+                          : 'off'
+                    )
+                  }
+                  type="button"
+                >
+                  <Radio className="size-3.5 text-[#f3cfa0]" />
+                  Tanpura:{' '}
+                  {droneMode === 'off'
+                    ? 'Off'
+                    : droneMode === 'sa-pa'
+                      ? 'Sa–Pa'
+                      : 'Sa–Ma'}
+                </button>
+
+                <button
+                  className={cn(
+                    'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition',
+                    reverbEnabled
+                      ? 'border-[#e3b57d] bg-[#c8633a] text-white'
+                      : 'border-[#e3b57d]/20 bg-[#3a1c11] text-[#f9efe4] hover:bg-white/10'
+                  )}
+                  onClick={() => setReverbEnabled((current) => !current)}
+                  type="button"
+                >
+                  <Waves className="size-3.5 text-[#f3cfa0]" />
+                  {reverbEnabled ? 'Room' : 'Dry'}
+                </button>
+
+                <button
+                  className={cn(
+                    'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition',
+                    labelMode === 'sargam'
+                      ? 'border-[#e3b57d]/60 bg-[#8b2e2e] text-white'
+                      : 'border-[#e3b57d]/20 bg-[#3a1c11] text-[#f9efe4] hover:bg-white/10'
+                  )}
+                  onClick={() =>
+                    setLabelMode((current) =>
+                      current === 'sargam' ? 'western' : 'sargam'
+                    )
+                  }
+                  type="button"
+                >
+                  <Keyboard className="size-3.5 text-[#f3cfa0]" />
+                  {labelMode === 'sargam' ? 'Sargam' : 'Western'}
+                </button>
+
+                <div className="flex items-center gap-2 rounded-full border border-[#e3b57d]/20 bg-[#3a1c11] px-3 py-1.5">
+                  <Volume2 className="size-3.5 text-[#e3b57d]" />
+                  <input
+                    aria-label="Volume"
+                    className="w-20 accent-[#e3b57d]"
+                    max="0.9"
+                    min="0.05"
+                    onChange={(event) => setVolume(Number(event.target.value))}
+                    step="0.01"
+                    type="range"
+                    value={volume}
+                  />
+                </div>
+
+                <div className="ml-auto flex items-center gap-2">
+                  <Link
+                    href="/songs"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[#e3b57d]/35 bg-[#e3b57d]/15 px-3 py-1.5 text-xs font-semibold text-[#f9efe4] transition hover:bg-[#e3b57d]/25"
+                  >
+                    <Music2 className="size-3.5 text-[#f3cfa0]" />
+                    12 Song Notes
+                  </Link>
+                  <button
+                    className="inline-flex items-center gap-1 rounded-full border border-[#e3b57d]/20 bg-[#3a1c11] px-3 py-1.5 text-xs font-semibold text-[#e8d5c4] hover:bg-white/10"
+                    onClick={() => setShowMoreControls((current) => !current)}
+                    type="button"
+                  >
+                    MIDI
+                    <ChevronDown
+                      className={cn(
+                        'size-3.5 transition-transform',
+                        showMoreControls ? 'rotate-180' : ''
+                      )}
+                    />
+                  </button>
+                </div>
+              </div>
 
               {showMoreControls ? (
-                <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_2fr]">
-                  <ControlGroup
-                    icon={<Volume2 className="size-4" />}
-                    label="Volume"
-                  >
-                    <input
-                      aria-label="Volume"
-                      className="w-full accent-[#8b2e2e]"
-                      max="0.9"
-                      min="0.05"
-                      onChange={(event) =>
-                        setVolume(Number(event.target.value))
-                      }
-                      step="0.01"
-                      type="range"
-                      value={volume}
-                    />
-                  </ControlGroup>
-                  <div className="rounded-2xl border border-[#8b2e2e]/14 bg-white/70 px-3 py-2">
-                    <MidiPanel
-                      compact
-                      midiInputs={midiInputs}
-                      onRefresh={() => {
-                        void refreshMidi();
-                      }}
-                      onSelectedInputIdChange={setSelectedInputId}
-                      selectedInputId={selectedInputId}
-                      supportState={supportState}
-                    />
-                  </div>
+                <div className="mt-2.5 rounded-xl border border-[#e3b57d]/20 bg-[#fffdf8] px-3 py-2 text-[#2a1f1a]">
+                  <MidiPanel
+                    compact
+                    midiInputs={midiInputs}
+                    onRefresh={() => {
+                      void refreshMidi();
+                    }}
+                    onSelectedInputIdChange={setSelectedInputId}
+                    selectedInputId={selectedInputId}
+                    supportState={supportState}
+                  />
                 </div>
               ) : null}
             </div>
 
-            <div className="order-1 max-w-full overflow-x-auto pb-2">
+            <div className="max-w-full overflow-x-auto pb-1">
               <div
-                className="rounded-[1.6rem] border border-[#2a1f1a]/12 bg-[#8b4a2e] p-2 shadow-inner"
+                className="rounded-[1.2rem] border border-[#e3b57d]/25 bg-[#1b1410] p-2 shadow-inner"
                 style={{ minWidth: `${KEYBOARD_MIN_WIDTH}px` }}
               >
-                <div className="relative h-[clamp(280px,42svh,420px)] overflow-hidden rounded-[1.2rem] border border-[#1f1b17]/40 bg-[#1f1b17] px-3 pt-3 pb-4">
-                  <div className="absolute inset-x-0 top-0 h-8 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent)]" />
+                <div className="relative h-[clamp(270px,40svh,390px)] overflow-hidden rounded-[0.9rem] border border-black/50 bg-[#14100d] px-2.5 pt-2.5 pb-3.5">
+                  <div className="absolute inset-x-0 top-0 h-6 bg-[linear-gradient(180deg,rgba(255,255,255,0.14),transparent)]" />
 
                   <div className="relative h-full">
                     {whiteKeys.map((note) => {
@@ -474,9 +481,9 @@ export function HarmoniumHome({
                           key={note.id}
                           aria-label={`Play ${note.sargam} ${note.western}`}
                           className={cn(
-                            'absolute top-0 bottom-0 flex flex-col justify-end rounded-b-[0.9rem] border-r border-[#2a1f1a]/35 px-2 pb-4 text-center shadow-[inset_0_-18px_28px_rgba(92,52,24,0.16),0_8px_0_rgba(42,31,26,0.18)] transition duration-75',
+                            'absolute top-0 bottom-0 flex flex-col justify-end rounded-b-[0.8rem] border-r border-[#2a1f1a]/35 px-2 pb-4 text-center shadow-[inset_0_-18px_28px_rgba(92,52,24,0.16),0_8px_0_rgba(42,31,26,0.18)] transition duration-75',
                             active
-                              ? 'translate-y-1 bg-[#f0c28f] shadow-[inset_0_-8px_18px_rgba(92,52,24,0.14),0_3px_0_rgba(42,31,26,0.18)]'
+                              ? 'translate-y-1 bg-[linear-gradient(180deg,#f5d09b_0%,#e5a95c_100%)] shadow-[inset_0_-8px_18px_rgba(92,52,24,0.14),0_3px_0_rgba(42,31,26,0.18)]'
                               : 'bg-[linear-gradient(180deg,#fffef9_0%,#f3e7d8_100%)] hover:bg-[#fff7ed]'
                           )}
                           onPointerCancel={() => stopNote(note.id)}
@@ -561,10 +568,10 @@ export function HarmoniumHome({
               </div>
             </div>
 
-            <div className="order-3 mt-3 px-1 text-center text-sm text-[#6d5549]">
+            <div className="mt-2.5 px-1 text-center text-xs text-[#e8d5c4]/85">
               <p>
                 Tip: press{' '}
-                <span className="font-mono font-semibold text-[#8b2e2e]">
+                <span className="font-mono font-semibold text-[#f3cfa0]">
                   E R T Y U I O P
                 </span>{' '}
                 on a laptop keyboard for middle-octave Sa–Sa′, or swipe
@@ -764,58 +771,6 @@ export function HarmoniumHome({
         </div>
       </section>
     </main>
-  );
-}
-
-function ControlGroup({
-  children,
-  icon,
-  label,
-}: {
-  children: React.ReactNode;
-  icon: React.ReactNode;
-  label: string;
-}) {
-  return (
-    <div className="flex min-h-11 items-center gap-2 rounded-2xl bg-[#fffdf8]/72 px-3 py-2">
-      <span className="text-[#8b2e2e]">{icon}</span>
-      <span className="text-sm font-semibold text-[#5d4a40]">{label}</span>
-      <div className="ml-auto min-w-0">{children}</div>
-    </div>
-  );
-}
-
-function Stepper({
-  onDown,
-  onUp,
-  value,
-}: {
-  onDown: () => void;
-  onUp: () => void;
-  value: string;
-}) {
-  return (
-    <div className="flex items-center gap-2 rounded-full border border-[#8b2e2e]/18 bg-white px-2 py-1">
-      <button
-        aria-label="Decrease"
-        className="min-h-10 min-w-10 rounded-full px-3 py-2 text-[#8b2e2e] hover:bg-[#f7eee5]"
-        onClick={onDown}
-        type="button"
-      >
-        -
-      </button>
-      <span className="min-w-6 text-center text-sm font-bold text-[#2a1f1a]">
-        {value}
-      </span>
-      <button
-        aria-label="Increase"
-        className="min-h-10 min-w-10 rounded-full px-3 py-2 text-[#8b2e2e] hover:bg-[#f7eee5]"
-        onClick={onUp}
-        type="button"
-      >
-        +
-      </button>
-    </div>
   );
 }
 

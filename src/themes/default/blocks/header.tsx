@@ -270,7 +270,17 @@ export function Header({ header }: { header: HeaderType }) {
             <div className="relative flex flex-wrap items-center justify-between lg:py-5">
               <div className="flex justify-between gap-8 max-lg:h-14 max-lg:w-full max-lg:border-b">
                 {/* Brand Logo */}
-                {header.brand && <BrandLogo brand={header.brand} />}
+                {header.brand && (
+                  <BrandLogo
+                    brand={{
+                      ...header.brand,
+                      className: cn(
+                        'font-serif font-semibold text-[#2a1f1a]',
+                        header.brand.className
+                      ),
+                    }}
+                  />
+                )}
 
                 {/* Desktop Navigation Menu */}
                 {isLarge && <NavMenu />}
@@ -280,7 +290,7 @@ export function Header({ header }: { header: HeaderType }) {
                   aria-label={
                     isMobileMenuOpen == true ? 'Close Menu' : 'Open Menu'
                   }
-                  className="relative z-20 -m-2.5 -mr-3 block cursor-pointer p-2.5 lg:hidden"
+                  className="relative z-20 -m-2.5 -mr-3 block cursor-pointer p-2.5 text-[#2a1f1a] lg:hidden"
                 >
                   <Menu className="m-auto size-5 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
                   <X className="absolute inset-0 m-auto size-5 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />

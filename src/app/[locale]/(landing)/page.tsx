@@ -499,18 +499,18 @@ export default async function LandingPage({
   };
 
   const serverHero = (
-    <div className="mx-auto min-w-0 max-w-5xl space-y-4 text-center">
-      <h1 className="font-serif text-4xl leading-[1.05] font-bold text-balance text-[#2a1f1a] sm:text-6xl lg:text-[56px]">
+    <div className="mx-auto min-w-0 max-w-5xl space-y-2.5 text-center">
+      <h1 className="font-serif text-3xl leading-[1.08] font-bold text-balance text-[#2a1f1a] sm:text-5xl lg:text-[46px]">
         {pageCopy.title}
       </h1>
-      <p className="mx-auto max-w-4xl text-lg leading-7 text-pretty text-[#5d4a40]">
+      <p className="mx-auto max-w-3xl text-sm leading-6 text-pretty text-[#5d4a40] sm:text-base">
         {pageCopy.description}
       </p>
-      <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2 overflow-x-visible pb-0 sm:flex-nowrap sm:overflow-x-auto">
+      <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-1.5">
         {pageCopy.useCases.map((item) => (
           <span
             key={item}
-            className="rounded-full border border-[#c8633a]/20 bg-[#fffdf8] px-3 py-1.5 text-sm font-medium text-[#8b2e2e] transition hover:border-[#c8633a]/45 hover:bg-[#fff4e8]"
+            className="rounded-full border border-[#c8633a]/20 bg-[#fffdf8] px-2.5 py-1 text-xs font-medium text-[#8b2e2e]"
           >
             {item}
           </span>

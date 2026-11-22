@@ -41,7 +41,7 @@ export function Footer({ footer }: { footer: FooterType }) {
                       key={iidx}
                       href={subItem.url || ''}
                       target={subItem.target || ''}
-                      className="text-muted-foreground hover:text-primary -mx-2 block min-h-10 break-words rounded-md px-2 py-2 duration-150"
+                      className="text-muted-foreground -mx-2 block min-h-10 break-words rounded-md px-2 py-2 duration-150 hover:text-[#e8c39e]"
                     >
                       <span className="break-words">{subItem.title || ''}</span>
                     </Link>
