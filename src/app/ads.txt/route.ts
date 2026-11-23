@@ -32,6 +32,10 @@ export async function GET() {
     const configs = await getAllConfigs();
     const adsContent = formatAdsTxt(configs.adsense_code);
 
+    if (!adsContent) {
+      return new NextResponse('Not Found', { status: 404 });
+    }
+
     return new NextResponse(adsContent, {
       status: 200,
       headers: {
@@ -40,11 +44,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error('get ads.txt failed:', error);
-    return new NextResponse('', {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/plain',
-      },
-    });
+    return new NextResponse('Not Found', { status: 404 });
   }
 }

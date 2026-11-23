@@ -603,8 +603,10 @@ export function HarmoniumHome({
               <img
                 alt="Handcrafted Indian rosewood harmonium with ivory keys, brass stops, and bellows"
                 className="aspect-video w-full object-cover"
+                height={720}
                 loading="lazy"
                 src="/imgs/harmonium/indian-harmonium-hero.jpg"
+                width={1280}
               />
             </div>
           </div>
@@ -638,8 +640,10 @@ export function HarmoniumHome({
               <img
                 alt="Harmonium keyboard with brass kartal cymbals and cream music notebook for Sargam song notes"
                 className="aspect-video w-full object-cover"
+                height={720}
                 loading="lazy"
                 src="/imgs/harmonium/sargam-song-notes.jpg"
+                width={1280}
               />
             </div>
             <div>
@@ -742,8 +746,10 @@ export function HarmoniumHome({
               <img
                 alt="Musician practicing web harmonium on a laptop and compact MIDI keyboard at a warm wooden desk"
                 className="aspect-video w-full object-cover"
+                height={720}
                 loading="lazy"
                 src="/imgs/harmonium/laptop-midi-practice.jpg"
+                width={1280}
               />
             </div>
           </div>
@@ -757,8 +763,10 @@ export function HarmoniumHome({
               <img
                 alt="Indian classical vocal riyaz setting with tanpura, rosewood harmonium, and morning light"
                 className="aspect-video w-full object-cover"
+                height={720}
                 loading="lazy"
                 src="/imgs/harmonium/vocal-riyaz-tanpura.jpg"
+                width={1280}
               />
             </div>
             <div>
@@ -826,8 +834,10 @@ export function HarmoniumHome({
                   <img
                     alt={media.alt}
                     className="aspect-video w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                    height={720}
                     loading="lazy"
                     src={media.src}
+                    width={1280}
                   />
                   <div className="p-6">
                     <BookOpen className="size-6 stroke-[1.5] text-[#c8633a]" />

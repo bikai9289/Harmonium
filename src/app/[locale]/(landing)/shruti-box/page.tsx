@@ -28,21 +28,78 @@ export const generateMetadata = getMetadata({
   canonicalUrl: '/shruti-box',
 });
 
+const scaleReference = [
+  {
+    western: 'C / C#',
+    indian: 'Safed 1 / Kali 1',
+    fit: 'Most common male vocal scales for Hindustani classical riyaz, bhajan, and kirtan.',
+  },
+  {
+    western: 'D / D#',
+    indian: 'Safed 2 / Kali 2',
+    fit: 'Bright tenor male range or deep alto female vocal warm-ups.',
+  },
+  {
+    western: 'F / F#',
+    indian: 'Safed 4 / Kali 3',
+    fit: 'Comfortable lower-mid female vocal range and solo Bansuri flute practice.',
+  },
+  {
+    western: 'G / G# / A',
+    indian: 'Safed 5 / Kali 4 / Safed 6',
+    fit: 'Standard female vocal scales for classical khayal, thumri, and devotional singing.',
+  },
+];
+
+const riyazSteps = [
+  {
+    title: '1. Kharaj & Sustained Sa (3 min)',
+    text: 'Start the Sa–Pa drone at a gentle volume, close your eyes, and sing a long, relaxed Sa until your voice blends seamlessly into the harmonic overtones.',
+  },
+  {
+    title: '2. Slow Mandra (Lower Octave) Descent (3 min)',
+    text: 'Step slowly down from Sa to Ni., Dha., and Pa. without pushing your throat. Steady low-register practice strengthens morning vocal resonance.',
+  },
+  {
+    title: '3. Alankar & Sargam Precision (4 min)',
+    text: 'Sing basic Bilawal or Kalyan Alankars while checking tricky intervals like Komal Ga or Tivra Ma on the Web Harmonium.',
+  },
+  {
+    title: '4. Raga & Bhajan Phrasing (5 min)',
+    text: 'Switch to Sa–Ma tuning for ragas that omit Pa (like Malkauns or Bageshri), or keep Sa–Pa for Yaman, Bhupali, Bhairav, and devotional melodies.',
+  },
+];
+
 const faqs = [
   {
     question: 'What is the difference between Sa–Pa and Sa–Ma drone tuning?',
     answer:
-      'Sa–Pa (tonic and fifth) is the standard drone for most ragas and vocal warm-ups. Switch to Sa–Ma (tonic and fourth) when practicing ragas that omit Pa, such as Raag Malkauns or Raag Bageshri.',
+      'Sa–Pa (tonic and fifth) is the standard drone for most Hindustani and Carnatic ragas as well as daily vocal warm-ups. Switch to Sa–Ma (tonic and fourth) when practicing ragas that omit Pa, such as Raag Malkauns, Raag Bageshri, or Raag Chandrakauns.',
   },
   {
     question: 'How do I pick my Safed or Kali scale on the Shruti Box?',
     answer:
-      'Many male singers start around C (Safed 1) or C# (Kali 1) in Male/Low register, while many female singers start around G (Safed 5), G# (Kali 4), or A (Safed 6). Pick the scale where holding Sa feels effortless.',
+      'Many male singers start around C (Safed 1) or C# (Kali 1) in Male/Low register, while many female singers start around G (Safed 5), G# (Kali 4), or A (Safed 6). Pick the tonic where sustaining Sa feels effortless and resonant.',
   },
   {
     question: 'Can I use the Tanpura drone while playing the web harmonium?',
     answer:
-      'Yes. You can also turn on the built-in Tanpura drone directly on our Web Harmonium homepage or any Song Notes page.',
+      'Yes. Both our Web Harmonium homepage and all 27 interactive Song Notes pages include a built-in Tanpura drone toggle synced directly to your transpose setting.',
+  },
+  {
+    question: 'How is an online Shruti Box different from a physical Shruti Box?',
+    answer:
+      'A traditional wooden Shruti Box uses hand-pumped bellows over brass reeds to sustain a continuous chord. This browser version recreates that warm, breathing harmonic drone instantly with zero setup or tuning drift.',
+  },
+  {
+    question: 'Can I use this drone for yoga, chanting, and meditation?',
+    answer:
+      'Yes. Select Sa Only or Sa–Pa in Male/Low register and lower the volume slightly to create a steady, grounding ambient backdrop for mantra chanting, pranayama, or sound meditation.',
+  },
+  {
+    question: 'Does the online Shruti Box work on phones and tablets?',
+    answer:
+      'Yes. It runs directly in mobile browsers using the Web Audio API with no app download or sign-up required.',
   },
 ];
 
@@ -99,7 +156,9 @@ export default async function ShrutiBoxPage({
               <img
                 alt="Traditional Indian tanpura and rosewood harmonium in morning light for vocal riyaz"
                 className="aspect-video w-full object-cover"
+                height={720}
                 src="/imgs/harmonium/vocal-riyaz-tanpura.jpg"
+                width={1280}
               />
             </div>
           </div>
@@ -121,8 +180,80 @@ export default async function ShrutiBoxPage({
                 className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
                 href="/songs"
               >
-                Practice Harmonium Song Notes
+                Practice 27 Song Notes
               </Link>
+              <Link
+                className="inline-flex items-center gap-2 rounded-full border border-[#8b2e2e]/25 bg-[#fffdf8] px-5 py-2.5 text-sm font-semibold text-[#8b2e2e] hover:bg-[#fff4e8]"
+                href="/online-flute"
+              >
+                Online Flute (Bansuri)
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-[#2a1f1a]/10 bg-white/80 px-4 py-14">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="font-serif text-3xl font-bold text-[#2a1f1a] sm:text-4xl">
+              How Indian Classical Singers Use a Shruti Box &amp; Tanpura
+            </h2>
+            <p className="mt-3 text-base leading-8 text-[#5d4a40]">
+              In Hindustani and Carnatic music, melody is always heard against a
+              steady tonal center called <em>Sa</em> (Shadja). A traditional{' '}
+              <a
+                className="font-medium text-[#8b2e2e] underline decoration-[#8b2e2e]/40 hover:decoration-[#8b2e2e]"
+                href="https://en.wikipedia.org/wiki/Shruti_box"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Shruti box
+              </a>{' '}
+              or Tanpura anchors your ear continuously so you can feel whether
+              Re, Ga, Ma, Pa, Dha, and Ni sit in pure, resonant alignment. Even
+              ten minutes of daily drone practice noticeably improves pitch
+              stability, breath control, and vocal tone.
+            </p>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {scaleReference.map((item) => (
+                <div
+                  key={item.western}
+                  className="rounded-2xl border border-[#2a1f1a]/10 bg-[#fffdf8] p-5 shadow-sm"
+                >
+                  <p className="text-xs font-semibold text-[#8b2e2e] uppercase">
+                    {item.indian}
+                  </p>
+                  <h3 className="mt-1 text-xl font-semibold text-[#2a1f1a]">
+                    Scale {item.western}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-[#5d4a40]">
+                    {item.fit}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-[#2a1f1a]/10 px-4 py-14">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="font-serif text-3xl font-bold text-[#2a1f1a] sm:text-4xl">
+              15-Minute Daily Vocal Riyaz Routine with Online Drone
+            </h2>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
+              {riyazSteps.map((step) => (
+                <div
+                  key={step.title}
+                  className="rounded-2xl border border-[#2a1f1a]/10 bg-[#fffdf8] p-5 shadow-sm"
+                >
+                  <h3 className="text-lg font-semibold text-[#8b2e2e]">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-[#5d4a40]">
+                    {step.text}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

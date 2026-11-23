@@ -112,7 +112,9 @@ export default async function SongsHubPage({
               <img
                 alt="Handcrafted Indian harmonium keyboard with brass kartal cymbals and practice journal"
                 className="aspect-video w-full object-cover"
+                height={720}
                 src="/imgs/harmonium/sargam-song-notes.jpg"
+                width={1280}
               />
             </div>
           </div>

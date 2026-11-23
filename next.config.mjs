@@ -58,6 +58,7 @@ const nextConfig = {
         { source: '/blog', destination: '/en/blog' },
         { source: '/blog/:path*', destination: '/en/blog/:path*' },
         { source: '/about', destination: '/en/about' },
+        { source: '/contact', destination: '/en/contact' },
         { source: '/privacy-policy', destination: '/en/privacy-policy' },
         {
           source: '/terms-of-service',

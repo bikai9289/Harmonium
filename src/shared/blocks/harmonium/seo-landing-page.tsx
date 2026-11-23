@@ -81,7 +81,9 @@ export function HarmoniumSeoLandingPage({
             <img
               alt="Traditional Indian handcrafted rosewood harmonium with ivory keys and brass stops"
               className="aspect-video w-full object-cover"
+              height={720}
               src="/imgs/harmonium/indian-harmonium-hero.jpg"
+              width={1280}
             />
             <div className="p-5">
               <p className="text-sm font-semibold text-[#8b2e2e]">
